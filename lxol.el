@@ -324,6 +324,26 @@ _S_: Light    _M_: Light   _e_: Eclipse
   (add-to-list 'projectile-project-root-files-bottom-up ".projectile.bottomup")
   (add-to-list 'projectile-project-root-files-top-down-recurring ".projectile.top-down-rec"))
 
+(use-package eldoc
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
+  (add-hook 'ielm-mode-hook 'eldoc-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook 'eldoc-mode))
+
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode
+  ("\\.markdown\\'" . gfm-mode)
+  ("\\.md\\'" . gfm-mode)
+  ("\\.lr\\'" . gfm-mode)
+  :init
+  ;; use tufte-css for preview
+  (setq markdown-preview-style "https://edwardtufte.github.io/tufte-css/tufte.css")
+  ;; use github markup for rendering
+  ;; script: `https://github.com/steckerhalter/stecktc/blob/master/bin/gfm'
+   (setq markdown-command "markdown"))
+
 ;; (use-package swiper
 ;;   :quelpa
 ;;   :bind
