@@ -4,7 +4,102 @@
   :config
   (setq
    make-backup-files nil
+   dired-dwim-target t
+   create-lockfiles nil
+   make-backup-files nil
+   column-number-mode t
+   scroll-error-top-bottom t
+   electric-indent-mode 0
+   enable-recursive-minibuffers t
+   backup-directory-alist `((".*" . ,temporary-file-directory)) ;don't clutter my fs and put backups into tmp
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   require-final-newline t        ;auto add newline at the end of file
+   default-major-mode 'text-mode  ;use text mode per default
+   history-length 250             ;default is 30
+   locale-coding-system 'utf-8    ;utf-8 is default
+   tab-always-indent 'complete    ;try to complete before identing
+   recentf-max-saved-items 5000     ;same up to 5000 recent files
+   eval-expression-print-length nil ;do not truncate printed expressions
+   eval-expression-print-level nil  ;print nested expressions
+   kill-ring-max 5000           ;truncate kill ring after 5000 entries
+   mark-ring-max 5000           ;truncate mark ring after 5000 entries
+   split-height-threshold 110   ;more readily split horziontally
+   enable-recursive-minibuffers t
+   load-prefer-newer t           ;prefer newer .el instead of the .elc
+   split-width-threshold 160 ;split horizontally only if less than 160 columns
+   gc-cons-percentage 0.3    ;increase garbage collection limit
+   switch-to-buffer-preserve-window-point t
+   visible-bell t
+   ring-bell-function 'ignore
+   cursor-type t
+   custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
+			;but keep them for reference...
    )
+  
+  ;; don't ask to kill buffers
+  (setq kill-buffer-query-functions
+        (remq 'process-kill-buffer-query-function
+              kill-buffer-query-functions))
+  ;; scratch is immortal
+  (add-hook 'kill-buffer-query-functions
+            (lambda () (not (member (buffer-name) '("*scratch*" "scratch.el")))))
+  
+  ;; default flags
+  ;; buffer local variables
+  (setq-default
+   tab-width 4
+   indicate-buffer-boundaries 'left     ;fringe markers
+   indent-tabs-mode nil)                ;use spaces instead of tabs
+  
+  ;; disable full `yes' or `no' answers
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  (defun copy-file-name-to-clipboard ()
+    "Copy the current buffer file name to the clipboard."
+    (interactive)
+    (let ((filename (if (equal major-mode 'dired-mode)
+                        default-directory
+                      (buffer-file-name))))
+      (when filename
+        (kill-new filename)
+        (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+  (defun qmk-align-planck-layer (start end)
+    "Align region with planck qmk layer."
+    (interactive "r")
+    (save-excursion
+      (goto-char start)
+      (while (re-search-forward " *, *" end t)
+        (replace-match " , " t t))
+      (goto-char start)
+      (while (re-search-forward "{ *" end t)
+        (replace-match "{ " t t))
+      (goto-char start)
+      (while (re-search-forward " *}" end t)
+        (replace-match " }" t t))
+      (align-regexp start end ",\\(\\s-*\\)" 1 1 t)))
+
+ (defun go-init ()
+    "Open init file."
+    (interactive)
+    (find-file "~/.emacs.d/lxol.el"))
+ 
+  (defun exit ()
+    "Shorthand for DEATH TO ALL PUNNY BUFFERS!"
+    (interactive)
+    (if (daemonp)
+        (messag "You silly")
+      (save-buffers-kill-emacs)))
+  
+  (defun safe-kill-emacs ()
+    "Only exit Emacs if this is a small session, otherwise prompt."
+    (interactive )
+    (if (daemonp)
+        (delete-frame)
+      (let ((count-buffers (length (buffer-list))))
+        (if (< count-buffers 11)
+            (save-buffers-kill-emacs)
+          (message-box "use Use 'M-x exit'")))))
   ;; your preferred main font face here
   ;; (defvar my-font-attributes '(default nil :family "Anonymous Pro" :height 89))
   ;; source code pro: '(default nil :family "Source Code Pro" :height 95)
@@ -23,6 +118,9 @@
   )
 
 (use-package default-text-scale)
+
+(use-package undo-tree
+  :diminish)
 
 (defhydra lxol/font-hydra (:hint nil :color pink)
   "
@@ -54,12 +152,23 @@
   ("p" (set-frame-font "Input Mono Compressed-11"))
   ("RET" nil "done" :color blue))
 
-(bind-keys ("C-c w f"  . lxol/font-hydra/body))
+(bind-keys
+ :prefix "C-c w"
+ :prefix-map lxol-window-keymap
+ :menu-name "Windows key prefix"
+ ("t"  . lxol/themes-hydra/body)
+ ("f"  . lxol/font-hydra/body))
+
+;; quick and dirty fix of c-electric-backspace for DEL in java-mode
+;; bind-keys* makes sure that bindings will not be overriden by other modes
+(bind-keys* :map java-mode-map ("DEL" . backward-delete-char-untabify))
 
 (use-package bind-key
   :init
   :bind
-  (("C-=" . text-scale-increase)
+  (
+   ("C-x C-c" . safe-kill-emacs)
+   ("C-=" . text-scale-increase)
    ("C-+" . text-scale-increase)
    ("C--" . text-scale-decrease)))
 
