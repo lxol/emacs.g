@@ -197,9 +197,13 @@
    ("C-M-k" . ivy-previous-line-and-call))
   :config
   (ivy-mode 1)
+  (setq ivy-count-format "(%d/%d) ")
   (use-package counsel
     :bind 
-    (("C-c g" . counsel-git)
+    (
+     ("M-x" . counsel-M-x)
+     ("C-x C-f" . counsel-find-file)
+     ("C-c g" . counsel-git)
      ("C-c j" . counsel-git-grep)
      ("C-c k" . counsel-ag)
      ("C-x l" . counsel-locate)
@@ -209,9 +213,11 @@
     ;;(setq hydra-lv t)) ; use echo area
     (setq hydra-lv nil)) ; use echo area
   (use-package smex)
+  (use-package wgrep)
   (use-package swiper
     :bind 
-    (("C-s" . swiper))))
+    (
+     ("C-s" . swiper))))
 
 ;;; Theme hooks
 ;;; http://www.greghendershott.com/2017/02/emacs-themes.html
@@ -344,82 +350,16 @@ _S_: Light    _M_: Light   _e_: Eclipse
   ;; script: `https://github.com/steckerhalter/stecktc/blob/master/bin/gfm'
    (setq markdown-command "markdown"))
 
-;; (use-package swiper
+
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :commands yas-minor-mode
+  :config
+  (yas-reload-all)
+  (yas-global-mode 1)
+  (setq yas-also-auto-indent-first-line t))
+
+;; (use-package auto-yasnippet
 ;;   :quelpa
-;;   :bind
-;;   (
-;;    ("C-s" . swiper)
-;;    ("M-x" . counsel-M-x)
-;;    ("C-x C-f" . counsel-find-file)
-;;    ("<f1> f" . counsel-describe-function)
-;;    ("<f1> v" . counsel-describe-variable)
-;;    ("<f1> l" . counsel-load-library)
-;;    ("<f2> i" . counsel-info-lookup-symbol)
-;;    ("<f2> u" . counsel-unicode-char)
-
-;;    ("C-c g" . counsel-git)
-;;    ("C-c j" . counsel-git-grep)
-;;    ("C-c k" . counsel-ag)
-;;    ("C-x l" . counsel-locate)
-
-;;    ("C-c C-r" . ivy-resume)
-
-;;    )
-;;   :config
-;;   (use-package smex
-;;     :quelpa)
-;;   (use-package ivy
-;;     :quelpa
-;;     :diminish ivy-mode
-;;     :config
-;;     ;; (define-key ivy-minibuffer-map (kbd "C-M-j") 'ivy-next-line-and-call)
-;;     ;; (define-key ivy-minibuffer-map (kbd "C-M-k") 'ivy-previous-line-and-call)
-;;     (setq ivy-count-format "(%d/%d) ")
-;;     (setq ivy-use-virtual-buffers t)
-;;     (setq ivy-views
-;;           `(("english + notes {}"
-;;              (vert
-;;               (file "/home/lxol/org/notes/english.org")
-;;               (buffer "english-notes")))
-;;             ("ivy.el {}"
-;;              (horz
-;;               (file ,(find-library-name "ivy"))
-;;               (buffer "*scratch*")))))
-;;     (global-set-key (kbd "M-SPC") 'avy-goto-char-timer)
-;;     (bind-keys
-;;      ("C-x C-b" . ivy-switch-buffer)
-;;      ("C-c v" . ivy-push-view)
-;;      ("C-c V" . ivy-pop-view)
-;;      :map ivy-minibuffer-map
-;;      ("M-j" . ivy-next-line)
-;;      ("M-k" . ivy-previous-line)
-;;      ("C-M-j" . ivy-next-line-and-call)
-;;      ("C-M-k" . ivy-previous-line-and-call)
-;;      )
-;;   ;; (use-package counsel
-;;   ;;   :quelpa)
-;;   ;; ;; (use-package ivy-hydra
-;;   ;; ;;   quelpa)
-  
-;;   (use-package avy
-;;     :bind
-;;     (
-;;      ("s-c" . avy-goto-char)
-;;      ("s-d" . avy-goto-char-2)
-;;      ("M-g g" . avy-goto-line)
-;;      ("M-g M-g" . avy-goto-line)
-;;      ("M-g d" . avy-goto-word-1)
-;;      ("M-c" . avy-goto-word-or-subword-1)
-;;      ("C-<return>" . avy-goto-word-1)
-;;      ("M-g e" . avy-goto-word-0))
-
-;;     :config
-;;     (avy-setup-default)
-;;     (setq avy-all-windows 'all-frames))
-;;   (use-package wgrep)
-;;   (use-package ace-window
-;;     :bind (
-;;            ("M-g w" . ace-window)
-;;            ))
-;;   (ivy-mode 1))
-;; )
+;;   :bind (("C-c #" . aya-create )
+;;          ("C-x #" . aya-expand)))
