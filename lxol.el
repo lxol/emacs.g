@@ -3,6 +3,7 @@
   (provide 'lxol-config)
   :config
   (setq
+   fringe-mode 1
    make-backup-files nil
    dired-dwim-target t
    create-lockfiles nil
@@ -33,6 +34,8 @@
    ring-bell-function 'ignore
    cursor-type t
    custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
+   display-time-default-load-average nil
+   display-time-mode t
 			;but keep them for reference...
    )
   
@@ -363,3 +366,24 @@ _S_: Light    _M_: Light   _e_: Eclipse
 ;;   :quelpa
 ;;   :bind (("C-c #" . aya-create )
 ;;          ("C-x #" . aya-expand)))
+
+;; org init
+(defun lxol-load-init-file (init-file)
+    "Load init file from USER_EMACS_DIRECTORY."
+    (let ((file
+           (expand-file-name init-file
+                             user-emacs-directory)))
+      (when (file-exists-p file)
+        (load file))))
+
+(use-package writeroom-mode
+  :config
+  (define-key writeroom-mode-map (kbd "C-M-,") #'writeroom-decrease-width)
+  (define-key writeroom-mode-map (kbd "C-M-.") #'writeroom-increase-width)
+  (define-key writeroom-mode-map (kbd "C-M-/") #'writeroom-adjust-width))
+
+(use-package help-fns+)
+
+(use-package smarparens)
+(lxol-load-init-file "init-org.el")
+(lxol-load-init-file "init-exwm.el")
