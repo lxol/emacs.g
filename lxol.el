@@ -186,6 +186,11 @@
      :config
     (evil-goggles-mode)
     )
+  (use-package evil-surround
+    :config
+    (require 'evil-surround)
+    (global-evil-surround-mode 1)
+    )
   )
 
 (use-package ivy
@@ -384,6 +389,16 @@ _S_: Light    _M_: Light   _e_: Eclipse
 
 (use-package help-fns+)
 
-(use-package smarparens)
+(use-package smartparens
+  :diminish smartparens-mode
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode t)
+  (show-smartparens-global-mode nil)
+  (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+  ;;(add-hook 'org-mode-hook #'evil-smartparens-mode)
+  ;;(add-hook 'org-mode-hook 'turn-on-smartparens-strict-mode)
+  )
+
 (lxol-load-init-file "init-org.el")
 (lxol-load-init-file "init-exwm.el")
