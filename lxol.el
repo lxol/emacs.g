@@ -1,6 +1,17 @@
 (use-package lxol-config
   :init
   (provide 'lxol-config)
+  :bind
+  (
+   ("s-j" . windmove-down)
+   ("s-k" . windmove-up)
+   ("s-h" . windmove-left)
+   ("s-l" . windmove-right)
+   ("s-C-j" . shrink-window)
+   ("s-C-k" . enlarge-window)
+   ("s-C-h" . shrink-window-horizontally)
+   ("s-C-l" . enlarge-window-horizontally)
+   )
   :config
   (setq
    fringe-mode 1
@@ -399,6 +410,12 @@ _S_: Light    _M_: Light   _e_: Eclipse
   ;;(add-hook 'org-mode-hook #'evil-smartparens-mode)
   ;;(add-hook 'org-mode-hook 'turn-on-smartparens-strict-mode)
   )
+(use-package auto-dim-other-buffers
+  :config
+  (add-hook 'after-init-hook
+            (lambda ()
+              (when (fboundp 'auto-dim-other-buffers-mode)
+                (auto-dim-other-buffers-mode t)))))
 
 (lxol-load-init-file "init-org.el")
 (lxol-load-init-file "init-exwm.el")

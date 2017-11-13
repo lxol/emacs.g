@@ -4,6 +4,9 @@
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
+[submodule "auto-dim-other-buffers"]
+	path = lib/auto-dim-other-buffers
+	url = git@github.com:mina86/auto-dim-other-buffers.el.git
 [submodule "avy"]
 	path = lib/avy
 	url = git@github.com:abo-abo/avy.git
@@ -45,6 +48,9 @@
 [submodule "evil-goggles"]
 	path = lib/evil-goggles
 	url = git@github.com:edkolev/evil-goggles.git
+[submodule "evil-smartparens"]
+	path = lib/evil-smartparens
+	url = git@github.com:expez/evil-smartparens.git
 [submodule "evil-surround"]
 	path = lib/evil-surround
 	url = git@github.com:emacs-evil/evil-surround.git
