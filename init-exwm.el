@@ -4,9 +4,15 @@
     (use-package exwm-config
       :config (exwm-config-default)))
 
+(add-hook 'exwm-manage-finish-hook
+            (lambda ()
+              (when (and exwm-class-name
+                         (string= exwm-class-name "URxvt"))
+                (setq-local exwm-input-prefix-keys '(?\C-x)))))
 (exwm-input-set-key (kbd "s-r") #'exwm-reset)
 (exwm-input-set-key (kbd "s-x") #'exwm-input-toggle-keyboard)
 (exwm-input-set-key (kbd "s-w") #'exwm-workspace-switch)
+
 ;; (exwm-input-set-key (kbd "s-h") #'windmove-left)
 ;; (exwm-input-set-key (kbd "s-j") #'windmove-down)
 ;; (exwm-input-set-key (kbd "s-k") #'windmove-up)
