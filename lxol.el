@@ -417,5 +417,6 @@ _S_: Light    _M_: Light   _e_: Eclipse
               (when (fboundp 'auto-dim-other-buffers-mode)
                 (auto-dim-other-buffers-mode t)))))
 
+(lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
 (lxol-load-init-file "init-exwm.el")

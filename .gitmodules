@@ -66,9 +66,15 @@
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "haskell-mode"]
+	path = lib/haskell-mode
+	url = git@github.com:haskell/haskell-mode.git
 [submodule "help-fns+"]
 	path = lib/help-fns+
 	url = git@github.com:emacsmirror/help-fns-plus.git
+[submodule "hindent"]
+	path = lib/hindent
+	url = git@github.com:chrisdone/hindent.git
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
