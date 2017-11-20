@@ -13,6 +13,8 @@
 (exwm-input-set-key (kbd "s-x") #'exwm-input-toggle-keyboard)
 (exwm-input-set-key (kbd "s-w") #'exwm-workspace-switch)
 
+;; (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
+;; (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
 ;; (exwm-input-set-key (kbd "s-h") #'windmove-left)
 ;; (exwm-input-set-key (kbd "s-j") #'windmove-down)
 ;; (exwm-input-set-key (kbd "s-k") #'windmove-up)
