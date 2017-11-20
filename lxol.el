@@ -26,7 +26,7 @@
    backup-directory-alist `((".*" . ,temporary-file-directory)) ;don't clutter my fs and put backups into tmp
    auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
    require-final-newline t        ;auto add newline at the end of file
-   default-major-mode 'text-mode  ;use text mode per default
+   major-mode 'text-mode  ;use text mode per default
    history-length 250             ;default is 30
    locale-coding-system 'utf-8    ;utf-8 is default
    tab-always-indent 'complete    ;try to complete before identing
@@ -44,12 +44,12 @@
    visible-bell t
    ring-bell-function 'ignore
    cursor-type t
-   custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
    display-time-default-load-average nil
-   display-time-mode t
-			;but keep them for reference...
+   custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
+                                      ;but keep them for reference...
    )
   
+  (display-time-mode t)
   ;; don't ask to kill buffers
   (setq kill-buffer-query-functions
         (remq 'process-kill-buffer-query-function
@@ -102,7 +102,7 @@
     "Shorthand for DEATH TO ALL PUNNY BUFFERS!"
     (interactive)
     (if (daemonp)
-        (messag "You silly")
+        (message "You silly")
       (save-buffers-kill-emacs)))
   
   (defun safe-kill-emacs ()
@@ -339,7 +339,7 @@ _S_: Light    _M_: Light   _e_: Eclipse
   (put 'projectile-project-name 'safe-local-variable #'stringp)
 
   :config
-  (projectile-global-mode)
+  (projectile-mode)
   (setq projectile-switch-project-action 'projectile-dired)
   (setq projectile-completion-system 'ivy)
   (setq projectile-indexing-method 'alien)
