@@ -97,6 +97,9 @@
 [submodule "multiple-cursors"]
 	path = lib/multiple-cursors
 	url = git@github.com:magnars/multiple-cursors.el.git
+[submodule "org-journal"]
+	path = lib/org-journal
+	url = git@github.com:bastibe/org-journal.git
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
