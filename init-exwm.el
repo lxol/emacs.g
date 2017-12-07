@@ -1,9 +1,13 @@
 ;; -*- lexical-binding: t -*-
 (use-package exwm
   :config 
-  (use-package xelm)
+  (use-package xelb)
   (use-package exwm-config
-    :config (exwm-config-default)))
+    :config
+    (exwm-config-default)
+    (setq exwm-workspace-number 9
+          exwm-workspace-show-all-buffers t
+          exwm-layout-show-all-buffers t)))
 
 (add-hook 'exwm-manage-finish-hook
           (lambda ()

@@ -175,7 +175,7 @@
 
 ;; quick and dirty fix of c-electric-backspace for DEL in java-mode
 ;; bind-keys* makes sure that bindings will not be overriden by other modes
-(bind-keys* :map java-mode-map ("DEL" . backward-delete-char-untabify))
+;; (bind-keys* :map java-mode-map ("DEL" . backward-delete-char-untabify))
 
 (use-package bind-key
   :init
@@ -205,6 +205,7 @@
   )
 
 (use-package ivy
+  :defer 0
   :diminish ivy-mode
   :bind 
   (("C-c C-r" . ivy-resume)
@@ -212,12 +213,13 @@
    :map ivy-minibuffer-map
    ("M-j" . ivy-next-line)
    ("M-k" . ivy-previous-line)
-   ("C-M-j" . ivy-next-line-and-call)
-   ("C-M-k" . ivy-previous-line-and-call))
+   ("M-s-j" . ivy-next-line-and-call)
+   ("M-s-k" . ivy-previous-line-and-call))
   :config
   (ivy-mode 1)
   (setq ivy-count-format "(%d/%d) ")
   (use-package counsel
+    :defer 0
     :bind 
     (
      ("M-x" . counsel-M-x)
@@ -371,13 +373,16 @@ _S_: Light    _M_: Light   _e_: Eclipse
 
 
 (use-package yasnippet
+  :defer 0
   :diminish yas-minor-mode
   :commands yas-minor-mode
   :config
-  (yas-reload-all)
+  ;; (yas-reload-all)
   (yas-global-mode 1)
   (setq yas-also-auto-indent-first-line t))
 
+(use-package yasnippet-snippets
+  :after (yasnippet))
 ;; (use-package auto-yasnippet
 ;;   :quelpa
 ;;   :bind (("C-c #" . aya-create )
@@ -416,6 +421,10 @@ _S_: Light    _M_: Light   _e_: Eclipse
             (lambda ()
               (when (fboundp 'auto-dim-other-buffers-mode)
                 (auto-dim-other-buffers-mode t)))))
+
+(use-package persistent-scratch
+  :config
+  (persistent-scratch-setup-default))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
