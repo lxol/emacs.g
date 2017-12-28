@@ -42,10 +42,11 @@
 ;; (exwm-input-set-key (kbd "s-b") #'list-buffers)
 ;; (exwm-input-set-key (kbd "s-f") #'find-file)
 
-;; (require 'exwm-randr)
-;; (setq exwm-randr-workspace-output-plist '(0 "VGA1"))
-;; (add-hook 'exwm-randr-screen-change-hook
-;;           (lambda ()
-;;             (start-process-shell-command
-;;              "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
-;; (exwm-randr-enable)
+(require 'exwm-randr)
+
+(setq exwm-randr-workspace-output-plist '(0 "eDP-1"  1 "DVI-I-1-1")) 
+(add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+             "xrandr" nil "xrandr --output eDP1  --mode 2560x1440 --output DVI-I-1-1 --mode 1920x1080 --right-of eDP1" ))
+          (exwm-randr-enable))

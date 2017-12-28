@@ -404,9 +404,12 @@ _S_: Light    _M_: Light   _e_: Eclipse
   (define-key writeroom-mode-map (kbd "C-M-/") #'writeroom-adjust-width))
 
 (use-package help-fns+)
-
+(define-key smartparens-mode-map (kbd "your-key") 'function)
 (use-package smartparens
   :diminish smartparens-mode
+  :bind (:map smartparens-mode-map
+              ("s-C-h" . sp-forward-barf-sexp)
+              ("s-C-l" . sp-forward-slurp-sexp))
   :config
   (require 'smartparens-config)
   (smartparens-global-mode t)
