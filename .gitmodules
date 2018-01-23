@@ -154,3 +154,6 @@
 [submodule "zenburn-theme"]
 	path = lib/zenburn-theme
 	url = git@github.com:bbatsov/zenburn-emacs.git
+[submodule "lib/ghub"]
+	path = lib/ghub
+	url = git@github.com:magit/ghub.git
