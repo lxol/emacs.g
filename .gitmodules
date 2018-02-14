@@ -1,6 +1,9 @@
 [borg]
 	pushDefault = locutus
 	collective = emacsg
+[submodule "auto-async-byte-compile"]
+	path = lib/auto-async-byte-compile
+	url = git@github.com:rubikitch/auto-async-byte-compile.git
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
@@ -36,6 +39,7 @@
 	path = lib/emacsql
 	url = git@github.com:skeeto/emacsql.git
 	no-byte-compile = emacsql-pg.el
+	ignore = dirty
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
@@ -63,6 +67,9 @@
 [submodule "finalize"]
 	path = lib/finalize
 	url = git@github.com:skeeto/elisp-finalize.git
+[submodule "ghub"]
+	path = lib/ghub
+	url = git@github.com:magit/ghub.git
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git
@@ -154,6 +161,3 @@
 [submodule "zenburn-theme"]
 	path = lib/zenburn-theme
 	url = git@github.com:bbatsov/zenburn-emacs.git
-[submodule "lib/ghub"]
-	path = lib/ghub
-	url = git@github.com:magit/ghub.git
