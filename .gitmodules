@@ -58,6 +58,9 @@
 [submodule "evil-surround"]
 	path = lib/evil-surround
 	url = git@github.com:emacs-evil/evil-surround.git
+[submodule "expand-region"]
+	path = lib/expand-region
+	url = git@github.com:magnars/expand-region.el.git
 [submodule "exwm"]
 	path = lib/exwm
 	url = git@github.com:ch11ng/exwm.git
@@ -104,6 +107,9 @@
 [submodule "multiple-cursors"]
 	path = lib/multiple-cursors
 	url = git@github.com:magnars/multiple-cursors.el.git
+[submodule "nlinum"]
+	path = lib/nlinum
+	url = git@github.com:emacsmirror/nlinum.git
 [submodule "org-journal"]
 	path = lib/org-journal
 	url = git@github.com:bastibe/org-journal.git
@@ -119,6 +125,9 @@
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
+[submodule "quasi-monochrome-theme"]
+	path = lib/quasi-monochrome-theme
+	url = git@github.com:lbolla/emacs-quasi-monochrome.git
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
@@ -131,6 +140,9 @@
 [submodule "solarized-theme"]
 	path = lib/solarized-theme
 	url = git@github.com:bbatsov/solarized-emacs.git
+[submodule "tao-theme"]
+	path = lib/tao-theme
+	url = git@github.com:11111000000/tao-theme-emacs.git
 [submodule "undo-tree"]
 	path = lib/undo-tree
 	url = http://www.dr-qubit.org/git/undo-tree.git

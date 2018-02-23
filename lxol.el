@@ -313,10 +313,10 @@
   "
 Themes
 
-^Solarized^   ^Material^   ^Other^    
-----------------------------------------------------
-_s_: Dark     _m_: Dark    _z_: Zenburn  _DEL_: none
-_S_: Light    _M_: Light   _e_: Eclipse
+^Solarized^   ^Material^   ^Other^       ^Tao^ 
+------------------------------------------------------------------
+_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono   
+_S_: Light    _M_: Light   _e_: Eclipse  _i_: TaoYin    _d_: none
 "
   ("s" (load-theme 'solarized-dark  t))
   ("S" (load-theme 'solarized-light t))
@@ -324,7 +324,10 @@ _S_: Light    _M_: Light   _e_: Eclipse
   ("M" (load-theme 'material-light  t))
   ("z" (load-theme 'zenburn         t))
   ("e" (load-theme 'eclipse         t))
-  ("DEL" (lxol/disable-all-themes))
+  ("a" (load-theme 'tao-yang         t))
+  ("i" (load-theme 'tao-yin         t))
+  ("q" (load-theme 'quasi-monochrome t))
+  ("d" (lxol/disable-all-themes))
   ("RET" nil "done" :color blue))
 
 (bind-keys ("C-c w t"  . lxol/themes-hydra/body))
@@ -428,6 +431,11 @@ _S_: Light    _M_: Light   _e_: Eclipse
 (use-package persistent-scratch
   :config
   (persistent-scratch-setup-default))
+ 
+(use-package expand-region
+  :bind
+  (("C-s-u" . er/expand-region)
+   ("C-s-d" . er/contract-region)))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
