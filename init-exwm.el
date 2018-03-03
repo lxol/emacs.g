@@ -19,19 +19,21 @@
 (exwm-input-set-key (kbd "s-w") #'exwm-workspace-switch)
 
 
-(dolist (k '(                           ;
-             ("s-s" "scrot")
-             ("s-S-s" "scrot -s")
-             ("s-<return>" "urxvt")
-             ("<f8>" "mpc toggle")
-             ("s-S-j"
-              "amixer sset Master 5%-")
-             ("s-S-k"
-              "amixer set Master unmute; amixer sset Master 5%+")))
-  (let ((f (lambda () (interactive)
-             (save-window-excursion
-               (start-process-shell-command (cadr k) nil (cadr k))))))
-    (exwm-input-set-key (kbd (car k)) f)))
+;; (dolist (k '(                           ;
+;;              ("s-s" "scrot")
+;;              ("s-S-s" "scrot -s")
+;;              ("s-<return>" "urxvt")
+;;              ("<f8>" "mpc toggle")
+;;              ("s-S-j"
+;;               "amixer sset Master 5%-")
+;;              ("s-S-k"
+;;               "amixer set Master unmute; amixer sset Master 5%+")))
+
+;; (let ((f (lambda () ((interactive "P"))
+;;            (save-window-excursion
+;;              (start-process-shell-command (cadr k) nil (cadr k))))))
+;;   (exwm-input-set-key (kbd (car k)) f)))
+
 ;; (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
 ;; (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
 ;; (exwm-input-set-key (kbd "s-h") #'windmove-left)
@@ -44,9 +46,16 @@
 
 (require 'exwm-randr)
 
-(setq exwm-randr-workspace-output-plist '(0 "eDP-1"  1 "DVI-I-1-1")) 
-(add-hook 'exwm-randr-screen-change-hook
-          (lambda ()
-            (start-process-shell-command
-             "xrandr" nil "xrandr --output eDP1  --mode 2560x1440 --output DVI-I-1-1 --mode 1920x1080 --right-of eDP1" ))
-          (exwm-randr-enable))
+;; (setq exwm-randr-workspace-output-plist '(0 "eDP-1"  1 "DVI-I-1-1")) 
+;; (add-hook 'exwm-randr-screen-change-hook
+;;           (lambda ()
+;;             (start-process-shell-command
+;;              "xrandr" nil "xrandr --output eDP1  --mode 2560x1440 --output DVI-I-1-1 --mode 1920x1080 --right-of eDP1" ))
+;;           (exwm-randr-enable))
+
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output DP1 --left-of eDP1 --auto")))
+(setq exwm-randr-workspace-output-plist '(0 "eDP1" 2 "DP1" ))  
+(exwm-randr-enable)
