@@ -52,10 +52,15 @@
 ;;             (start-process-shell-command
 ;;              "xrandr" nil "xrandr --output eDP1  --mode 2560x1440 --output DVI-I-1-1 --mode 1920x1080 --right-of eDP1" ))
 ;;           (exwm-randr-enable))
-
-  (add-hook 'exwm-randr-screen-change-hook
-            (lambda ()
-              (start-process-shell-command
-               "xrandr" nil "xrandr --output DP1 --left-of eDP1 --auto")))
-(setq exwm-randr-workspace-output-plist '(0 "eDP1" 2 "DP1" ))  
+;; xrandr --output eDP1  --mode 2560x1440 --output DP1 --mode 2048x1536 --right-of eDP1
+;; (add-hook 'exwm-randr-screen-change-hook
+;;           (lambda ()
+;;             (start-process-shell-command
+;;              "xrandr" nil "xrandr --output DP1 --right-of eDP1 --auto")))
+;; xrandr --output eDP1 --mode 2560x1440 --output DP1 --mode 2048x1536 --rotate left -right-of eDP1
+(add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+             "xrandr" nil "xrandr --output eDP1 --mode 2560x1440 --output DP1 --mode 1536x2048 --right-of eDP1")))
+(setq exwm-randr-workspace-output-plist '(0 "eDP1" 7 "DP1" 8 "DP1" 9 "DP1" ))  
 (exwm-randr-enable)

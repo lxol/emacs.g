@@ -1,6 +1,15 @@
 [borg]
 	pushDefault = locutus
 	collective = emacsg
+[submodule "0blayout"]
+	path = lib/0blayout
+	url = git@github.com:etu/0blayout-mode.git
+[submodule "anki-editor"]
+	path = lib/anki-editor
+	url = https://github.com/louietan/anki-editor.git
+[submodule "auctex"]
+	path = lib/auctex
+	url = https://git.savannah.gnu.org/git/auctex.git
 [submodule "auto-async-byte-compile"]
 	path = lib/auto-async-byte-compile
 	url = git@github.com:rubikitch/auto-async-byte-compile.git
@@ -19,6 +28,12 @@
 [submodule "closql"]
 	path = lib/closql
 	url = git@github.com:emacscollective/closql.git
+[submodule "company"]
+	path = lib/company
+	url = git@github.com:company-mode/company-mode.git
+[submodule "darcula-theme"]
+	path = lib/darcula-theme
+	url = git@gitlab.com:fommil/emacs-darcula-theme.git
 [submodule "dash"]
 	path = lib/dash
 	url = git@github.com:magnars/dash.el.git
@@ -40,12 +55,18 @@
 	url = git@github.com:skeeto/emacsql.git
 	no-byte-compile = emacsql-pg.el
 	ignore = dirty
+[submodule "ensime"]
+	path = lib/ensime
+	url = git@github.com:ensime/ensime-emacs.git
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
 [submodule "epl"]
 	path = lib/epl
 	url = git@github.com:cask/epl.git
+[submodule "etexshow"]
+	path = lib/etexshow
+	url = git@github.com:pgundlach/etexshow.git
 [submodule "evil"]
 	path = lib/evil
 	url = git@github.com:emacs-evil/evil.git
@@ -76,6 +97,9 @@
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "green-screen-theme"]
+	path = lib/green-screen-theme
+	url = git@github.com:rbanffy/green-screen-emacs.git
 [submodule "haskell-mode"]
 	path = lib/haskell-mode
 	url = git@github.com:haskell/haskell-mode.git
@@ -85,12 +109,18 @@
 [submodule "hindent"]
 	path = lib/hindent
 	url = git@github.com:chrisdone/hindent.git
+[submodule "htmlize"]
+	path = lib/htmlize
+	url = git@github.com:hniksic/emacs-htmlize.git
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
 [submodule "ivy"]
 	path = lib/ivy
 	url = git@github.com:abo-abo/swiper.git
+[submodule "lxol-org"]
+	path = lib/lxol-org
+	url = https://github.com/emacsmirror/org
 [submodule "magit"]
 	path = lib/magit
 	url = git@github.com:magit/magit.git
@@ -122,6 +152,9 @@
 [submodule "pkg-info"]
 	path = lib/pkg-info
 	url = git@github.com:lunaryorn/pkg-info.el.git
+[submodule "popup"]
+	path = lib/popup
+	url = git@github.com:auto-complete/popup-el.git
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
@@ -131,6 +164,15 @@
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
+[submodule "sbt-ensime"]
+	path = lib/sbt-ensime
+	url = git@github.com:lxol/emacs.g.git
+[submodule "sbt-mode"]
+	path = lib/sbt-mode
+	url = git@github.com:ensime/emacs-sbt-mode.git
+[submodule "scala-mode"]
+	path = lib/scala-mode
+	url = git@github.com:ensime/emacs-scala-mode.git
 [submodule "smartparens"]
 	path = lib/smartparens
 	url = git@github.com:Fuco1/smartparens.git

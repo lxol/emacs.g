@@ -48,7 +48,7 @@
    custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
                                       ;but keep them for reference...
    )
-  
+
   (display-time-mode t)
   ;; don't ask to kill buffers
   (setq kill-buffer-query-functions
@@ -57,14 +57,14 @@
   ;; scratch is immortal
   (add-hook 'kill-buffer-query-functions
             (lambda () (not (member (buffer-name) '("*scratch*" "scratch.el")))))
-  
+
   ;; default flags
   ;; buffer local variables
   (setq-default
    tab-width 4
    indicate-buffer-boundaries 'left     ;fringe markers
    indent-tabs-mode nil)                ;use spaces instead of tabs
-  
+
   ;; disable full `yes' or `no' answers
   (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -97,14 +97,76 @@
     "Open init file."
     (interactive)
     (find-file "~/.emacs.d/lxol.el"))
- 
+
+ (defun go-org ()
+    "Open init file."
+    (interactive)
+    (find-file "~/org"))
+
+ (defun go-scala-study ()
+    "Open init file."
+    (interactive)
+    (find-file "~/Documents/projects/scala-study/"))
+
   (defun exit ()
     "Shorthand for DEATH TO ALL PUNNY BUFFERS!"
     (interactive)
     (if (daemonp)
         (message "You silly")
       (save-buffers-kill-emacs)))
+
+  (defun xrandr-right-vertical ()
+      "Packed-pixel display on the right, vertical"
+    (interactive)
+    (call-process "xrandr" nil nil nil
+                  "--output" "eDP1"
+                  "--mode" "2560x1440"
+                  "--output" "DP1"
+                  "--rotate" "left"
+                  "--right-of" "eDP1"))
+
+  (defun xrandr-right-horizontal ()
+      "Packed-pixel display on the right, horizontal"
+    (interactive)
+    (call-process "xrandr" nil nil nil
+                  "--output" "eDP1"
+                  "--mode" "2560x1440"
+                  "--output" "DP1"
+                  "--right-of" "eDP1"))
+
+  (defun xrandr-off ()
+      "Packed-pixel display on the right, horizontal"
+    (interactive)
+    (call-process "xrandr" nil nil nil
+                  "--output" "eDP1"
+                  "--mode" "2560x1440"
+                  "--output" "DP1"
+                  "--off"))
+
+  (defun keyboard-on ()
+      "t460s internal keyboard on"
+    (interactive)
+    (call-process "xrandr" nil nil nil
+                  "--output" "eDP1"
+                  "--mode" "2560x1440"
+                  "--output" "DP1"
+                  "--off"))
   
+  
+  (defun keyboard-enable ()
+      "enable t460s internal keyboard"
+    (interactive)
+    (let ((default-directory "/home/lxol/.dotfiles/"))
+      (call-process "t460s-keyboard-enable.sh"
+                    nil (current-buffer) nil)))
+
+  (defun keyboard-disable ()
+      "disable t460s internal keyboard"
+     
+    (interactive)
+    (call-process "/home/lxol/.dotfiles/t460s-keyboard-disable.sh"
+                  nil nil nil))
+
   (defun safe-kill-emacs ()
     "Only exit Emacs if this is a small session, otherwise prompt."
     (interactive )
@@ -141,8 +203,8 @@
                                                            ╭───────────────────┐
                                                            │  Font             │
    ╭───────────────────────────────────────────────────────────────────────────┴
-    [_i_] Inconsolata     
-    [_s_] Source Code Pro 
+    [_i_] Inconsolata
+    [_s_] Source Code Pro
     [_a_] Anonymous Pro
     [_h_] Hack
     [_g_] Go Mono
@@ -207,9 +269,10 @@
 (use-package ivy
   :defer 0
   :diminish ivy-mode
-  :bind 
+  :bind
   (("C-c C-r" . ivy-resume)
    ("C-x C-b" . ivy-switch-buffer)
+   ("C-x b"  . ivy-switch-buffer)
    :map ivy-minibuffer-map
    ("M-j" . ivy-next-line)
    ("M-k" . ivy-previous-line)
@@ -220,7 +283,7 @@
   (setq ivy-count-format "(%d/%d) ")
   (use-package counsel
     :defer 0
-    :bind 
+    :bind
     (
      ("M-x" . counsel-M-x)
      ("C-x C-f" . counsel-find-file)
@@ -236,7 +299,7 @@
   (use-package smex)
   (use-package wgrep)
   (use-package swiper
-    :bind 
+    :bind
     (
      ("C-s" . swiper))))
 
@@ -267,56 +330,58 @@
 (advice-add 'load-theme
             :around
             #'lxol/load-theme-advice)
+;; (use-package darcula-theme)
+;; (use-package material-theme
+;;   ;; :defer t
+;;   :init
+;;   (defun lxol/material-theme-hook ()
+;;     (set-face-attribute 'which-key-key-face nil :foreground
+;;                         (face-attribute 'error :foreground))
+;;     (loop for n from 1 to 8
+;;           do (set-face-attribute (intern-soft (format "org-level-%s" n))
+;;                                  nil
+;;                                  :height     'unspecified
+;;                                  :background 'unspecified
+;;                                  :box        'unspecified)))
+;;   (lxol/add-theme-hook 'material       #'lxol/material-theme-hook)
+;;   (lxol/add-theme-hook 'material-light #'lxol/material-theme-hook))
 
-(use-package material-theme
-  ;; :defer t
-  :init
-  (defun lxol/material-theme-hook ()
-    (set-face-attribute 'which-key-key-face nil :foreground
-                        (face-attribute 'error :foreground))
-    (loop for n from 1 to 8
-          do (set-face-attribute (intern-soft (format "org-level-%s" n))
-                                 nil
-                                 :height     'unspecified
-                                 :background 'unspecified
-                                 :box        'unspecified)))
-  (lxol/add-theme-hook 'material       #'lxol/material-theme-hook)
-  (lxol/add-theme-hook 'material-light #'lxol/material-theme-hook))
+;; (use-package solarized-theme
+;;   :init
+;;   (defun lxol/solarized-theme-hook ()
+;;     (set-face-attribute 'font-lock-constant-face nil :weight 'normal)
+;;     (set-face-attribute 'font-lock-function-name-face nil :weight 'bold)
+;;     (set-face-attribute 'which-key-key-face nil :foreground
+;;                         (face-attribute 'error :foreground)))
+;;   (lxol/add-theme-hook 'solarized-dark  #'lxol/solarized-theme-hook)
+;;   (lxol/add-theme-hook 'solarized-light #'lxol/solarized-theme-hook)
+;;   :config
+;;   (setq solarized-use-variable-pitch nil
+;;         solarized-use-less-bold t
+;;         solarized-use-more-italic nil
+;;         solarized-distinct-doc-face t
+;;         solarized-high-contrast-mode-line t
+;;         ;; I find different font sizes irritating.
+;;         solarized-height-minus-1 1.0
+;;         solarized-height-plus-1 1.0
+;;         solarized-height-plus-2 1.0
+;;         solarized-height-plus-3 1.0
+;;         solarized-height-plus-4 1.0))
 
-(use-package solarized-theme
-  :init
-  (defun lxol/solarized-theme-hook ()
-    (set-face-attribute 'font-lock-constant-face nil :weight 'normal)
-    (set-face-attribute 'font-lock-function-name-face nil :weight 'bold)
-    (set-face-attribute 'which-key-key-face nil :foreground
-                        (face-attribute 'error :foreground)))
-  (lxol/add-theme-hook 'solarized-dark  #'lxol/solarized-theme-hook)
-  (lxol/add-theme-hook 'solarized-light #'lxol/solarized-theme-hook)
-  :config
-  (setq solarized-use-variable-pitch nil
-        solarized-use-less-bold t
-        solarized-use-more-italic nil
-        solarized-distinct-doc-face t
-        solarized-high-contrast-mode-line t
-        ;; I find different font sizes irritating.
-        solarized-height-minus-1 1.0
-        solarized-height-plus-1 1.0
-        solarized-height-plus-2 1.0
-        solarized-height-plus-3 1.0
-        solarized-height-plus-4 1.0))
+;; (use-package zenburn-theme)
 
-(use-package zenburn-theme)
-
-(use-package eclipse-theme)
-
+;; (use-package eclipse-theme)
+;; (use-package green-screen-theme)
+(set-face-attribute 'default nil :font "Hack-11" )
+(set-frame-font "Hack-11" nil t)
 (defhydra lxol/themes-hydra (:hint nil :color pink)
   "
 Themes
 
-^Solarized^   ^Material^   ^Other^       ^Tao^ 
+^Solarized^   ^Material^   ^Other^       ^Tao^
 ------------------------------------------------------------------
-_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono   
-_S_: Light    _M_: Light   _e_: Eclipse  _i_: TaoYin    _d_: none
+_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono  _g_: GreenScreen
+_S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: none
 "
   ("s" (load-theme 'solarized-dark  t))
   ("S" (load-theme 'solarized-light t))
@@ -326,8 +391,10 @@ _S_: Light    _M_: Light   _e_: Eclipse  _i_: TaoYin    _d_: none
   ("e" (load-theme 'eclipse         t))
   ("a" (load-theme 'tao-yang         t))
   ("i" (load-theme 'tao-yin         t))
+  ("g" (load-theme 'green-screen        t))
   ("q" (load-theme 'quasi-monochrome t))
-  ("d" (lxol/disable-all-themes))
+  ("d" (load-theme 'darcula t))
+  ("n" (lxol/disable-all-themes))
   ("RET" nil "done" :color blue))
 
 (bind-keys ("C-c w t"  . lxol/themes-hydra/body))
@@ -379,8 +446,11 @@ _S_: Light    _M_: Light   _e_: Eclipse  _i_: TaoYin    _d_: none
   :defer 0
   :diminish yas-minor-mode
   :commands yas-minor-mode
+  :bind
+  (("C-M-<tab>" . yas-expand)
+   ("C-c y" . yas-expand))
   :config
-  ;; (yas-reload-all)
+  (yas-reload-all)
   (yas-global-mode 1)
   (setq yas-also-auto-indent-first-line t))
 
@@ -406,8 +476,9 @@ _S_: Light    _M_: Light   _e_: Eclipse  _i_: TaoYin    _d_: none
   (define-key writeroom-mode-map (kbd "C-M-.") #'writeroom-increase-width)
   (define-key writeroom-mode-map (kbd "C-M-/") #'writeroom-adjust-width))
 
+
 (use-package help-fns+)
-(define-key smartparens-mode-map (kbd "your-key") 'function)
+;; (define-key smartparens-mode-map (kbd "your-key") 'function)
 (use-package smartparens
   :diminish smartparens-mode
   :bind (:map smartparens-mode-map
@@ -421,22 +492,24 @@ _S_: Light    _M_: Light   _e_: Eclipse  _i_: TaoYin    _d_: none
   ;;(add-hook 'org-mode-hook #'evil-smartparens-mode)
   ;;(add-hook 'org-mode-hook 'turn-on-smartparens-strict-mode)
   )
-(use-package auto-dim-other-buffers
-  :config
-  (add-hook 'after-init-hook
-            (lambda ()
-              (when (fboundp 'auto-dim-other-buffers-mode)
-                (auto-dim-other-buffers-mode t)))))
+;; (use-package auto-dim-other-buffers
+;;   :config
+;;   (add-hook 'after-init-hook
+;;             (lambda ()
+;;               (when (fboundp 'auto-dim-other-buffers-mode)
+;;                 (auto-dim-other-buffers-mode t)))))
 
 (use-package persistent-scratch
   :config
   (persistent-scratch-setup-default))
- 
+
 (use-package expand-region
   :bind
   (("C-s-u" . er/expand-region)
    ("C-s-d" . er/contract-region)))
 
+(use-package ensime)
+
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
-(lxol-load-init-file "init-exwm.el")
+;; (lxol-load-init-file "init-exwm.el")
