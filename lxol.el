@@ -299,9 +299,26 @@
   (use-package smex)
   (use-package wgrep)
   (use-package swiper
+    :config
+    (defun ivy-with-thing-at-point (cmd)
+      (let ((ivy-initial-inputs-alist
+             (list
+              (cons cmd (thing-at-point 'symbol)))))
+        (funcall cmd)))
+
+    (defun counsel-ag-thing-at-point ()
+      (interactive)
+      (ivy-with-thing-at-point 'counsel-ag))
+
+    (defun swiper-thing-at-point ()
+      (interactive)
+      (ivy-with-thing-at-point 'swiper))
     :bind
     (
-     ("C-s" . swiper))))
+     ("C-s" . swiper)
+     ("C-c C-c k" . counsel-ag-thing-at-point)
+     ("C-c C-c s" . swiper-thing-at-point)
+     )))
 
 ;;; Theme hooks
 ;;; http://www.greghendershott.com/2017/02/emacs-themes.html
@@ -507,8 +524,50 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   :bind
   (("C-s-u" . er/expand-region)
    ("C-s-d" . er/contract-region)))
+(use-package color)
+  
+(use-package company
+  :diminish company-mode
+  :commands company-mode
+  :bind
+  (
+   :map company-search-map
+   ("M-j" . company-select-next)
+   ("M-k" . company-select-previous)
+   :map company-active-map
+   ("M-j" . company-select-next)
+   ("M-k" . company-select-previous))
+  :init
+  (setq
+   company-dabbrev-ignore-case nil
+   company-require-match nil
+   company-dabbrev-code-ignore-case nil
+   company-dabbrev-downcase nil
+   company-idle-delay 0
+   company-minimum-prefix-length 4)
 
-(use-package ensime)
+  (let ((bg (face-attribute 'default :background)))
+    (custom-set-faces
+     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+  ;; :config
+  ;; disables TAB in company-mode, freeing it for yasnippet
+  ;;(define-key company-active-map [tab] nil)
+  ;;(define-key company-active-map (kbd "TAB") nil)
+  )
+
+(use-package ensime
+  :config
+  (setq  ensime-search-interface 'ivy)
+  )
+(use-package sbt-mode
+  :init
+  (setq sbt:sbt-prompt-regexp "^\\(\\[[^\]]*\\] \\)?[>$][ ]*"
+        sbt:program-options '("-Djline.terminal=auto"))
+  )
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
