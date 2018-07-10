@@ -7,6 +7,9 @@
 [submodule "anki-editor"]
 	path = lib/anki-editor
 	url = https://github.com/louietan/anki-editor.git
+[submodule "apiwrap"]
+	path = lib/apiwrap
+	url = git@github.com:vermiculus/apiwrap.el.git
 [submodule "auctex"]
 	path = lib/auctex
 	url = https://git.savannah.gnu.org/git/auctex.git
@@ -41,6 +44,9 @@
 [submodule "default-text-scale"]
 	path = lib/default-text-scale
 	url = git@github.com:purcell/default-text-scale.git
+[submodule "deferred"]
+	path = lib/deferred
+	url = git@github.com:kiwanami/emacs-deferred.git
 [submodule "diff-hl"]
 	path = lib/diff-hl
 	url = git@github.com:dgutov/diff-hl.git
@@ -94,6 +100,9 @@
 [submodule "ghub"]
 	path = lib/ghub
 	url = git@github.com:magit/ghub.git
+[submodule "ghub+"]
+	path = lib/ghub+
+	url = git@github.com:vermiculus/ghub-plus.git
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git
@@ -128,6 +137,9 @@
 [submodule "magit-popup"]
 	path = lib/magit-popup
 	url = https://github.com/magit/magit-popup.git
+[submodule "make-it-so"]
+	path = lib/make-it-so
+	url = git@github.com:abo-abo/make-it-so.git
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
@@ -161,6 +173,9 @@
 [submodule "quasi-monochrome-theme"]
 	path = lib/quasi-monochrome-theme
 	url = git@github.com:lbolla/emacs-quasi-monochrome.git
+[submodule "request"]
+	path = lib/request
+	url = git@github.com:tkf/emacs-request.git
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git

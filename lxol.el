@@ -310,6 +310,10 @@
       (interactive)
       (ivy-with-thing-at-point 'counsel-ag))
 
+    (defun counsel-git-thing-at-point ()
+      (interactive)
+      (ivy-with-thing-at-point 'counsel-git-grep))
+
     (defun swiper-thing-at-point ()
       (interactive)
       (ivy-with-thing-at-point 'swiper))
@@ -317,7 +321,10 @@
     (
      ("C-s" . swiper)
      ("C-c C-c k" . counsel-ag-thing-at-point)
-     ("C-c C-c s" . swiper-thing-at-point)
+     ("C-c C-c C-k" . counsel-ag-thing-at-point)
+     ("C-c C-c j" . counsel-git-thing-at-point)
+     ("C-c C-c C-j" . counsel-git-thing-at-point)
+     ("C-c C-c C-s" . swiper-thing-at-point)
      )))
 
 ;;; Theme hooks
@@ -565,8 +572,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   )
 (use-package sbt-mode
   :init
+  (setq sbt:ansi-support 'filter) ;; todo: investigate why ansi-color doesn't rendere espace sequences properly
   (setq sbt:sbt-prompt-regexp "^\\(\\[[^\]]*\\] \\)?[>$][ ]*"
-        sbt:program-options '("-Djline.terminal=auto"))
+        ;;sbt:program-options '("-Djline.terminal=auto -Dsbt.log.noformat=true"))
+        sbt:program-options '("-Dsbt.log.noformat=true"))
   )
 
 (lxol-load-init-file "init-haskell.el")
