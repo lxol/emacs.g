@@ -25,6 +25,7 @@
    enable-recursive-minibuffers t
    backup-directory-alist `((".*" . ,temporary-file-directory)) ;don't clutter my fs and put backups into tmp
    auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   browse-url-browser-function 'browse-url-firefox
    require-final-newline t        ;auto add newline at the end of file
    major-mode 'text-mode  ;use text mode per default
    history-length 250             ;default is 30
@@ -50,6 +51,8 @@
    )
 
   (display-time-mode t)
+
+  (setq org-confirm-elisp-link-function nil)
   ;; don't ask to kill buffers
   (setq kill-buffer-query-functions
         (remq 'process-kill-buffer-query-function
@@ -107,6 +110,16 @@
     "Open init file."
     (interactive)
     (find-file "~/Documents/projects/scala-study/"))
+
+ (defun go-dotfiles ()
+    "Open init file."
+    (interactive)
+    (find-file "~/.dotfiles"))
+
+ (defun go-i3 ()
+    "Open init file."
+    (interactive)
+    (find-file "~/.dotfiles/i3"))
 
   (defun exit ()
     "Shorthand for DEATH TO ALL PUNNY BUFFERS!"
@@ -180,17 +193,17 @@
   ;; (defvar my-font-attributes '(default nil :family "Anonymous Pro" :height 89))
   ;; source code pro: '(default nil :family "Source Code Pro" :height 95)
   ;; source code pro: '(default nil :family "Hack" :height 95)
-  ;; (set-frame-font "Inconsolata-11")
-  ;; (set-frame-font "Source Code Pro-11")
-  ;; (set-frame-font "Anonymous Pro-12")
-  ;; (set-frame-font "Hack-11")
-  ;; (set-frame-font "Go Mono-10")
-  ;; (set-frame-font "Input Mono Condensed-10")
+  ;; (set-frame-font "Inconsolata-14")
+  ;; (set-frame-font "Source Code Pro-12")
+  ;; (set-frame-font "Anonymous Pro-13")
+  (set-frame-font "Hack-12")
+  ;; (set-frame-font "Go Mono-12")
+  ;; (set-frame-font "Input Mono Condensed-12")
   ;; (set-frame-font "Input Mono-10")
   ;; (set-frame-font "Input Mono Light-10")
-  ;; (set-frame-font "Fira Code-11")
-  (set-frame-font "Input Mono Narrow-10")
-  ;; (set-frame-font "Input Mono Compressed-10")
+  ;; (set-frame-font "Fira Code-12")
+  ;; (set-frame-font "Input Mono Narrow-12")
+  ;; (set-frame-font "Input Mono Compressed-12")
   )
 
 (use-package default-text-scale)
@@ -266,6 +279,11 @@
     )
   )
 
+(use-package hydra
+  :config
+  ;;(setq hydra-lv t)) ; use echo area
+  (setq hydra-lv nil)) ; use echo area
+
 (use-package ivy
   :defer 0
   :diminish ivy-mode
@@ -281,21 +299,6 @@
   :config
   (ivy-mode 1)
   (setq ivy-count-format "(%d/%d) ")
-  (use-package counsel
-    :defer 0
-    :bind
-    (
-     ("M-x" . counsel-M-x)
-     ("C-x C-f" . counsel-find-file)
-     ("C-c g" . counsel-git)
-     ("C-c j" . counsel-git-grep)
-     ("C-c k" . counsel-ag)
-     ("C-x l" . counsel-locate)
-     ("C-x C-f" . counsel-find-file)))
-  (use-package hydra
-    :config
-    ;;(setq hydra-lv t)) ; use echo area
-    (setq hydra-lv nil)) ; use echo area
   (use-package smex)
   (use-package wgrep)
   (use-package swiper
@@ -310,6 +313,10 @@
       (interactive)
       (ivy-with-thing-at-point 'counsel-ag))
 
+    (defun lxol-counsel-ag-current-dir ()
+      (interactive)
+      (counsel-ag nil default-directory))
+
     (defun counsel-git-thing-at-point ()
       (interactive)
       (ivy-with-thing-at-point 'counsel-git-grep))
@@ -320,13 +327,35 @@
     :bind
     (
      ("C-s" . swiper)
-     ("C-c C-c k" . counsel-ag-thing-at-point)
-     ("C-c C-c C-k" . counsel-ag-thing-at-point)
-     ("C-c C-c j" . counsel-git-thing-at-point)
-     ("C-c C-c C-j" . counsel-git-thing-at-point)
-     ("C-c C-c C-s" . swiper-thing-at-point)
      )))
 
+(use-package counsel
+  :defer 0
+  :after  (ivy)
+  :config
+  (defun lxol-counsel-rg-current-dir ()
+    (interactive)
+    (counsel-rg nil default-directory))
+  :bind
+  (
+   ("M-x" . counsel-M-x)
+   ("C-x C-f" . counsel-find-file)
+   ("C-c g" . counsel-git)
+   ("C-c j" . counsel-git-grep)
+   ("C-c k" . counsel-ag)
+   ("C-c r" . counsel-rg)
+   ("C-c C-c C-r" . lxol-counsel-rg-current-dir)
+   ("C-x l" . counsel-locate)
+   ("C-x C-f" . counsel-find-file)
+   ("C-c C-c k" . counsel-ag-thing-at-point)
+   ("C-c C-c C-k" . counsel-ag-thing-at-point)
+   ("C-c C-k" . lxol-counsel-ag-current-dir)
+   ("C-c C-c j" . counsel-git-thing-at-point)
+   ("C-c C-c C-j" . counsel-git-thing-at-point)
+   ("C-c C-c C-s" . swiper-thing-at-point)))
+
+(require 'ivy-rich)
+(ivy-rich-mode 1)
 ;;; Theme hooks
 ;;; http://www.greghendershott.com/2017/02/emacs-themes.html
 
@@ -566,16 +595,39 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   ;;(define-key company-active-map (kbd "TAB") nil)
   )
 
+(use-package etags-select
+  :commands etags-select-find-tag)
+
 (use-package ensime
   :config
   (setq  ensime-search-interface 'ivy)
-  )
+
+  (defun ensime-edit-definition-with-fallback ()
+    "Variant of `ensime-edit-definition' with ctags if ENSIME is not available."
+    (interactive)
+    (unless (and (ensime-connection-or-nil)
+                 (ensime-edit-definition))
+      (projectile-find-tag)))
+  :bind 
+  (:map ensime-mode-map
+        ("M-." . 'ensime-edit-definition-with-fallback)))
+
+(global-set-key (kbd "M-.") 'projectile-find-tag)
+(global-set-key (kbd "M-,") 'pop-tag-mark)
+
 (use-package sbt-mode
   :init
   (setq sbt:ansi-support 'filter) ;; todo: investigate why ansi-color doesn't rendere espace sequences properly
   (setq sbt:sbt-prompt-regexp "^\\(\\[[^\]]*\\] \\)?[>$][ ]*"
         ;;sbt:program-options '("-Djline.terminal=auto -Dsbt.log.noformat=true"))
         sbt:program-options '("-Dsbt.log.noformat=true"))
+
+  (add-hook 'sbt-mode-hook
+            (lambda ()
+              (setq prettify-symbols-alist
+                    `((,(expand-file-name (directory-file-name default-directory)) . ?⌂)
+                      (,(expand-file-name "~") . ?~)))
+              (prettify-symbols-mode t)))
   )
 
 (lxol-load-init-file "init-haskell.el")
