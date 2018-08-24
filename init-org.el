@@ -17,11 +17,13 @@
   )
 
 (setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-files (quote ("~/org"
+
+(setq org-agenda-files (quote (
                                "~/org/planner/"
                                "~/org/planner/new-job"
                                "~/org/journal/"
                                "~/org/notes/")))
+
 (use-package org-capture
   :config
 
@@ -29,20 +31,25 @@
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "~/org/planner/refile.org")
                  "* TODO %?\n" )))))
+
 (use-package org-journal
   :config
   (setq org-journal-dir "~/org/journal")
   (setq org-journal-file-format "%Y%m%d.org"))
 
+   ;; | =anki-editor-push-notes=             | Push notes to Anki. Additional arguments can be used to restrict the range of notes. |
+   ;; | =anki-editor-retry-failure-notes=    | Same as above, except that it only pushes notes that have =ANKI_FAILURE_REASON=.     |
+   ;; | =anki-editor-insert-note=            | Insert a note entry like =M-RET=, interactively.                                     |
+   ;; | =anki-editor-cloze-region=           | Create a cloze deletion from region.                                                 |
+   ;; | =anki-editor-export-subtree-to-html= | Export the subtree at point to HTML.                                                 |
+   ;; | =anki-editor-convert-region-to-html= | Convert and replace region to HTML.                                                  |
 (use-package anki-editor
   :bind (:map org-mode-map
-              ("C-M-s" . anki-editor-submit)
-              ("C-M-d" . anki-editor-insert-deck)
+              ("C-M-s" . anki-editor-push-notes)
               ("C-M-n" . anki-editor-insert-note)
-              ("C-M-t" . anki-editor-add-tags)
-              ("C-M-r" . anki-editor-cloze-region)
               ("C-M-r" . anki-editor-cloze-region))
   )
+
 (defhydra hydra-org-clock (:color blue :hint nil)
   "
 ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
@@ -240,3 +247,14 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
       "DEFERRED(r)"
       "CANCELLED(c)")))
 (setq org-log-into-drawer 'LOGBOOK)
+
+(use-package org-projectile
+  :bind (("C-c n p" . org-projectile-project-todo-completing-read)
+         ("s-c" . org-projectile-capture-for-current-project)
+         ("C-c c" . org-capture))
+  :config
+  (setq org-projectile-projects-file
+        "/home/lxol/org/projects.org")
+  (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+  (push (org-projectile-project-todo-entry) org-capture-templates)
+  )

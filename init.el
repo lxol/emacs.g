@@ -115,6 +115,13 @@
   ;; (magit-add-section-hook 'magit-status-sections-hook
   ;;                         'magit-insert-submodules
   ;; 'magit-insert-unpulled-from-upstream)
+  
+  )
+
+(use-package magit-gh-pulls
+  :defer t
+  :config
+  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
   )
 
 (use-package man
