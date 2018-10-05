@@ -10,6 +10,9 @@
 [submodule "apiwrap"]
 	path = lib/apiwrap
 	url = git@github.com:vermiculus/apiwrap.el.git
+[submodule "async"]
+	path = lib/async
+	url = git@github.com:jwiegley/emacs-async.git
 [submodule "auctex"]
 	path = lib/auctex
 	url = https://git.savannah.gnu.org/git/auctex.git
@@ -124,6 +127,9 @@
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "graphql"]
+	path = lib/graphql
+	url = git@github.com:vermiculus/graphql.el.git
 [submodule "green-screen-theme"]
 	path = lib/green-screen-theme
 	url = git@github.com:rbanffy/green-screen-emacs.git
@@ -145,6 +151,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
+[submodule "ido-completing-read+"]
+	path = lib/ido-completing-read+
+	url = git@github.com:DarwinAwardWinner/ido-completing-read-plus.git
 [submodule "intero"]
 	path = lib/intero
 	url = git@github.com:commercialhaskell/intero.git
@@ -257,6 +266,9 @@
 [submodule "tao-theme"]
 	path = lib/tao-theme
 	url = git@github.com:11111000000/tao-theme-emacs.git
+[submodule "treepy"]
+	path = lib/treepy
+	url = git@github.com:volrath/treepy.el.git
 [submodule "undercover"]
 	path = lib/undercover
 	url = git@github.com:sviridov/undercover.el.git
