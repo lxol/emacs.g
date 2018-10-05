@@ -21,24 +21,24 @@ help:
 
 build:
 	@rm -f init.elc
-	@$(EMACS) -Q --batch -L lib/borg --load borg \
+	@$(EMACS) -Q --batch --load subr-x -L lib/borg --load borg \
 	--funcall borg-initialize \
 	--funcall borg-batch-rebuild 2>&1
 
 build-init:
 	@rm -f init.elc
-	@$(EMACS) -Q --batch -L lib/borg --load borg \
+	@$(EMACS) -Q --batch --load subr-x -L lib/borg --load borg \
 	--funcall borg-initialize \
 	--funcall borg-batch-rebuild-init 2>&1
 
 quick:
 	@rm -f init.elc
-	@$(EMACS) -Q --batch -L lib/borg --load borg \
+	@$(EMACS) -Q --batch --load subr-x -L lib/borg --load borg \
 	--funcall borg-initialize \
 	--eval  '(borg-batch-rebuild t)' 2>&1
 
 lib/%: .FORCE
-	@$(EMACS) -Q --batch -L lib/borg --load borg \
+	@$(EMACS) -Q --batch --load subr-x -L lib/borg --load borg \
 	--funcall borg-initialize \
 	--eval  '(borg-build "$(@F)")' 2>&1
 

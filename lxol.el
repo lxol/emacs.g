@@ -1,3 +1,4 @@
+(autoload 'if-let "subr-x")
 (use-package lxol-config
   :init
   (provide 'lxol-config)
@@ -464,6 +465,8 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (put 'projectile-project-name 'safe-local-variable #'stringp)
 
   :config
+
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode)
   (setq projectile-switch-project-action 'projectile-dired)
   (setq projectile-completion-system 'ivy)
@@ -607,12 +610,27 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
     (interactive)
     (unless (and (ensime-connection-or-nil)
                  (ensime-edit-definition))
-      (projectile-find-tag)))
+      (projectile-find-tag)
+      ;; (xref-find-definitions)
+      ))
   :bind 
   (:map ensime-mode-map
-        ("M-." . 'ensime-edit-definition-with-fallback)))
+        ("s-." . 'ensime-edit-definition-with-fallback)
+        ("M-." . 'xref-find-definitions)
+        ))
 
-(global-set-key (kbd "M-.") 'projectile-find-tag)
+(defun lxol-projectile-visit-project-tags-table ()
+  "Visit the current project's tags table."
+  (interactive)
+  (when (projectile-project-p)
+    (let ((tags-file (projectile-expand-root "dep_tags")))
+      (when (file-exists-p tags-file)
+        (with-demoted-errors "Error loading tags-file: %s"
+          (visit-tags-table tags-file t))))))
+(setq tags-add-tables nil)
+(global-set-key (kbd "s-M-.") 'lxol-projectile-visit-project-tags-table)
+;; (global-set-key (kbd "M-.") 'projectile-find-tag)
+(global-set-key (kbd "M-.") 'xref-find-definitions)
 (global-set-key (kbd "M-,") 'pop-tag-mark)
 
 (use-package sbt-mode

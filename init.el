@@ -1,5 +1,12 @@
 ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
 ;;; Early birds
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (progn ;     startup
   (defvar before-user-init-time (current-time)
     "Value of `current-time' when Emacs begins loading `user-init-file'.")
@@ -98,7 +105,9 @@
   :defer t
   :bind (("C-x g"   . magit-status)
          ("C-x C-z" . magit-status)
-         ("C-x M-g" . magit-dispatch-popup))
+         ("C-x M-g" . magit-dispatch-popup)
+         :map magit-refs-mode-map
+         ("C-c RET" . magit-checkout))
   :config
   ;; (magit-add-section-hook 'magit-status-sections-hook
   ;;                         'magit-insert-modules-unpulled-from-upstream

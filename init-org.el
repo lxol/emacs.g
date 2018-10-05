@@ -16,6 +16,7 @@
   :config
   )
 
+(add-to-list 'org-structure-template-alist '("S" . "src scala"))
 (setq org-agenda-skip-scheduled-if-done t)
 
 (setq org-agenda-files (quote (
