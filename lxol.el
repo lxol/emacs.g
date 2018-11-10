@@ -337,6 +337,7 @@
   (defun lxol-counsel-rg-current-dir ()
     (interactive)
     (counsel-rg nil default-directory))
+  
   :bind
   (
    ("M-x" . counsel-M-x)
@@ -355,8 +356,64 @@
    ("C-c C-c C-j" . counsel-git-thing-at-point)
    ("C-c C-c C-s" . swiper-thing-at-point)))
 
-(require 'ivy-rich)
-(ivy-rich-mode 1)
+(use-package counsel-etags
+  :after  (counsel)
+  :custom
+  (tags-add-tables 'ask-user)
+  (tags-revert-without-query t)
+  (large-file-warning-threshold nil)
+  (tags-case-fold-search nil)
+  (case-fold-search nil)
+  :config 
+
+  (defun lxol-projectile-visit-project-tags-table ()
+    "Visit the current project's tags table."
+    (interactive)
+    (when (projectile-project-p)
+      (let ((tags-file (projectile-expand-root ".TAGS")))
+        (when (file-exists-p tags-file)
+          (with-demoted-errors "Error loading tags-file: %s"
+            (visit-tags-table tags-file t))))))
+
+  (defun lxol-add-tag-table ()
+    "Add a new tag table to existing list."
+    ;; (interactive (list (read-file-name "Visit tags table (default TAGS): "
+	;; 			                       default-directory
+	;; 			                       (expand-file-name "TAGS"
+	;; 					                                 default-directory)
+	;; 			                       t)
+	;; 	               current-prefix-arg))
+    (interactive)
+    (let ((tags-add-tables t)(tags-file-name nil))
+      ;; (setq tags-add-tables t)
+      (visit-tags-table (expand-file-name ".TAGS" default-directory) nil)
+      ;; (select-tags-table)
+      ;; (setq tags-add-tables tmp)
+      ))
+
+  (defhydra lxol/counsel-etags-hydra (:hint nil :color blue)
+    "
+                                                           ╭───────────────────┐
+                                                           │  Etags            │
+   ╭───────────────────────────────────────────────────────────────────────────┴
+    [_._] Find tag at point
+    [_f_] Two-step tag matching
+    [_r_] Recent tags
+    [_v_] Projectile visit .TAGS
+    [_g_] Grep etags
+
+"
+    ("." counsel-etags-find-tag-at-point)
+    ("f" counsel-etags-find-tag )
+    ("r" counsel-etags-recent-tag)
+    ("v" lxol-projectile-visit-project-tags-table)
+    ("g" counsel-etags-grep)
+    )
+
+  :bind
+  (("s-." . lxol/counsel-etags-hydra/body)
+   ("M-." . counsel-etags-find-tag-at-point)))
+
 ;;; Theme hooks
 ;;; http://www.greghendershott.com/2017/02/emacs-themes.html
 
@@ -464,6 +521,8 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 
   (put 'projectile-project-name 'safe-local-variable #'stringp)
 
+  :custom
+  (projectile-tags-file-name ".TAGS" )
   :config
 
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -533,21 +592,8 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (define-key writeroom-mode-map (kbd "C-M-/") #'writeroom-adjust-width))
 
 
+
 (use-package help-fns+)
-;; (define-key smartparens-mode-map (kbd "your-key") 'function)
-(use-package smartparens
-  :diminish smartparens-mode
-  :bind (:map smartparens-mode-map
-              ("s-C-h" . sp-forward-barf-sexp)
-              ("s-C-l" . sp-forward-slurp-sexp))
-  :config
-  (require 'smartparens-config)
-  (smartparens-global-mode t)
-  (show-smartparens-global-mode nil)
-  (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-  ;;(add-hook 'org-mode-hook #'evil-smartparens-mode)
-  ;;(add-hook 'org-mode-hook 'turn-on-smartparens-strict-mode)
-  )
 ;; (use-package auto-dim-other-buffers
 ;;   :config
 ;;   (add-hook 'after-init-hook
@@ -598,40 +644,30 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   ;;(define-key company-active-map (kbd "TAB") nil)
   )
 
-(use-package etags-select
-  :commands etags-select-find-tag)
+;; (use-package etags-select
+;;   :commands etags-select-find-tag)
 
-(use-package ensime
-  :config
-  (setq  ensime-search-interface 'ivy)
+(use-package scala-mode
+  :mode
+  ("\\.sc\\'" . scala-mode)
+  )
+;; (use-package ensime
+;;   :config
+;;   (setq  ensime-search-interface 'ivy)
 
-  (defun ensime-edit-definition-with-fallback ()
-    "Variant of `ensime-edit-definition' with ctags if ENSIME is not available."
-    (interactive)
-    (unless (and (ensime-connection-or-nil)
-                 (ensime-edit-definition))
-      (projectile-find-tag)
-      ;; (xref-find-definitions)
-      ))
-  :bind 
-  (:map ensime-mode-map
-        ("s-." . 'ensime-edit-definition-with-fallback)
-        ("M-." . 'xref-find-definitions)
-        ))
+;;   (defun ensime-edit-definition-with-fallback ()
+;;     "Variant of `ensime-edit-definition' with ctags if ENSIME is not available."
+;;     (interactive)
+;;     (unless (and (ensime-connection-or-nil)
+;;                  (ensime-edit-definition))
+;;       (projectile-find-tag)
+;;       ))
+;;   :bind 
+;;   (:map ensime-mode-map
+;;         ;; ("s-." . 'ensime-edit-definition-with-fallback)
+;;         ;; ("M-." . 'xref-find-definitions)
+;;         ))
 
-(defun lxol-projectile-visit-project-tags-table ()
-  "Visit the current project's tags table."
-  (interactive)
-  (when (projectile-project-p)
-    (let ((tags-file (projectile-expand-root "dep_tags")))
-      (when (file-exists-p tags-file)
-        (with-demoted-errors "Error loading tags-file: %s"
-          (visit-tags-table tags-file t))))))
-(setq tags-add-tables nil)
-(global-set-key (kbd "s-M-.") 'lxol-projectile-visit-project-tags-table)
-;; (global-set-key (kbd "M-.") 'projectile-find-tag)
-(global-set-key (kbd "M-.") 'xref-find-definitions)
-(global-set-key (kbd "M-,") 'pop-tag-mark)
 
 (use-package sbt-mode
   :init
@@ -648,6 +684,12 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
               (prettify-symbols-mode t)))
   )
 
+(use-package ivy-rich
+  :after (ivy counsel)
+  :config
+  (ivy-rich-mode 1))
+
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
+
 ;; (lxol-load-init-file "init-exwm.el")

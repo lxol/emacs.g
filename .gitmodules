@@ -40,6 +40,9 @@
 [submodule "company"]
 	path = lib/company
 	url = git@github.com:company-mode/company-mode.git
+[submodule "counsel-etags"]
+	path = lib/counsel-etags
+	url = git@github.com:redguardtoo/counsel-etags.git
 [submodule "darcula-theme"]
 	path = lib/darcula-theme
 	url = git@gitlab.com:fommil/emacs-darcula-theme.git
@@ -82,6 +85,9 @@
 [submodule "etags-select"]
 	path = lib/etags-select
 	url = git@github.com:emacsmirror/etags-select.git
+[submodule "etags-table"]
+	path = lib/etags-table
+	url = git@github.com:emacsmirror/etags-table.git
 [submodule "etexshow"]
 	path = lib/etexshow
 	url = git@github.com:pgundlach/etexshow.git
@@ -293,6 +299,9 @@
 [submodule "xelb"]
 	path = lib/xelb
 	url = git@github.com:ch11ng/xelb.git
+[submodule "yaml-mode"]
+	path = lib/yaml-mode
+	url = git@github.com:yoshiki/yaml-mode.git
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = git@github.com:joaotavora/yasnippet.git
