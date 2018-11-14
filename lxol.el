@@ -273,6 +273,9 @@
      :config
     (evil-goggles-mode)
     )
+
+  ;; (use-package lxol-evil-textobj-syntax)
+
   (use-package evil-surround
     :config
     (require 'evil-surround)

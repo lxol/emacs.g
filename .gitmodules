@@ -178,6 +178,9 @@
 [submodule "logito"]
 	path = lib/logito
 	url = git@github.com:sigma/logito.git
+[submodule "lxol-evil-textobj-syntax"]
+	path = lib/lxol-evil-textobj-syntax
+	url = git@github.com:laishulu/evil-textobj-syntax.git
 [submodule "lxol-org"]
 	path = lib/lxol-org
 	url = https://github.com/emacsmirror/org
@@ -209,6 +212,9 @@
 [submodule "multiple-cursors"]
 	path = lib/multiple-cursors
 	url = git@github.com:magnars/multiple-cursors.el.git
+[submodule "names"]
+	path = lib/names
+	url = git@github.com:Malabarba/names.git
 [submodule "nlinum"]
 	path = lib/nlinum
 	url = git@github.com:emacsmirror/nlinum.git
