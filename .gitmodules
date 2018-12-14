@@ -50,6 +50,9 @@
 	path = lib/dash
 	url = git@github.com:magnars/dash.el.git
 	no-makeinfo = dash-template.texi
+[submodule "deadgrep"]
+	path = lib/deadgrep
+	url = git@github.com:Wilfred/deadgrep.git
 [submodule "default-text-scale"]
 	path = lib/default-text-scale
 	url = git@github.com:purcell/default-text-scale.git
@@ -275,6 +278,9 @@
 [submodule "solarized-theme"]
 	path = lib/solarized-theme
 	url = git@github.com:bbatsov/solarized-emacs.git
+[submodule "spinner"]
+	path = lib/spinner
+	url = git@github.com:Malabarba/spinner.el.git
 [submodule "tao-theme"]
 	path = lib/tao-theme
 	url = git@github.com:11111000000/tao-theme-emacs.git

@@ -260,3 +260,5 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
   (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
   (push (org-projectile-project-todo-entry) org-capture-templates)
   )
+
+(use-package deadgrep)

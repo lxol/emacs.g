@@ -26,7 +26,8 @@
    enable-recursive-minibuffers t
    backup-directory-alist `((".*" . ,temporary-file-directory)) ;don't clutter my fs and put backups into tmp
    auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-   browse-url-browser-function 'browse-url-firefox
+   ;; browse-url-browser-function 'browse-url-firefox
+   browse-url-browser-function 'browse-url-default-browser
    require-final-newline t        ;auto add newline at the end of file
    major-mode 'text-mode  ;use text mode per default
    history-length 250             ;default is 30
@@ -694,5 +695,24 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
+
+(use-package flycheck
+  :custom
+  (flycheck-scalastylerc "~/.dotfiles/scalastyle_config.xml")
+  :init (global-flycheck-mode)
+  :config 
+  (defhydra hydra-flycheck
+    (:pre (progn (setq hydra-lv t) (flycheck-list-errors))
+          :post (progn (setq hydra-lv nil) (quit-windows-on "*Flycheck errors*"))
+          :hint nil)
+    "Errors"
+    ("f"  flycheck-error-list-set-filter                            "Filter")
+    ("j"  flycheck-next-error                                       "Next")
+    ("k"  flycheck-previous-error                                   "Previous")
+    ("gg" flycheck-first-error                                      "First")
+    ("G"  (progn (goto-char (point-max)) (flycheck-previous-error)) "Last")
+    ("q"  nil))
+  :bind
+  (("C-c f" . hydra-flycheck/body)))
 
 ;; (lxol-load-init-file "init-exwm.el")
