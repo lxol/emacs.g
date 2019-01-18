@@ -123,6 +123,11 @@
     (interactive)
     (find-file "~/.dotfiles/i3"))
 
+ (defun go-throwaway-scala ()
+    "Open init file."
+    (interactive)
+    (find-file "~/Documents/projects/scala/throwaway-scala/"))
+
   (defun exit ()
     "Shorthand for DEATH TO ALL PUNNY BUFFERS!"
     (interactive)
