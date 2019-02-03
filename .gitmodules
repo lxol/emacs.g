@@ -181,9 +181,15 @@
 [submodule "logito"]
 	path = lib/logito
 	url = git@github.com:sigma/logito.git
-[submodule "lxol-evil-textobj-syntax"]
-	path = lib/lxol-evil-textobj-syntax
-	url = git@github.com:laishulu/evil-textobj-syntax.git
+[submodule "lsp-mode"]
+	path = lib/lsp-mode
+	url = git@github.com:emacs-lsp/lsp-mode.git
+[submodule "lsp-scala"]
+	path = lib/lsp-scala
+	url = git@github.com:rossabaker/lsp-scala.git
+[submodule "lsp-ui"]
+	path = lib/lsp-ui
+	url = git@github.com:emacs-lsp/lsp-ui.git
 [submodule "lxol-org"]
 	path = lib/lxol-org
 	url = https://github.com/emacsmirror/org
@@ -230,6 +236,9 @@
 [submodule "org-projectile"]
 	path = lib/org-projectile
 	url = git@github.com:IvanMalison/org-projectile.git
+[submodule "org-trello"]
+	path = lib/org-trello
+	url = git@github.com:org-trello/org-trello.git
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git

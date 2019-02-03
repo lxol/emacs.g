@@ -32,7 +32,12 @@
   (setq org-use-property-inheritance t)
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "~/org/planner/refile.org")
-                 "* TODO %?\n" )))))
+                 "* TODO %?\n" )
+                ("n" "note" entry (file "~/org/planner/refile.org")
+                 "* %? :NOTE:\n%U\n" )
+                ("j" "Journal" entry (file+datetree "~/org/planner/diary.org")
+                 "* %?\n%U\n")
+                ))))
 
 (use-package org-journal
   :config
@@ -250,15 +255,27 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
       "CANCELLED(c)")))
 (setq org-log-into-drawer 'LOGBOOK)
 
+(setq before "before")
+
 (use-package org-projectile
   :bind (("C-c n p" . org-projectile-project-todo-completing-read)
          ("s-c" . org-projectile-capture-for-current-project)
          ("C-c c" . org-capture))
   :config
-  (setq org-projectile-projects-file
-        "/home/lxol/org/projects.org")
-  (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
-  (push (org-projectile-project-todo-entry) org-capture-templates)
+  (progn
+    (setq org-projectile-projects-file "/home/lxol/org/projects.org")
+    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+    (push (org-projectile-project-todo-entry) org-capture-templates))
   )
+
+;; (use-package org-projectile
+;;   :init
+;;   (setq sss 1)
+;;   :no-require t
+;;   :demand t)
+
+(setq after "after")
+;; (use-package org-trello)
+(setq use-package-verbose t)
 
 (use-package deadgrep)

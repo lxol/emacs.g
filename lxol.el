@@ -23,7 +23,7 @@
    column-number-mode t
    scroll-error-top-bottom t
    electric-indent-mode 0
-   enable-recursive-minibuffers t
+   ;; enable-recursive-minibuffers t
    backup-directory-alist `((".*" . ,temporary-file-directory)) ;don't clutter my fs and put backups into tmp
    auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
    ;; browse-url-browser-function 'browse-url-firefox
@@ -39,7 +39,7 @@
    kill-ring-max 5000           ;truncate kill ring after 5000 entries
    mark-ring-max 5000           ;truncate mark ring after 5000 entries
    split-height-threshold 110   ;more readily split horziontally
-   enable-recursive-minibuffers t
+   enable-recursive-minibuffers nil
    load-prefer-newer t           ;prefer newer .el instead of the .elc
    split-width-threshold 160 ;split horizontally only if less than 160 columns
    gc-cons-percentage 0.3    ;increase garbage collection limit
@@ -656,10 +656,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 ;; (use-package etags-select
 ;;   :commands etags-select-find-tag)
 
-(use-package scala-mode
-  :mode
-  ("\\.sc\\'" . scala-mode)
-  )
+;; (use-package scala-mode
+;;   :mode
+;;   ("\\.sc\\'" . scala-mode)
+;;   )
 ;; (use-package ensime
 ;;   :config
 ;;   (setq  ensime-search-interface 'ivy)
@@ -693,10 +693,58 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
               (prettify-symbols-mode t)))
   )
 
+;; Enable defer and ensure by default for use-package
+;; (setq use-package-always-defer t
+;;       use-package-always-ensure t)
+
+;; Enable scala-mode and sbt-mode
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\)$")
+
+;; (use-package sbt-mode
+;;   :commands sbt-start sbt-command
+;;   :config
+;;   ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+;;   ;; allows using SPACE when in the minibuffer
+;;   (substitute-key-definition
+;;    'minibuffer-complete-word
+;;    'self-insert-command
+;;    minibuffer-local-completion-map))
+
+;; Enable nice rendering of diagnostics like compile errors.
+;; (use-package flycheck
+;;   :init (global-flycheck-mode))
+;;   :bind 
+;;   (:map ensime-mode-map
+;;         ;; ("s-." . 'ensime-edit-definition-with-fallback)
+;;         ;; ("M-." . 'xref-find-definitions)
+;;         ))
+
+(use-package lsp-mode
+  :bind
+  (:map lsp-mode-map
+        ("M-." . lsp-find-definition))
+  )
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode))
+
+;; (use-package lsp-scala
+;;   :after scala-mode
+;;   ;; Optional - enable lsp-scala automatically in scala files
+;;   :hook (scala-mode . lsp))
+
+(use-package lsp-scala
+  ;; :after scala-mode
+  :hook (scala-mode . lsp)
+  :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
+
+
 (use-package ivy-rich
   :after (ivy counsel)
   :config
   (ivy-rich-mode 1))
+
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
