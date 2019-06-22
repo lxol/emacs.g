@@ -4,6 +4,9 @@
 [submodule "0blayout"]
 	path = lib/0blayout
 	url = git@github.com:etu/0blayout-mode.git
+[submodule "ammonite-term-repl"]
+	path = lib/ammonite-term-repl
+	url = git@github.com:zwild/ammonite-term-repl.git
 [submodule "anki-editor"]
 	path = lib/anki-editor
 	url = https://github.com/louietan/anki-editor.git
@@ -40,6 +43,9 @@
 [submodule "company"]
 	path = lib/company
 	url = git@github.com:company-mode/company-mode.git
+[submodule "company-lsp"]
+	path = lib/company-lsp
+	url = git@github.com:tigersoldier/company-lsp.git
 [submodule "counsel-etags"]
 	path = lib/counsel-etags
 	url = git@github.com:redguardtoo/counsel-etags.git
@@ -68,6 +74,15 @@
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
 	url = git@github.com:Fanael/edit-indirect.git
+[submodule "edit-server"]
+	path = lib/edit-server
+	url = git@github.com:stsquad/emacs_chrome.git
+[submodule "edit-server-htmlize"]
+	path = lib/edit-server-htmlize
+	url = git@github.com:frobtech/edit-server-htmlize.git
+[submodule "eglot"]
+	path = lib/eglot
+	url = git@github.com:joaotavora/eglot.git
 [submodule "el-x"]
 	path = lib/el-x
 	url = git@github.com:sigma/el-x.git
@@ -76,9 +91,6 @@
 	url = git@github.com:skeeto/emacsql.git
 	no-byte-compile = emacsql-pg.el
 	ignore = dirty
-[submodule "ensime"]
-	path = lib/ensime
-	url = git@github.com:ensime/ensime-emacs.git
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
@@ -103,6 +115,9 @@
 [submodule "evil-smartparens"]
 	path = lib/evil-smartparens
 	url = git@github.com:expez/evil-smartparens.git
+[submodule "evil-snipe"]
+	path = lib/evil-snipe
+	url = git@github.com:hlissner/evil-snipe.git
 [submodule "evil-surround"]
 	path = lib/evil-surround
 	url = git@github.com:emacs-evil/evil-surround.git
@@ -178,6 +193,9 @@
 [submodule "json-snatcher"]
 	path = lib/json-snatcher
 	url = git@github.com:Sterlingg/json-snatcher.git
+[submodule "jsonrpc"]
+	path = lib/jsonrpc
+	url = git@github.com:emacsmirror/jsonrpc.git
 [submodule "logito"]
 	path = lib/logito
 	url = git@github.com:sigma/logito.git

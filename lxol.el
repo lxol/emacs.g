@@ -108,11 +108,6 @@
     (interactive)
     (find-file "~/org"))
 
- (defun go-scala-study ()
-    "Open init file."
-    (interactive)
-    (find-file "~/Documents/projects/scala-study/"))
-
  (defun go-dotfiles ()
     "Open init file."
     (interactive)
@@ -122,11 +117,6 @@
     "Open init file."
     (interactive)
     (find-file "~/.dotfiles/i3"))
-
- (defun go-throwaway-scala ()
-    "Open init file."
-    (interactive)
-    (find-file "~/Documents/projects/scala/throwaway-scala/"))
 
   (defun exit ()
     "Shorthand for DEATH TO ALL PUNNY BUFFERS!"
@@ -280,12 +270,20 @@
     (evil-goggles-mode)
     )
 
+
+  (use-package evil-snipe
+    :config
+    (evil-snipe-mode +1)
+    (setq evil-snipe-mode nil)
+    ;;(evil-snipe-override-mode +1)
+    )
+  
   ;; (use-package lxol-evil-textobj-syntax)
 
   (use-package evil-surround
     :config
     (require 'evil-surround)
-    (global-evil-surround-mode 1)
+    ;;(global-evil-surround-mode nil)
     )
   )
 
@@ -678,28 +676,12 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 ;;         ))
 
 
-(use-package sbt-mode
-  :init
-  (setq sbt:ansi-support 'filter) ;; todo: investigate why ansi-color doesn't rendere espace sequences properly
-  (setq sbt:sbt-prompt-regexp "^\\(\\[[^\]]*\\] \\)?[>$][ ]*"
-        ;;sbt:program-options '("-Djline.terminal=auto -Dsbt.log.noformat=true"))
-        sbt:program-options '("-Dsbt.log.noformat=true"))
-
-  (add-hook 'sbt-mode-hook
-            (lambda ()
-              (setq prettify-symbols-alist
-                    `((,(expand-file-name (directory-file-name default-directory)) . ?⌂)
-                      (,(expand-file-name "~") . ?~)))
-              (prettify-symbols-mode t)))
-  )
 
 ;; Enable defer and ensure by default for use-package
 ;; (setq use-package-always-defer t
 ;;       use-package-always-ensure t)
 
 ;; Enable scala-mode and sbt-mode
-(use-package scala-mode
-  :mode "\\.s\\(cala\\|bt\\)$")
 
 ;; (use-package sbt-mode
 ;;   :commands sbt-start sbt-command
@@ -720,24 +702,12 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 ;;         ;; ("M-." . 'xref-find-definitions)
 ;;         ))
 
-(use-package lsp-mode
-  :bind
-  (:map lsp-mode-map
-        ("M-." . lsp-find-definition))
-  )
 
-(use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode))
 
 ;; (use-package lsp-scala
 ;;   :after scala-mode
 ;;   ;; Optional - enable lsp-scala automatically in scala files
 ;;   :hook (scala-mode . lsp))
-
-(use-package lsp-scala
-  ;; :after scala-mode
-  :hook (scala-mode . lsp)
-  :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
 
 
 (use-package ivy-rich
@@ -745,27 +715,30 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   :config
   (ivy-rich-mode 1))
 
+(use-package edit-server
+  :load-path "~/.emacs.d/lib/edit-server/servers/"
+  :config
+  (progn
+    ;; Don't pop up a new frame
+    ;;(setq edit-server-new-frame nil)
+    (setq edit-server-default-major-mode 'org-mode)
+    (setq edit-server-url-major-mode-alist
+          '(("github\\.com" . markdown-mode)
+            ("stackexchange\\.com" . markdown-mode)
+            ("stackoverflow\\.com" . markdown-mode)
+            ("reddit\\.com" . markdown-mode)))
+
+    ;; Integration with Gmail
+    (use-package edit-server-htmlize
+      :defer t
+      :config
+      (progn
+        (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+        (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
+    (edit-server-start)))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
-
-(use-package flycheck
-  :custom
-  (flycheck-scalastylerc "~/.dotfiles/scalastyle_config.xml")
-  :init (global-flycheck-mode)
-  :config 
-  (defhydra hydra-flycheck
-    (:pre (progn (setq hydra-lv t) (flycheck-list-errors))
-          :post (progn (setq hydra-lv nil) (quit-windows-on "*Flycheck errors*"))
-          :hint nil)
-    "Errors"
-    ("f"  flycheck-error-list-set-filter                            "Filter")
-    ("j"  flycheck-next-error                                       "Next")
-    ("k"  flycheck-previous-error                                   "Previous")
-    ("gg" flycheck-first-error                                      "First")
-    ("G"  (progn (goto-char (point-max)) (flycheck-previous-error)) "Last")
-    ("q"  nil))
-  :bind
-  (("C-c f" . hydra-flycheck/body)))
+(lxol-load-init-file "scala.el")
 
 ;; (lxol-load-init-file "init-exwm.el")

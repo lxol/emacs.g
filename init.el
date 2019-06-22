@@ -27,6 +27,9 @@
   (tool-bar-mode 0)
   (menu-bar-mode 0))
 
+;;
+;;(with-current-buffer " *load*"
+  ;;(goto-char (point-max)))
 (progn ;    `borg'
   (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
   (require  'borg)
@@ -109,12 +112,13 @@
          :map magit-refs-mode-map
          ("C-c RET" . magit-checkout))
   :custom
-  (magit-wip-mode t))
-
-(use-package magit-gh-pulls
-  :defer t
+  (magit-wip-mode t)
   :config
-  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+  ;; (use-package magit-gh-pulls
+  ;;   ;;:defer t
+  ;;   :config
+  ;;   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+  ;;   )
   )
 
 (use-package man
