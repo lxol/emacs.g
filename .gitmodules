@@ -187,6 +187,9 @@
 [submodule "ivy-rich"]
 	path = lib/ivy-rich
 	url = git@github.com:yevgnen/ivy-rich.git
+[submodule "ivy-yasnippet"]
+	path = lib/ivy-yasnippet
+	url = git@github.com:mkcms/ivy-yasnippet.git
 [submodule "json-reformat"]
 	path = lib/json-reformat
 	url = git@github.com:gongo/json-reformat.git
