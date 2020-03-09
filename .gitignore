@@ -2,3 +2,5 @@
 /.hive-maint
 /custom.el
 /var
+/.bloop
+/.metals

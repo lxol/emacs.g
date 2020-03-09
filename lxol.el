@@ -224,6 +224,7 @@
     [_l_] Input Mono Light
     [_n_] Input Mono Narrow
     [_f_] Fira Code
+    [_t_] Terminux
 "
   ("i" (set-frame-font "Inconsolata-11"))
   ("s" (set-frame-font "Source Code Pro-11"))
@@ -236,6 +237,7 @@
   ("f" (set-frame-font "Fira Code-11"))
   ("n" (set-frame-font "Input Mono Narrow-11"))
   ("p" (set-frame-font "Input Mono Compressed-11"))
+  ("t" (set-frame-font "xos4 Terminus-12"))
   ("RET" nil "done" :color blue))
 
 (bind-keys
@@ -271,12 +273,12 @@
     )
 
 
-  (use-package evil-snipe
-    :config
-    (evil-snipe-mode +1)
-    (setq evil-snipe-mode nil)
-    ;;(evil-snipe-override-mode +1)
-    )
+  ;; (use-package evil-snipe
+  ;;   :config
+  ;;   (evil-snipe-mode +1)
+  ;;   (setq evil-snipe-mode nil)
+  ;;   ;;(evil-snipe-override-mode +1)
+  ;;   )
   
   ;; (use-package lxol-evil-textobj-syntax)
 
@@ -419,7 +421,8 @@
 
   :bind
   (("s-." . lxol/counsel-etags-hydra/body)
-   ("M-." . counsel-etags-find-tag-at-point)))
+   ;;("M-." . counsel-etags-find-tag-at-point)
+   ))
 
 ;;; Theme hooks
 ;;; http://www.greghendershott.com/2017/02/emacs-themes.html
@@ -736,6 +739,9 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
         (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
         (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer)))
     (edit-server-start)))
+(use-package linum-relative
+  :config
+  (linum-on))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")

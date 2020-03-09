@@ -1,3 +1,6 @@
+
+(setq org-directory "")
+
 (use-package lxol-org
   :mode
   ("\\.org_archive$" . org-mode)
@@ -20,11 +23,14 @@
 ;; (add-to-list 'org-structure-template-alist '("S" . "src scala"))
 (setq org-agenda-skip-scheduled-if-done t)
 
+(setq org-default-notes-file (concat org-directory "~/org/notes/notes.org"))
+
 (setq org-agenda-files (quote (
                                "~/org/planner/"
                                "~/org/planner/new-job"
                                "~/org/journal/"
-                               "~/org/notes/")))
+                               "~/org/notes/notes.org"
+                               "~/org/notes/english.org")))
 
 (use-package org-capture
   :config
@@ -33,11 +39,16 @@
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "~/org/planner/refile.org")
                  "* TODO %?\n" )
-                ("n" "note" entry (file "~/org/planner/refile.org")
+                ("n" "note" entry (file "~/org/notes/notes.org")
+                 "* %? :NOTE:\n%U\n" )
+                ("n" "note" entry (file "~/org/notes/work-notes.org")
                  "* %? :NOTE:\n%U\n" )
                 ("j" "Journal" entry (file+datetree "~/org/planner/diary.org")
                  "* %?\n%U\n")
                 ))))
+
+
+(setq org-refile-targes org-agenda-files)
 
 (use-package org-journal
   :config
@@ -259,8 +270,9 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
 
 (use-package org-projectile
   :bind (("C-c n p" . org-projectile-project-todo-completing-read)
-         ("s-c" . org-projectile-capture-for-current-project)
+         ("C-c n n" . org-projectile-capture-for-current-project)
          ("C-c c" . org-capture))
+  :demand
   :config
   (progn
     (setq org-projectile-projects-file "/home/lxol/org/projects.org")

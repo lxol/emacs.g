@@ -196,9 +196,15 @@
 [submodule "jsonrpc"]
 	path = lib/jsonrpc
 	url = git@github.com:emacsmirror/jsonrpc.git
+[submodule "linum-relative"]
+	path = lib/linum-relative
+	url = git@github.com:coldnew/linum-relative.git
 [submodule "logito"]
 	path = lib/logito
 	url = git@github.com:sigma/logito.git
+[submodule "lsp-ivy"]
+	path = lib/lsp-ivy
+	url = git@github.com:emacs-lsp/lsp-ivy.git
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = git@github.com:emacs-lsp/lsp-mode.git
@@ -278,6 +284,9 @@
 [submodule "quasi-monochrome-theme"]
 	path = lib/quasi-monochrome-theme
 	url = git@github.com:lbolla/emacs-quasi-monochrome.git
+[submodule "reformatter"]
+	path = lib/reformatter
+	url = git@github.com:purcell/reformatter.el.git
 [submodule "request"]
 	path = lib/request
 	url = git@github.com:tkf/emacs-request.git
@@ -289,10 +298,10 @@
 	url = git@github.com:lxol/emacs.g.git
 [submodule "sbt-mode"]
 	path = lib/sbt-mode
-	url = git@github.com:ensime/emacs-sbt-mode.git
+	url = git@github.com:hvesalai/emacs-sbt-mode.git
 [submodule "scala-mode"]
 	path = lib/scala-mode
-	url = git@github.com:ensime/emacs-scala-mode.git
+	url = git@github.com:hvesalai/emacs-scala-mode.git
 [submodule "shut-up"]
 	path = lib/shut-up
 	url = git@github.com:cask/shut-up.git

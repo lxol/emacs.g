@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: scala
-# key: scala_
-# --
-#+begin_src scala :tangle yes
-$0
-#+end_src

@@ -2,7 +2,7 @@
 
 
 (use-package scala-mode
-  :mode "\\.s\\(cala\\|bt\\)$")
+  :mode "\\.s\\(cala\\|c\\|bt\\)$")
 
 (use-package sbt-mode
   :init
@@ -28,6 +28,7 @@
    'minibuffer-complete-word
    'self-insert-command
    minibuffer-local-completion-map))
+(setq sbt:program-options '("-Dsbt.supershell=false"))
 
 
 (use-package flycheck
@@ -50,17 +51,23 @@
   (("C-c f" . hydra-flycheck/body)))
 
 (use-package lsp-mode
+  :hook (scala-mode . lsp)
   :bind
   (:map lsp-mode-map
         ("M-." . lsp-find-definition))
- :init (setq lsp-prefer-flymake nil))
+  :init
+  (setq lsp-prefer-flymake nil))
 
-(use-package lsp-metals)
+(use-package lsp-metals
+  :custom
+  (lsp-metals-server-command "/usr/local/bin/metals-emacs")
+  (lsp-metals-sbt-script "/usr/bin/sbt")
+  )
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode))
 
-;; (use-package lsp-scala
+;;(use-package lsp-scala
 ;;   ;; :after scala-mode
 ;;   :hook (scala-mode . lsp)
 ;;   :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
@@ -86,10 +93,33 @@
     (find-file "~/Documents/projects/scala/throwaway-scala/"))
 
 (use-package ammonite-term-repl
+  :defer t
   :after scala-mode
   :demand t
   ;; Optional - enable lsp-scala automatically in scala files
   )
+(use-package reformatter
+  :defer t
+  :after scala-mode
+  :config
+  (reformatter-define scala-ammonite-format
+    :program "/usr/bin/scalafmt"
+    :args '("--stdin" "--non-interactive" "--quiet" "--assume-filename" "foo.sc"))
+  (define-key scala-mode-map (kbd "C-c C-x C-a") 'scala-ammonite-format-buffer)
+
+  (reformatter-define scala-sbt-format
+    :program "/usr/bin/scalafmt"
+    :args '("--stdin" "--non-interactive" "--quiet" "--assume-filename" "foo.sbt"))
+  (define-key scala-mode-map (kbd "C-c C-x C-s") 'scala-sbt-format-buffer)
+
+  (reformatter-define scala-format
+    :program "/usr/bin/scalafmt"
+    :args '("--stdin" "--non-interactive" "--quiet"))
+  (define-key scala-mode-map (kbd "C-c C-x C-l") 'scala-format-buffer)
+  )
+
+;;(use-package format-all)
+
 
 ;; (use-package eglot
 ;;   :config
