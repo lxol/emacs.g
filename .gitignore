@@ -4,3 +4,6 @@
 /var
 /.bloop
 /.metals
+*.elc
+*-autoloads.el
+dir
