@@ -13,6 +13,8 @@
    ("C-c C-9" . org-insert-subheading)
    ("C-c C-0" . org-insert-todo-subheading)
    ("C-c o" . hydra-org-clock/body)
+   :map org-mode-map
+   ("C-<tab>". nil )
    :map org-agenda-mode-map
    ("C-c o" . hydra-org-agenda/body)
    ("v" . hydra-org-agenda-view/body))
