@@ -52,6 +52,8 @@
 
 (use-package lsp-mode
   :hook (scala-mode . lsp)
+  :config
+  (setq lsp-ui-doc-enable nil)
   :bind
   (:map lsp-mode-map
         ("M-." . lsp-find-definition))

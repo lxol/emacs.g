@@ -581,10 +581,12 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 
 (use-package yasnippet-snippets
   :after (yasnippet))
-;; (use-package auto-yasnippet
-;;   :quelpa
-;;   :bind (("C-c #" . aya-create )
-;;          ("C-x #" . aya-expand)))
+
+(use-package ivy-yasnippet
+  :after(yasnippet ivy)
+  :bind
+  (("C-<tab>" . ivy-yasnippet)))
+
 
 ;; org init
 (defun lxol-load-init-file (init-file)
