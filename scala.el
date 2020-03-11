@@ -62,7 +62,7 @@
 
 (use-package lsp-metals
   :custom
-  (lsp-metals-server-command "/usr/local/bin/metals-emacs")
+  (lsp-metals-server-command "/usr/bin/metals-emacs")
   (lsp-metals-sbt-script "/usr/bin/sbt")
   )
 
