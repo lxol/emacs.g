@@ -213,18 +213,10 @@
                                                            ╭───────────────────┐
                                                            │  Font             │
    ╭───────────────────────────────────────────────────────────────────────────┴
-    [_i_] Inconsolata
-    [_s_] Source Code Pro
-    [_a_] Anonymous Pro
-    [_h_] Hack
-    [_g_] Go Mono
-    [_m_] Input Mono
-    [_c_] Input Mono Condensed
-    [_p_] Input Mono Commpressed
-    [_l_] Input Mono Light
-    [_n_] Input Mono Narrow
-    [_f_] Fira Code
-    [_t_] Terminux
+    [_i_] Inconsolata      [_g_] Go Mono                [_l_] Input Mono Light
+    [_s_] Source Code Pro  [_m_] Input Mono             [_n_] Input Mono Narrow
+    [_a_] Anonymous Pro    [_c_] Input Mono Condensed   [_f_] Fira Code
+    [_h_] Hack             [_p_] Input Mono Commpressed [_t_] Terminux
 "
   ("i" (set-frame-font "Inconsolata-11"))
   ("s" (set-frame-font "Source Code Pro-11"))
