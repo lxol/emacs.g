@@ -213,8 +213,8 @@
                                                            ╭───────────────────┐
                                                            │  Font             │
    ╭───────────────────────────────────────────────────────────────────────────┴
-    [_i_] Inconsolata      [_g_] Go Mono                [_l_] Input Mono Light
-    [_s_] Source Code Pro  [_m_] Input Mono             [_n_] Input Mono Narrow
+    [_i_] Inconsolata      [_g_] Go Mono                [_l_] Input Mono Light   [_h_] Hasklig
+    [_s_] Source Code Pro  [_m_] Input Mono             [_n_] Input Mono Narrow  [_o_] Monoid
     [_a_] Anonymous Pro    [_c_] Input Mono Condensed   [_f_] Fira Code
     [_h_] Hack             [_p_] Input Mono Commpressed [_t_] Terminux
 "
@@ -230,6 +230,8 @@
   ("n" (set-frame-font "Input Mono Narrow-11"))
   ("p" (set-frame-font "Input Mono Compressed-11"))
   ("t" (set-frame-font "xos4 Terminus-12"))
+  ("h" (set-frame-font "Hasklig-11"))
+  ("o" (set-frame-font "Monoid-10"))
   ("RET" nil "done" :color blue))
 
 (bind-keys
@@ -485,8 +487,15 @@
 
 ;; (use-package eclipse-theme)
 ;; (use-package green-screen-theme)
-(set-face-attribute 'default nil :font "Hack-11" )
-(set-frame-font "Hack-11" nil t)
+; (set-face-attribute 'default nil :font "Hack-11" )
+;;(set-frame-font "Hack-11" nil t)
+;; (set-frame-font "Monoid-9" nil t)
+(set-frame-font "Hasklig-10" nil t)
+
+;; (set-frame-font "Input Mono Compressed-11")
+
+;;(set-frame-font "FiraCode-10" nil t)
+
 (defhydra lxol/themes-hydra (:hint nil :color pink)
   "
 Themes
@@ -736,6 +745,9 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 (use-package linum-relative
   :config
   (linum-on))
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
