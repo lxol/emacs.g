@@ -490,7 +490,8 @@
 ; (set-face-attribute 'default nil :font "Hack-11" )
 ;;(set-frame-font "Hack-11" nil t)
 ;; (set-frame-font "Monoid-9" nil t)
-(set-frame-font "Hasklig-10" nil t)
+(load-theme 'solarized-dark  t)
+(set-frame-font "Hasklig-11" nil t)
 
 ;; (set-frame-font "Input Mono Compressed-11")
 
@@ -747,7 +748,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (linum-on))
 
 (use-package doom-modeline
-  :init (doom-modeline-mode 1))
+  :hook (after-init . doom-modeline-mode))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")

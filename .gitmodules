@@ -74,6 +74,9 @@
 [submodule "doom-modeline"]
 	path = lib/doom-modeline
 	url = git@github.com:seagle0128/doom-modeline.git
+[submodule "doom-themes"]
+	path = lib/doom-themes
+	url = git@github.com:hlissner/emacs-doom-themes.git
 [submodule "eclipse-theme"]
 	path = lib/eclipse-theme
 	url = git@github.com:abo-abo/eclipse-theme.git
