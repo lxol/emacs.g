@@ -713,6 +713,16 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   :init
   (beacon-mode 1))
 
+(use-package dired-subtree
+  :bind
+  (:map dired-mode-map
+        ("<tab>" . dired-subtree-toggle)
+        ("C-<tab>" . dired-subtree-cycle)
+        ("<S-iso-lefttab>" . dired-subtree-remove)))
+
+(use-package dired-filter)
+
+
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
 (lxol-load-init-file "scala.el")
