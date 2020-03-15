@@ -8,3 +8,13 @@
 *-autoloads.el
 dir
 /projectile-bookmarks.eld
+/.lsp-session-v1
+/.persistent-scratch
+/auto-save-list
+/elpa
+/forge-database.sqlite
+/history
+/places
+/projectile.cache
+/smex-items
+/transient
