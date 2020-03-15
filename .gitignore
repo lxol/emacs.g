@@ -7,3 +7,4 @@
 *.elc
 *-autoloads.el
 dir
+/projectile-bookmarks.eld

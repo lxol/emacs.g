@@ -12,6 +12,7 @@
    ("s-C-k" . enlarge-window)
    ("s-C-h" . shrink-window-horizontally)
    ("s-C-l" . enlarge-window-horizontally)
+   ("M-<return>" . ansi-term)
    )
   :config
   (setq
@@ -50,9 +51,11 @@
    display-time-default-load-average nil
    custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
                                       ;but keep them for reference...
+   scroll-conservatively 100
    )
 
   (display-time-mode t)
+  (when window-system (global-hl-line-mode t))
 
   (setq org-confirm-elisp-link-function nil)
   ;; don't ask to kill buffers
@@ -168,7 +171,7 @@
     (interactive)
     (let ((default-directory "/home/lxol/.dotfiles/"))
       (call-process "t460s-keyboard-enable.sh"
-                    nil (current-buffer) nil)))
+                   nil (current-buffer) nil)))
 
   (defun keyboard-disable ()
       "disable t460s internal keyboard"
@@ -186,22 +189,11 @@
         (if (< count-buffers 11)
             (save-buffers-kill-emacs)
           (message-box "use Use 'M-x exit'")))))
-  ;; your preferred main font face here
-  ;; (defvar my-font-attributes '(default nil :family "Anonymous Pro" :height 89))
-  ;; source code pro: '(default nil :family "Source Code Pro" :height 95)
-  ;; source code pro: '(default nil :family "Hack" :height 95)
-  ;; (set-frame-font "Inconsolata-14")
-  ;; (set-frame-font "Source Code Pro-12")
-  ;; (set-frame-font "Anonymous Pro-13")
-  (set-frame-font "Hack-12")
-  ;; (set-frame-font "Go Mono-12")
-  ;; (set-frame-font "Input Mono Condensed-12")
-  ;; (set-frame-font "Input Mono-10")
-  ;; (set-frame-font "Input Mono Light-10")
-  ;; (set-frame-font "Fira Code-12")
-  ;; (set-frame-font "Input Mono Narrow-12")
-  ;; (set-frame-font "Input Mono Compressed-12")
-  )
+  (defvar my-term-shell "/usr/bin/bash")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+  (ad-activate 'ansi-term)
+)
 
 (use-package default-text-scale)
 
@@ -536,7 +528,6 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   :custom
   (projectile-tags-file-name ".TAGS" )
   :config
-
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode)
   (setq projectile-switch-project-action 'projectile-dired)
@@ -749,6 +740,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
+
+(use-package beacon
+  :init
+  (beacon-mode 1))
 
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
