@@ -713,6 +713,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   :init
   (beacon-mode 1))
 
+;;  dired-hacks packages
 (use-package dired-subtree
   :bind
   (:map dired-mode-map
@@ -721,6 +722,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
         ("<S-iso-lefttab>" . dired-subtree-remove)))
 
 (use-package dired-filter)
+
+(use-package dired-narrow)
+
+(use-package dired-list)
 
 
 (lxol-load-init-file "init-haskell.el")
