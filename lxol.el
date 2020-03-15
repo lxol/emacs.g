@@ -200,39 +200,6 @@
 (use-package undo-tree
   :diminish)
 
-(defhydra lxol/font-hydra (:hint nil :color pink)
-  "
-                                                           ╭───────────────────┐
-                                                           │  Font             │
-   ╭───────────────────────────────────────────────────────────────────────────┴
-    [_i_] Inconsolata      [_g_] Go Mono                [_l_] Input Mono Light   [_h_] Hasklig
-    [_s_] Source Code Pro  [_m_] Input Mono             [_n_] Input Mono Narrow  [_o_] Monoid
-    [_a_] Anonymous Pro    [_c_] Input Mono Condensed   [_f_] Fira Code
-    [_h_] Hack             [_p_] Input Mono Commpressed [_t_] Terminux
-"
-  ("i" (set-frame-font "Inconsolata-11"))
-  ("s" (set-frame-font "Source Code Pro-11"))
-  ("a" (set-frame-font "Anonymous Pro-11"))
-  ("h" (set-frame-font "Hack-11"))
-  ("g" (set-frame-font "Go Mono-11"))
-  ("c" (set-frame-font "Input Mono Condensed-11"))
-  ("m" (set-frame-font "Input Mono-11"))
-  ("l" (set-frame-font "Input Mono Light-11"))
-  ("f" (set-frame-font "Fira Code-11"))
-  ("n" (set-frame-font "Input Mono Narrow-11"))
-  ("p" (set-frame-font "Input Mono Compressed-11"))
-  ("t" (set-frame-font "xos4 Terminus-12"))
-  ("h" (set-frame-font "Hasklig-11"))
-  ("o" (set-frame-font "Monoid-10"))
-  ("RET" nil "done" :color blue))
-
-(bind-keys
- :prefix "C-c w"
- :prefix-map lxol-window-keymap
- :menu-name "Windows key prefix"
- ("t"  . lxol/themes-hydra/body)
- ("f"  . lxol/font-hydra/body))
-
 ;; quick and dirty fix of c-electric-backspace for DEL in java-mode
 ;; bind-keys* makes sure that bindings will not be overriden by other modes
 ;; (bind-keys* :map java-mode-map ("DEL" . backward-delete-char-untabify))
@@ -276,9 +243,34 @@
   )
 
 (use-package hydra
+  :bind
+  ("C-c w t"  . lxol/themes-hydra/body)
   :config
   ;;(setq hydra-lv t)) ; use echo area
-  (setq hydra-lv nil)) ; use echo area
+  (defhydra lxol/themes-hydra (:hint nil :color pink)
+    "
+Themes
+
+^Solarized^   ^Material^   ^Other^       ^Tao^
+------------------------------------------------------------------
+_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono  _g_: GreenScreen
+_S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: none
+"
+    ("s" (load-theme 'solarized-dark  t))
+    ("S" (load-theme 'solarized-light t))
+    ("m" (load-theme 'material        t))
+    ("M" (load-theme 'material-light  t))
+    ("z" (load-theme 'zenburn         t))
+    ("e" (load-theme 'eclipse         t))
+    ("a" (load-theme 'tao-yang         t))
+    ("i" (load-theme 'tao-yin         t))
+    ("g" (load-theme 'green-screen        t))
+    ("q" (load-theme 'quasi-monochrome t))
+    ("d" (load-theme 'darcula t))
+    ("n" (lxol/disable-all-themes))
+    ("RET" nil "done" :color blue))
+  (setq hydra-lv nil)
+  ) ; use echo area
 
 (use-package ivy
   :defer 0
@@ -489,30 +481,7 @@
 
 ;;(set-frame-font "FiraCode-10" nil t)
 
-(defhydra lxol/themes-hydra (:hint nil :color pink)
-  "
-Themes
 
-^Solarized^   ^Material^   ^Other^       ^Tao^
-------------------------------------------------------------------
-_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono  _g_: GreenScreen
-_S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: none
-"
-  ("s" (load-theme 'solarized-dark  t))
-  ("S" (load-theme 'solarized-light t))
-  ("m" (load-theme 'material        t))
-  ("M" (load-theme 'material-light  t))
-  ("z" (load-theme 'zenburn         t))
-  ("e" (load-theme 'eclipse         t))
-  ("a" (load-theme 'tao-yang         t))
-  ("i" (load-theme 'tao-yin         t))
-  ("g" (load-theme 'green-screen        t))
-  ("q" (load-theme 'quasi-monochrome t))
-  ("d" (load-theme 'darcula t))
-  ("n" (lxol/disable-all-themes))
-  ("RET" nil "done" :color blue))
-
-(bind-keys ("C-c w t"  . lxol/themes-hydra/body))
 
 (use-package projectile
   :init

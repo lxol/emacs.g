@@ -170,8 +170,14 @@
                                           before-user-init-time))))
             t))
 
-(progn ;     personalize
+(progn ;     personalize by user
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
+                                user-emacs-directory)))
+    (when (file-exists-p file)
+      (load file))))
+
+(progn ;     personalize by .dotfile.stow config
+  (let ((file (expand-file-name (concat "stowed.el")
                                 user-emacs-directory)))
     (when (file-exists-p file)
       (load file))))
@@ -180,5 +186,6 @@
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
+;; coding: utf-8
 ;; End:
 ;;; init.el ends here

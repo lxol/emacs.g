@@ -60,3 +60,4 @@ CVS
 cookies
 dir
 site-lisp/package/
+/stowed.el
