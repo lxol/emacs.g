@@ -1,3 +1,4 @@
+; lxol.el --- user specific init file       -*- lexical-binding: t -*-
 (autoload 'if-let "subr-x")
 (use-package lxol-config
   :init
@@ -474,8 +475,6 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 ; (set-face-attribute 'default nil :font "Hack-11" )
 ;;(set-frame-font "Hack-11" nil t)
 ;; (set-frame-font "Monoid-9" nil t)
-(load-theme 'solarized-dark  t)
-(set-frame-font "Hasklig-11" nil t)
 
 ;; (set-frame-font "Input Mono Compressed-11")
 
@@ -719,3 +718,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 (lxol-load-init-file "scala.el")
 
 ;; (lxol-load-init-file "init-exwm.el")
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
+;;; init.el ends here
