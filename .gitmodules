@@ -4,6 +4,9 @@
 [submodule "0blayout"]
 	path = lib/0blayout
 	url = git@github.com:etu/0blayout-mode.git
+[submodule "ace-window"]
+	path = lib/ace-window
+	url = git@github.com:abo-abo/ace-window.git
 [submodule "all-the-icons"]
 	path = lib/all-the-icons
 	url = git@github.com:domtronn/all-the-icons.el.git
@@ -98,6 +101,9 @@
 [submodule "eglot"]
 	path = lib/eglot
 	url = git@github.com:joaotavora/eglot.git
+[submodule "el-mock"]
+	path = lib/el-mock
+	url = git@github.com:rejeep/el-mock.el.git
 [submodule "el-x"]
 	path = lib/el-x
 	url = git@github.com:sigma/el-x.git
@@ -232,6 +238,9 @@
 [submodule "lsp-scala"]
 	path = lib/lsp-scala
 	url = git@github.com:rossabaker/lsp-scala.git
+[submodule "lsp-treemacs"]
+	path = lib/lsp-treemacs
+	url = git@github.com:emacs-lsp/lsp-treemacs.git
 [submodule "lsp-ui"]
 	path = lib/lsp-ui
 	url = git@github.com:emacs-lsp/lsp-ui.git
@@ -353,6 +362,9 @@
 [submodule "transient"]
 	path = lib/transient
 	url = git@github.com:magit/transient.git
+[submodule "treemacs"]
+	path = lib/treemacs
+	url = git@github.com:Alexander-Miller/treemacs.git
 [submodule "treepy"]
 	path = lib/treepy
 	url = git@github.com:volrath/treepy.el.git

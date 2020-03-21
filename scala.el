@@ -81,7 +81,17 @@
 ;;   :hook (scala-mode . lsp)
 ;;   :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
 
-(use-package company-lsp)
+(use-package company-lsp
+ :after (company lsp-mode))
+
+(use-package treemacs)
+
+(use-package lsp-treemacs
+ :after (lsp-mode)
+ :config
+  (lsp-metals-treeview-enable t)
+  (setq lsp-metals-treeview-show-when-views-received t)
+  )
 
  (defun go-scala-study ()
     "Open init file."
