@@ -305,6 +305,12 @@
 [submodule "persistent-scratch"]
 	path = lib/persistent-scratch
 	url = git@github.com:Fanael/persistent-scratch.git
+[submodule "persp-mode"]
+	path = lib/persp-mode
+	url = git@github.com:Bad-ptr/persp-mode.el.git
+[submodule "pfuture"]
+	path = lib/pfuture
+	url = git@github.com:Alexander-Miller/pfuture.git
 [submodule "pkg-info"]
 	path = lib/pkg-info
 	url = git@github.com:lunaryorn/pkg-info.el.git
@@ -365,6 +371,8 @@
 [submodule "treemacs"]
 	path = lib/treemacs
 	url = git@github.com:Alexander-Miller/treemacs.git
+	load-path = src/elisp
+	load-path = src/extra
 [submodule "treepy"]
 	path = lib/treepy
 	url = git@github.com:volrath/treepy.el.git
