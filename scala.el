@@ -154,6 +154,9 @@
 (use-package treemacs-evil
   :after treemacs)
 
+(use-package treemacs-projectile
+  :after treemacs)
+
 (use-package lsp-treemacs
  :after (lsp-mode treemacs)
  :config
