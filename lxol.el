@@ -254,8 +254,8 @@ Themes
 
 ^Solarized^   ^Material^   ^Other^       ^Tao^
 ------------------------------------------------------------------
-_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono  _g_: GreenScreen
-_S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: none
+_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono  _g_: GreenScreen  _c_: Monochrome  _g_: Gruvbox dark  _l_: Alect Light Alt
+_S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: none                    _r_: Gruvbox light  
 "
     ("s" (load-theme 'solarized-dark  t))
     ("S" (load-theme 'solarized-light t))
@@ -268,6 +268,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
     ("g" (load-theme 'green-screen        t))
     ("q" (load-theme 'quasi-monochrome t))
     ("d" (load-theme 'darcula t))
+    ("g" (load-theme 'gruvbox-dark-soft t))
+    ("r" (load-theme 'gruvbox-light-soft t))
+    ("c" (load-theme 'monochrome t))
+    ("l" (load-theme 'alect-light-alt t))
     ("n" (lxol/disable-all-themes))
     ("RET" nil "done" :color blue))
   (setq hydra-lv nil)
@@ -709,12 +713,12 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 
-(use-package beacon
-  :init
-  (beacon-mode 1))
+;; (use-package beacon
+;;   :init
+;;   (beacon-mode 1))
 
 ;;  dired-hacks packages
-(use-package dired-subtree
+(use-package diredsubtree
   :bind
   (:map dired-mode-map
         ("<tab>" . dired-subtree-toggle)
@@ -731,6 +735,10 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 (lxol-load-init-file "init-haskell.el")
 (lxol-load-init-file "init-org.el")
 (lxol-load-init-file "scala.el")
+
+(setq dired-guess-shell-alist-user '(("\\.pdf$" "zathura")))
+
+
 
 ;; (lxol-load-init-file "init-exwm.el")
 

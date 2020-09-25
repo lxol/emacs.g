@@ -67,8 +67,8 @@
   (lsp-metals-sbt-script "/usr/bin/sbt")
   )
 
-(use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode))
+;; (use-package lsp-ui
+;;   :hook (lsp-mode . lsp-ui-mode))
 
 ;;(use-package lsp-scala
 ;;   ;; :after scala-mode

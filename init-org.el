@@ -293,3 +293,8 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
 (setq use-package-verbose t)
 
 (use-package deadgrep)
+
+(use-package ox-reveal
+  :custom
+  (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+

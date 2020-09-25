@@ -23,6 +23,10 @@
   (setq initial-buffer-choice t)
   (setq initial-scratch-message "")
   (setq load-prefer-newer t)
+  (setq select-enable-primary t)
+  (global-set-key (kbd "<mouse-2>") 'clipboard-yank)
+  (setq x-select-enable-primary t)
+  (setq x-select-enable-clipboard t)
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
   (menu-bar-mode 0))
@@ -185,6 +189,9 @@
       (load file))))
 
 (put 'narrow-to-region 'disabled nil)
+
+
+(blink-cursor-mode -1)
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil

@@ -7,6 +7,9 @@
 [submodule "ace-window"]
 	path = lib/ace-window
 	url = git@github.com:abo-abo/ace-window.git
+[submodule "alect-themes"]
+	path = lib/alect-themes
+	url = git@github.com:alezost/alect-themes.git
 [submodule "all-the-icons"]
 	path = lib/all-the-icons
 	url = git@github.com:domtronn/all-the-icons.el.git
@@ -34,6 +37,9 @@
 [submodule "auto-dim-other-buffers"]
 	path = lib/auto-dim-other-buffers
 	url = git@github.com:mina86/auto-dim-other-buffers.el.git
+[submodule "autothemer"]
+	path = lib/autothemer
+	url = git@github.com:jasonm23/autothemer.git
 [submodule "avy"]
 	path = lib/avy
 	url = git@github.com:abo-abo/avy.git
@@ -43,6 +49,9 @@
 [submodule "borg"]
 	path = lib/borg
 	url = git@github.com:emacscollective/borg.git
+[submodule "bui"]
+	path = lib/bui
+	url = git@github.com:alezost/bui.el.git
 [submodule "buttercup"]
 	path = lib/buttercup
 	url = git@github.com:jorgenschaefer/emacs-buttercup.git
@@ -58,6 +67,9 @@
 [submodule "counsel-etags"]
 	path = lib/counsel-etags
 	url = git@github.com:redguardtoo/counsel-etags.git
+[submodule "dap-mode"]
+	path = lib/dap-mode
+	url = git@github.com:emacs-lsp/dap-mode.git
 [submodule "darcula-theme"]
 	path = lib/darcula-theme
 	url = git@gitlab.com:fommil/emacs-darcula-theme.git
@@ -181,6 +193,9 @@
 [submodule "green-screen-theme"]
 	path = lib/green-screen-theme
 	url = git@github.com:rbanffy/green-screen-emacs.git
+[submodule "gruvbox-theme"]
+	path = lib/gruvbox-theme
+	url = git@github.com:greduan/emacs-theme-gruvbox.git
 [submodule "haskell-mode"]
 	path = lib/haskell-mode
 	url = git@github.com:haskell/haskell-mode.git
@@ -232,6 +247,9 @@
 [submodule "lsp-ivy"]
 	path = lib/lsp-ivy
 	url = git@github.com:emacs-lsp/lsp-ivy.git
+[submodule "lsp-metals"]
+	path = lib/lsp-metals
+	url = git@github.com:emacs-lsp/lsp-metals.git
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = git@github.com:emacs-lsp/lsp-mode.git
@@ -275,6 +293,9 @@
 [submodule "mocker"]
 	path = lib/mocker
 	url = git@github.com:sigma/mocker.el.git
+[submodule "monochrome-theme"]
+	path = lib/monochrome-theme
+	url = git@github.com:fxn/monochrome-theme.el.git
 [submodule "multiple-cursors"]
 	path = lib/multiple-cursors
 	url = git@github.com:magnars/multiple-cursors.el.git
@@ -296,6 +317,9 @@
 [submodule "org-trello"]
 	path = lib/org-trello
 	url = git@github.com:org-trello/org-trello.git
+[submodule "ox-reveal"]
+	path = lib/ox-reveal
+	url = git@github.com:yjwen/org-reveal.git
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
@@ -317,6 +341,9 @@
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
+[submodule "posframe"]
+	path = lib/posframe
+	url = git@github.com:tumashu/posframe.git
 [submodule "powerline"]
 	path = lib/powerline
 	url = git@github.com:milkypostman/powerline.git
