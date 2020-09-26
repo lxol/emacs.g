@@ -287,7 +287,7 @@ _m_: Monochrome themes
 Monochrome Themes
 ------------------------------------------------------------------
 _b_: lxol Mono Black     _w_: lxol MonoWhite    _c_: lxol Mono Creme   _g_: lxol Mono Grey
-_B_: Almost Mono Black   _W_: Almost MonoWhite  _C_: Almost Mono Creme _G_: Almost Mono Grey
+_B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almost Mono Grey
 ------------------------------------------------------------------
 "
     ("b" (load-theme 'lxol-mono-black  t))

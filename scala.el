@@ -82,8 +82,8 @@
 ;;   :hook (scala-mode . lsp)
 ;;   :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
 
-(use-package company-lsp
- :after (company lsp-mode))
+;; (use-package company-lsp
+;;  :after (company lsp-mode))
 
 ;; (use-package treemacs
 ;;     :defer t
