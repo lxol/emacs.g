@@ -13,6 +13,9 @@
 [submodule "all-the-icons"]
 	path = lib/all-the-icons
 	url = git@github.com:domtronn/all-the-icons.el.git
+[submodule "almost-mono-themes"]
+	path = lib/almost-mono-themes
+	url = git@github.com:cryon/almost-mono-themes.git
 [submodule "ammonite-term-repl"]
 	path = lib/ammonite-term-repl
 	url = git@github.com:zwild/ammonite-term-repl.git
@@ -214,6 +217,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
+[submodule "idea-darkula-theme"]
+	path = lib/idea-darkula-theme
+	url = git@github.com:fourier/idea-darkula-theme.git
 [submodule "ido-completing-read+"]
 	path = lib/ido-completing-read+
 	url = git@github.com:DarwinAwardWinner/ido-completing-read-plus.git
@@ -371,6 +377,9 @@
 [submodule "scala-mode"]
 	path = lib/scala-mode
 	url = git@github.com:hvesalai/emacs-scala-mode.git
+[submodule "sexy-monochrome-theme"]
+	path = lib/sexy-monochrome-theme
+	url = git@github.com:voloyev/sexy-monochrome-theme.git
 [submodule "shrink-path"]
 	path = lib/shrink-path
 	url = git@gitlab.com:bennya/shrink-path.el.git

@@ -165,8 +165,8 @@
                   "--mode" "2560x1440"
                   "--output" "DP1"
                   "--off"))
-  
-  
+
+
   (defun keyboard-enable ()
       "enable t460s internal keyboard"
     (interactive)
@@ -176,7 +176,7 @@
 
   (defun keyboard-disable ()
       "disable t460s internal keyboard"
-     
+
     (interactive)
     (call-process "/home/lxol/.dotfiles/t460s-keyboard-disable.sh"
                   nil nil nil))
@@ -233,7 +233,7 @@
   ;;   (setq evil-snipe-mode nil)
   ;;   ;;(evil-snipe-override-mode +1)
   ;;   )
-  
+
   ;; (use-package lxol-evil-textobj-syntax)
 
   (use-package evil-surround
@@ -252,14 +252,14 @@
     "
 Themes
 
-^Solarized^   ^Material^   ^Other^       ^Tao^
 ------------------------------------------------------------------
-_s_: Dark     _m_: Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono  _g_: GreenScreen  _c_: Monochrome  _g_: Gruvbox dark  _l_: Alect Light Alt
-_S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: none                    _r_: Gruvbox light  
+_s_: Sol Dark   _A_: Mat Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono    _g_: GreenScreen  _c_: Monochrome  _g_: Gruvbox dark  _l_: Alect Light Alt
+_S_: Sol Light  _M_: Mat Light   _e_: Eclipse  _i_: TaoYin    _d_: Darcula  _n_: none         _x_: Sexy Mono   _r_: Gruvbox light _D_: Idea Darkula
+_m_: Monochrome themes
 "
     ("s" (load-theme 'solarized-dark  t))
     ("S" (load-theme 'solarized-light t))
-    ("m" (load-theme 'material        t))
+    ("A" (load-theme 'material        t))
     ("M" (load-theme 'material-light  t))
     ("z" (load-theme 'zenburn         t))
     ("e" (load-theme 'eclipse         t))
@@ -267,15 +267,34 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
     ("i" (load-theme 'tao-yin         t))
     ("g" (load-theme 'green-screen        t))
     ("q" (load-theme 'quasi-monochrome t))
+    ("x" (load-theme 'sexy-monochrome t))
     ("d" (load-theme 'darcula t))
+    ("D" (load-theme 'idea-darkula t))
     ("g" (load-theme 'gruvbox-dark-soft t))
     ("r" (load-theme 'gruvbox-light-soft t))
     ("c" (load-theme 'monochrome t))
     ("l" (load-theme 'alect-light-alt t))
+    ("m" (lxol/themes-monochrome-hydra/body) :color blue)
     ("n" (lxol/disable-all-themes))
     ("RET" nil "done" :color blue))
   (setq hydra-lv nil)
   ) ; use echo area
+
+(use-package hydra
+  :config
+  (defhydra lxol/themes-monochrome-hydra (:hint nil :color pink)
+    "
+Monochrome Themes
+------------------------------------------------------------------
+_b_: Almost Mono Black   _w_: Almost MonoWhite  _c_: Almost Mono Creme _g_: Almost Mono Grey
+------------------------------------------------------------------
+"
+    ("b" (load-theme 'almost-mono-black  t))
+    ("w" (load-theme 'almost-mono-white  t))
+    ("g" (load-theme 'almost-mono-gray  t))
+    ("c" (load-theme 'almost-mono-creme  t))
+    ("RET" nil "done" :color blue))
+  (setq hydra-lv nil))
 
 (use-package ivy
   :defer 0
@@ -329,7 +348,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (defun lxol-counsel-rg-current-dir ()
     (interactive)
     (counsel-rg nil default-directory))
-  
+
   :bind
   (
    ("M-x" . counsel-M-x)
@@ -356,7 +375,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (large-file-warning-threshold nil)
   (tags-case-fold-search nil)
   (case-fold-search nil)
-  :config 
+  :config
 
   (defun lxol-projectile-visit-project-tags-table ()
     "Visit the current project's tags table."
@@ -370,11 +389,11 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (defun lxol-add-tag-table ()
     "Add a new tag table to existing list."
     ;; (interactive (list (read-file-name "Visit tags table (default TAGS): "
-	;; 			                       default-directory
-	;; 			                       (expand-file-name "TAGS"
-	;; 					                                 default-directory)
-	;; 			                       t)
-	;; 	               current-prefix-arg))
+    ;;                                 default-directory
+    ;;                                 (expand-file-name "TAGS"
+    ;;                                                   default-directory)
+    ;;                                 t)
+    ;;                 current-prefix-arg))
     (interactive)
     (let ((tags-add-tables t)(tags-file-name nil))
       ;; (setq tags-add-tables t)
@@ -587,7 +606,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
   (("C-s-u" . er/expand-region)
    ("C-s-d" . er/contract-region)))
 (use-package color)
-  
+
 (use-package company
   :diminish company-mode
   :commands company-mode
@@ -639,7 +658,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 ;;                  (ensime-edit-definition))
 ;;       (projectile-find-tag)
 ;;       ))
-;;   :bind 
+;;   :bind
 ;;   (:map ensime-mode-map
 ;;         ;; ("s-." . 'ensime-edit-definition-with-fallback)
 ;;         ;; ("M-." . 'xref-find-definitions)
@@ -666,7 +685,7 @@ _S_: Light    _M_: Light   _e_: Eclipse    _i_: TaoYin  _d_: Darcula      _n_: n
 ;; Enable nice rendering of diagnostics like compile errors.
 ;; (use-package flycheck
 ;;   :init (global-flycheck-mode))
-;;   :bind 
+;;   :bind
 ;;   (:map ensime-mode-map
 ;;         ;; ("s-." . 'ensime-edit-definition-with-fallback)
 ;;         ;; ("M-." . 'xref-find-definitions)
