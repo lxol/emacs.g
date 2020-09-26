@@ -286,13 +286,18 @@ _m_: Monochrome themes
     "
 Monochrome Themes
 ------------------------------------------------------------------
-_b_: Almost Mono Black   _w_: Almost MonoWhite  _c_: Almost Mono Creme _g_: Almost Mono Grey
+_b_: lxol Mono Black     _w_: lxol MonoWhite    _c_: lxol Mono Creme   _g_: lxol Mono Grey
+_B_: Almost Mono Black   _W_: Almost MonoWhite  _C_: Almost Mono Creme _G_: Almost Mono Grey
 ------------------------------------------------------------------
 "
-    ("b" (load-theme 'almost-mono-black  t))
-    ("w" (load-theme 'almost-mono-white  t))
+    ("b" (load-theme 'lxol-mono-black  t))
+    ("w" (load-theme 'lxol-mono-white  t))
+    ("g" (load-theme 'lxol-mono-gray  t))
+    ("c" (load-theme 'lxol-mono-creme  t))
+    ("B" (load-theme 'almost-mono-black  t))
+    ("W" (load-theme 'almost-mono-white  t))
     ("g" (load-theme 'almost-mono-gray  t))
-    ("c" (load-theme 'almost-mono-creme  t))
+    ("G" (load-theme 'almost-mono-creme  t))
     ("RET" nil "done" :color blue))
   (setq hydra-lv nil))
 
