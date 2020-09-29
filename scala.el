@@ -10,7 +10,7 @@
   (setq sbt:sbt-prompt-regexp "^\\(\\[[^\]]*\\] \\)?[>$][ ]*"
         ;;sbt:program-options '("-Djline.terminal=auto -Dsbt.log.noformat=true"))
         sbt:program-options '("-Dsbt.log.noformat=true"))
-  (setq sbt:prefer-nested-projects 't) 
+  (setq sbt:prefer-nested-projects 't)
 
   (add-hook 'sbt-mode-hook
             (lambda ()
@@ -35,7 +35,7 @@
   :custom
   (flycheck-scalastylerc "~/.dotfiles/scalastyle_config.xml")
   :init (global-flycheck-mode)
-  :config 
+  :config
   (defhydra hydra-flycheck
     (:pre (progn (setq hydra-lv t) (flycheck-list-errors))
           :post (progn (setq hydra-lv nil) (quit-windows-on "*Flycheck errors*"))
@@ -50,21 +50,72 @@
   :bind
   (("C-c f" . hydra-flycheck/body)))
 
-;; (use-package lsp-mode
-;;   :hook (scala-mode . lsp)
-;;   :config
-;;   (setq lsp-ui-doc-enable nil)
-;;   :bind
-;;   (:map lsp-mode-map
-;;         ("M-." . lsp-find-definition))
-;;   :init
-;;   (setq lsp-prefer-flymake nil))
+(setq lsp-keymap-prefix "C-c l")
+
+(use-package lsp-mode
+  :bind
+  (:map lsp-mode-map
+        ("M-l" . hydra-scala-lsp/body))
+  :config
+  (unbind-key "M-l")
+  ;; (setq lsp-ui-doc-enable nil)
+
+  ;; :bind
+  ;; (:map lsp-mode-map
+  ;;       ("M-." . lsp-find-definition))
+  :custom
+  (lsp-enable-symbol-highlighting t)
+  (lsp-completion-enable t)
+  (lsp-completion-enable t)
+  (lsp-ui-doc-enable nil)
+  )
 
 (use-package lsp-metals
   :after lsp-mode
   :custom
   (lsp-metals-server-command "/usr/bin/metals-emacs")
   (lsp-metals-sbt-script "/usr/bin/sbt")
+  )
+
+(defhydra hydra-scala-lsp (:exit t :hint nil)
+  "
+ Buffer^^               Server^^                   Symbol
+-------------------------------------------------------------------------------------
+  ^ ^                  [_M-r_] restart           [_d_] declaration  [_i_] implementation
+ [_m_] imenu           [_S_]   shutdown          [_D_] definition   [_t_] type
+ [_x_] execute action  [_M-s_] describe session  [_R_] references   [_s_] signature
+  ^ ^                   ^   ^                    [_o_] docs         [_r_] rename
+ [_T_] toggles"
+  ("d" lsp-find-declaration)
+  ("D" lsp-ui-peek-find-definitions)
+  ("R" lsp-ui-peek-find-references)
+  ("i" lsp-ui-peek-find-implementation)
+  ("t" lsp-find-type-definition)
+  ("s" lsp-signature-help)
+  ("o" lsp-describe-thing-at-point)
+  ("r" lsp-rename)
+
+  ("f" lsp-format-buffer)
+  ("m" lsp-ui-imenu)
+  ("x" lsp-execute-code-action)
+
+  ("M-s" lsp-describe-session)
+  ("M-r" lsp-restart-workspace)
+  ("S" lsp-shutdown-workspace)
+  ("T" (hydra-scala-lsp-toggles/body) :color blue)
+  )
+
+(defhydra hydra-scala-lsp-toggles (:exit t :hint nil)
+  "
+-------------------------------------------------------------------------------------
+ [_b_] breadcrumb           [_c_] completion mode
+ [_d_] doc mode
+ [_h_] symbol highlighting
+"
+  ("b" lsp-headerline-breadcrumb-mode)
+  ("d" lsp-ui-doc-mode)
+  ("h" lsp-toggle-symbol-highlight)
+  ("c" lsp-completion-mode)
   )
 
 ;; (use-package lsp-ui

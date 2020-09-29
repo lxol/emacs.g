@@ -22,6 +22,9 @@
 [submodule "anki-editor"]
 	path = lib/anki-editor
 	url = https://github.com/louietan/anki-editor.git
+[submodule "annalist"]
+	path = lib/annalist
+	url = git@github.com:noctuid/annalist.el.git
 [submodule "apiwrap"]
 	path = lib/apiwrap
 	url = git@github.com:vermiculus/apiwrap.el.git
@@ -142,6 +145,9 @@
 [submodule "evil"]
 	path = lib/evil
 	url = git@github.com:emacs-evil/evil.git
+[submodule "evil-collection"]
+	path = lib/evil-collection
+	url = git@github.com:emacs-evil/evil-collection.git
 [submodule "evil-goggles"]
 	path = lib/evil-goggles
 	url = git@github.com:edkolev/evil-goggles.git
@@ -445,6 +451,9 @@
 [submodule "yasnippet-snippets"]
 	path = lib/yasnippet-snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
+[submodule "zen-mode"]
+	path = lib/zen-mode
+	url = git@github.com:zenlang/zen-mode.git
 [submodule "zenburn-theme"]
 	path = lib/zenburn-theme
 	url = git@github.com:bbatsov/zenburn-emacs.git

@@ -17,6 +17,7 @@
    )
   :config
   (setq
+   evil-want-keybinding nil
    fringe-mode 1
    make-backup-files nil
    dired-dwim-target t
@@ -217,32 +218,36 @@
 (use-package evil
   :init
   (evil-mode 1)
+  ;; block for evil-collection
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  ;; end of evil-collection block
   :config
   (evil-set-initial-state 'help-mode 'emacs)
   (evil-set-initial-state 'pam-card-mode 'emacs)
   (define-key evil-normal-state-map (kbd "M-.") nil)
-  (use-package evil-goggles
-     :config
-    (evil-goggles-mode)
-    )
-
-
-  ;; (use-package evil-snipe
-  ;;   :config
-  ;;   (evil-snipe-mode +1)
-  ;;   (setq evil-snipe-mode nil)
-  ;;   ;;(evil-snipe-override-mode +1)
-  ;;   )
-
-  ;; (use-package lxol-evil-textobj-syntax)
-
-  (use-package evil-surround
-    :config
-    (require 'evil-surround)
-    ;;(global-evil-surround-mode nil)
-    )
   )
 
+ (use-package evil-collection
+   :after evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+   :custom
+   (evil-collection-setup-term t)
+   :init (evil-collection-init))
+
+(use-package evil-goggles
+  :after evil
+  :config
+  (evil-goggles-mode)
+  )
+(use-package evil-surround
+  :after evil
+  :config
+  (require 'evil-surround)
+  ;;(global-evil-surround-mode nil)
+  )
 (use-package hydra
   :bind
   ("C-c w t"  . lxol/themes-hydra/body)
@@ -632,13 +637,13 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
    company-idle-delay 0
    company-minimum-prefix-length 4)
 
-  (let ((bg (face-attribute 'default :background)))
-    (custom-set-faces
-     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+  ;; (let ((bg (face-attribute 'default :background)))
+  ;;   (custom-set-faces
+  ;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+  ;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+  ;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+  ;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+  ;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
   ;; :config
   ;; disables TAB in company-mode, freeing it for yasnippet
   ;;(define-key company-active-map [tab] nil)
