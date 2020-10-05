@@ -274,9 +274,6 @@
 [submodule "lxol-mono-themes"]
 	path = lib/lxol-mono-themes
 	url = git@github.com:lxol/lxol-mono-themes.git
-[submodule "lxol-org"]
-	path = lib/lxol-org
-	url = https://github.com/emacsmirror/org
 [submodule "magit"]
 	path = lib/magit
 	url = git@github.com:magit/magit.git

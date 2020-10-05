@@ -2,6 +2,8 @@
 (setq org-directory "")
 
 (use-package lxol-org
+  :custom
+  (org-agenda-window-setup `current-window)
   :mode
   ("\\.org_archive$" . org-mode)
   ("\\.txt$" . org-mode)
@@ -27,12 +29,12 @@
 
 (setq org-default-notes-file (concat org-directory "~/org/notes/notes.org"))
 
-(setq org-agenda-files (quote (
-                               "~/org/planner/"
-                               "~/org/planner/new-job"
-                               "~/org/journal/"
-                               "~/org/notes/notes.org"
-                               "~/org/notes/english.org")))
+;; (setq org-agenda-files (quote (
+;;                                "~/org/planner/"
+;;                                "~/org/planner/new-job"
+;;                                "~/org/journal/"
+;;                                "~/org/notes/notes.org"
+;;                                "~/org/notes/english.org")))
 
 (use-package org-capture
   :config
@@ -296,5 +298,6 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
 
 (use-package ox-reveal
   :custom
-  (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+  (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
+  )
 

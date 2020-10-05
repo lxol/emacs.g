@@ -85,6 +85,7 @@
  [_m_] imenu           [_S_]   shutdown          [_D_] definition   [_t_] type
  [_x_] execute action  [_M-s_] describe session  [_R_] references   [_s_] signature
   ^ ^                   ^   ^                    [_o_] docs         [_r_] rename
+  ^ ^                   ^   ^                    [_f_] find
  [_T_] toggles"
   ("d" lsp-find-declaration)
   ("D" lsp-ui-peek-find-definitions)
@@ -102,6 +103,7 @@
   ("M-s" lsp-describe-session)
   ("M-r" lsp-restart-workspace)
   ("S" lsp-shutdown-workspace)
+  ("f" lsp-ivy-workspace-symbol)
   ("T" (hydra-scala-lsp-toggles/body) :color blue)
   )
 

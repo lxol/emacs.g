@@ -51,9 +51,7 @@
    ring-bell-function 'ignore
    cursor-type t
    display-time-default-load-average nil
-   custom-file "/tmp/custom-file.el" ;don't pollute the init file and don't `load' the customs
-                                      ;but keep them for reference...
-   scroll-conservatively 100
+   croll-conservatively 100
    )
 
   (display-time-mode t)
@@ -107,6 +105,11 @@
     "Open init file."
     (interactive)
     (find-file "~/.emacs.d/lxol.el"))
+
+ (defun go-emacs.d ()
+    "Open init file."
+    (interactive)
+    (dired "~/.emacs.d"))
 
  (defun go-org ()
     "Open init file."
@@ -228,14 +231,13 @@
   (define-key evil-normal-state-map (kbd "M-.") nil)
   )
 
- (use-package evil-collection
-   :after evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-   :custom
-   (evil-collection-setup-term t)
-   :init (evil-collection-init))
+(use-package evil-collection
+  :after evil
+  ;; :custom
+  ;; (evil-collection-setup-term t)
+  :config
+  (evil-collection-init)
+  )
 
 (use-package evil-goggles
   :after evil
