@@ -1,7 +1,7 @@
 
 (setq org-directory "")
 
-(use-package lxol-org
+(use-package org
   :custom
   (org-agenda-window-setup `current-window)
   :mode
@@ -9,18 +9,19 @@
   ("\\.txt$" . org-mode)
   ("\\.org$\\'" . org-mode)
   :bind
-  (("C-c c" . org-capture)
+  (
+   ("C-c c" . org-capture)
    ("C-c a" . org-agenda)
    ("C-c b" . org-switchb)
    ("C-c C-9" . org-insert-subheading)
    ("C-c C-0" . org-insert-todo-subheading)
-   ("C-c o" . hydra-org-clock/body)
-   :map org-mode-map
-   ("C-<tab>". nil )
-   :map org-agenda-mode-map
-   ("C-c o" . hydra-org-agenda/body)
-   ("v" . hydra-org-agenda-view/body))
-  :config
+   ("C-c o" . hydra-org-clock/body))
+   ;; :map org-mode-map
+   ;;("C-<tab>". nil )
+   ;; :map org-agenda-map
+   ;; ("C-c o" . hydra-org-agenda/body)
+   ;; ("v" . hydra-org-agenda-view/body))
+  ;; :config
   ;; (add-to-list 'org-structure-template-alist '("S" . "src scala"))
   )
 
@@ -44,8 +45,6 @@
         (quote (("t" "todo" entry (file "~/org/planner/refile.org")
                  "* TODO %?\n" )
                 ("n" "note" entry (file "~/org/notes/notes.org")
-                 "* %? :NOTE:\n%U\n" )
-                ("n" "note" entry (file "~/org/notes/work-notes.org")
                  "* %? :NOTE:\n%U\n" )
                 ("j" "Journal" entry (file+datetree "~/org/planner/diary.org")
                  "* %?\n%U\n")
