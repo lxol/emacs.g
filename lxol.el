@@ -260,8 +260,9 @@
 Themes
 
 ------------------------------------------------------------------
-_s_: Sol Dark   _A_: Mat Dark    _z_: Zenburn  _a_: TaoYang   _q_: QMono    _g_: GreenScreen  _c_: Monochrome  _g_: Gruvbox dark  _l_: Alect Light Alt
-_S_: Sol Light  _M_: Mat Light   _e_: Eclipse  _i_: TaoYin    _d_: Darcula  _n_: none         _x_: Sexy Mono   _r_: Gruvbox light _D_: Idea Darkula
+_s_: Sol Dark   _A_: Mat Dark   _z_: Zenburn  _a_: TaoYang   _q_: QMono    _g_: GreenScreen  _c_: Monochrome  _g_: Gruvbox dark  _l_: Alect Light Alt
+_S_: Sol Light  _M_: Mat Light  _e_: Eclipse  _i_: TaoYin    _d_: Darcula  _n_: none         _x_: Sexy Mono   _r_: Gruvbox light _D_: Idea Darkula
+_v_: VS Code    _O_: Modus Operandi _V_: Modus Vivendi
 _m_: Monochrome themes
 "
     ("s" (load-theme 'solarized-dark  t))
@@ -281,6 +282,9 @@ _m_: Monochrome themes
     ("r" (load-theme 'gruvbox-light-soft t))
     ("c" (load-theme 'monochrome t))
     ("l" (load-theme 'alect-light-alt t))
+    ("v" (load-theme 'vscode-dark-plus t))
+    ("O" (load-theme 'modus-operandi t))
+    ("V" (load-theme 'modus-vivendi t))
     ("m" (lxol/themes-monochrome-hydra/body) :color blue)
     ("n" (lxol/disable-all-themes))
     ("RET" nil "done" :color blue))
@@ -318,8 +322,8 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
    :map ivy-minibuffer-map
    ("M-j" . ivy-next-line)
    ("M-k" . ivy-previous-line)
-   ("M-s-j" . ivy-next-line-and-call)
-   ("M-s-k" . ivy-previous-line-and-call))
+   ("M-C-j" . ivy-next-line-and-call)
+   ("M-C-k" . ivy-previous-line-and-call))
   :config
   (ivy-mode 1)
   (setq ivy-count-format "(%d/%d) ")

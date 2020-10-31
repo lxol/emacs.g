@@ -302,6 +302,12 @@
 [submodule "mocker"]
 	path = lib/mocker
 	url = git@github.com:sigma/mocker.el.git
+[submodule "modus-operandi-theme"]
+	path = lib/modus-operandi-theme
+	url = git@github.com:emacsmirror/modus-operandi-theme.git
+[submodule "modus-vivendi-theme"]
+	path = lib/modus-vivendi-theme
+	url = git@github.com:emacsmirror/modus-vivendi-theme.git
 [submodule "monochrome-theme"]
 	path = lib/monochrome-theme
 	url = git@github.com:fxn/monochrome-theme.el.git
@@ -427,6 +433,12 @@
 [submodule "visual-fill-column"]
 	path = lib/visual-fill-column
 	url = git@github.com:joostkremers/visual-fill-column.git
+[submodule "vscode-dark-plus-theme"]
+	path = lib/vscode-dark-plus-theme
+	url = git@github.com:ianpan870102/vscode-dark-plus-emacs-theme.git
+[submodule "vterm"]
+	path = lib/vterm
+	url = git@github.com:akermu/emacs-libvterm.git
 [submodule "wgrep"]
 	path = lib/wgrep
 	url = git@github.com:mhayashi1120/Emacs-wgrep.git

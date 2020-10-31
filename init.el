@@ -25,6 +25,8 @@
   (setq load-prefer-newer t)
   (setq select-enable-primary t)
   (global-set-key (kbd "<mouse-2>") 'clipboard-yank)
+  (global-set-key "\C-x\C-m" 'execute-extended-command)
+  (global-set-key "\C-c\C-m" 'execute-extended-command)
   (setq x-select-enable-primary t)
   (setq x-select-enable-clipboard t)
   (scroll-bar-mode 0)

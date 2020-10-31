@@ -4,6 +4,18 @@
 (use-package org
   :custom
   (org-agenda-window-setup `current-window)
+  (org-agenda-custom-commands
+   '(("W" "Weekly Review"
+      ((agenda "" ((org-agenda-span 7))); review upcoming deadlines and appointments
+                                        ; type "l" in the agenda to review logged items 
+       (stuck "") ; review stuck projects as designated by org-stuck-projects
+       (todo "PROJECT") ; review all projects (assuming you use todo keywords to designate projects)
+       (todo "MAYBE") ; review someday/maybe items
+       (todo "WAITING"))) ; review waiting items
+     ;; ...other commands here
+
+     ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+     ))
   :mode
   ("\\.org_archive$" . org-mode)
   ("\\.txt$" . org-mode)
@@ -279,7 +291,7 @@ _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
   :config
   (progn
     (setq org-projectile-projects-file "/home/lxol/org/projects.org")
-    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+    ;;(setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
     (push (org-projectile-project-todo-entry) org-capture-templates))
   )
 
