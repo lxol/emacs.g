@@ -126,8 +126,8 @@
   ;;   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
   ;;   )
   )
-(use-package forge
-  :after magit)
+;; (use-package forge
+;;   :after magit)
 
 (use-package man
   :defer t

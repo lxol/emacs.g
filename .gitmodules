@@ -49,6 +49,9 @@
 [submodule "avy"]
 	path = lib/avy
 	url = git@github.com:abo-abo/avy.git
+[submodule "avy-menu"]
+	path = lib/avy-menu
+	url = git@github.com:mrkkrp/avy-menu.git
 [submodule "beacon"]
 	path = lib/beacon
 	url = git@github.com:Malabarba/beacon.git
@@ -61,6 +64,9 @@
 [submodule "buttercup"]
 	path = lib/buttercup
 	url = git@github.com:jorgenschaefer/emacs-buttercup.git
+[submodule "char-menu"]
+	path = lib/char-menu
+	url = git@github.com:mrkkrp/char-menu.git
 [submodule "closql"]
 	path = lib/closql
 	url = git@github.com:emacscollective/closql.git
@@ -353,6 +359,9 @@
 [submodule "pkg-info"]
 	path = lib/pkg-info
 	url = git@github.com:lunaryorn/pkg-info.el.git
+[submodule "plantuml-mode"]
+	path = lib/plantuml-mode
+	url = git@github.com:skuro/plantuml-mode.git
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
