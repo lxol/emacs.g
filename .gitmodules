@@ -64,6 +64,9 @@
 [submodule "buttercup"]
 	path = lib/buttercup
 	url = git@github.com:jorgenschaefer/emacs-buttercup.git
+[submodule "cfrs"]
+	path = lib/cfrs
+	url = git@github.com:Alexander-Miller/cfrs.git
 [submodule "char-menu"]
 	path = lib/char-menu
 	url = git@github.com:mrkkrp/char-menu.git
@@ -329,6 +332,9 @@
 [submodule "noflet"]
 	path = lib/noflet
 	url = git@github.com:nicferrier/emacs-noflet.git
+[submodule "ob-ammonite"]
+	path = lib/ob-ammonite
+	url = git@github.com:zwild/ob-ammonite.git
 [submodule "org-journal"]
 	path = lib/org-journal
 	url = git@github.com:bastibe/org-journal.git
@@ -460,6 +466,9 @@
 [submodule "xelb"]
 	path = lib/xelb
 	url = git@github.com:ch11ng/xelb.git
+[submodule "xterm-color"]
+	path = lib/xterm-color
+	url = git@github.com:atomontage/xterm-color.git
 [submodule "yaml-mode"]
 	path = lib/yaml-mode
 	url = git@github.com:yoshiki/yaml-mode.git

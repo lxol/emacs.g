@@ -255,6 +255,11 @@
   (define-key scala-mode-map (kbd "C-c C-x C-l") 'scala-format-buffer)
   )
 
+(use-package ob-ammonite
+  ;; :defer t
+  :config
+  (setq ob-ammonite-prompt-str "scala>")
+  )
 ;;(use-package format-all)
 
 
