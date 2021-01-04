@@ -135,8 +135,17 @@
 ;;   :hook (scala-mode . lsp)
 ;;   :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
 
+;; (use-package company-lsp
+;;  :after (company lsp-mode))
+
 (use-package company-lsp
- :after (company lsp-mode))
+  :after lsp-mode company
+  :custom
+  (company-lsp-cache-candidates t) ;; auto, t(always using a cache), or nil
+  (company-lsp-async t)
+  (company-lsp-enable-snippet t)
+  (company-lsp-enable-recompletion t)
+  :commands company-lsp)
 
 ;; (use-package treemacs
 ;;     :defer t

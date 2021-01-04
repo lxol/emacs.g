@@ -274,6 +274,8 @@
   :after evil
   ;; :custom
   ;; (evil-collection-setup-term t)
+  :custom
+  (evil-collection-company-use-tng nil)
   :config
   (evil-collection-init)
   )
@@ -1271,6 +1273,31 @@ _c_ontinue (_C_ fast)      ^^^^                       _X_ global breakpoint
   ;;   ;;(define-key company-active-map (kbd "C-n") (lambda () (interactive) (company-complete-common-or-cycle 1)))
   ;;   ;;(define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1)))
   ;;  )
+  (setq tab-always-indent 'complete)
+  (defvar completion-at-point-functions-saved nil)
+  (defun company-indent-for-tab-command (&optional arg)
+    (interactive "P")
+    (let ((completion-at-point-functions-saved completion-at-point-functions)
+          (completion-at-point-functions '(company-complete-common-wrapper)))
+      (indent-for-tab-command arg)))
+  (defun company-complete-common-wrapper ()
+    (let ((completion-at-point-functions completion-at-point-functions-saved))
+      (company-complete-common)))
+  (with-eval-after-load 'company
+    (define-key company-mode-map [remap indent-for-tab-command] 'company-indent-for-tab-command)
+    ;;(define-key company-active-map (kbd "M-n") nil)
+    ;;(define-key company-active-map (kbd "M-p") nil)
+    ;;(define-key company-active-map (kbd "C-n") #'company-select-next)
+    ;;(define-key company-active-map (kbd "C-p") #'company-select-previous)
+    (define-key company-mode-map (kbd "C-<space>") #'company-complete)
+    ;;(define-key company-active-map (kbd "RET") #'company-complete-selection)
+    (define-key company-active-map (kbd "<return>") #'company-complete-selection)
+    (define-key company-active-map (kbd "<tab>") #'company-complete-common)
+    (define-key company-active-map (kbd "TAB") #'company-complete-common)
+    ;; to complete common and then cycle
+    ;;(define-key company-active-map (kbd "C-n") (lambda () (interactive) (company-complete-common-or-cycle 1)))
+    ;;(define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1)))
+    )
 )
 
 (use-package company-box
