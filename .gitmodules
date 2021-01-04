@@ -76,9 +76,18 @@
 [submodule "company"]
 	path = lib/company
 	url = git@github.com:company-mode/company-mode.git
+[submodule "company-box"]
+	path = lib/company-box
+	url = git@github.com:sebastiencs/company-box.git
+[submodule "company-lsp"]
+	path = lib/company-lsp
+	url = git@github.com:tigersoldier/company-lsp.git
 [submodule "counsel-etags"]
 	path = lib/counsel-etags
 	url = git@github.com:redguardtoo/counsel-etags.git
+[submodule "counsel-projectile"]
+	path = lib/counsel-projectile
+	url = git@github.com:ericdanan/counsel-projectile.git
 [submodule "dap-mode"]
 	path = lib/dap-mode
 	url = git@github.com:emacs-lsp/dap-mode.git
@@ -160,6 +169,9 @@
 [submodule "evil-goggles"]
 	path = lib/evil-goggles
 	url = git@github.com:edkolev/evil-goggles.git
+[submodule "evil-leader"]
+	path = lib/evil-leader
+	url = git@github.com:cofi/evil-leader.git
 [submodule "evil-smartparens"]
 	path = lib/evil-smartparens
 	url = git@github.com:expez/evil-smartparens.git
@@ -190,6 +202,9 @@
 [submodule "forge"]
 	path = lib/forge
 	url = git@github.com:magit/forge.git
+[submodule "frame-local"]
+	path = lib/frame-local
+	url = git@github.com:sebastiencs/frame-local.git
 [submodule "gh"]
 	path = lib/gh
 	url = git@github.com:sigma/gh.el.git
@@ -293,6 +308,9 @@
 [submodule "magit-popup"]
 	path = lib/magit-popup
 	url = https://github.com/magit/magit-popup.git
+[submodule "major-mode-hydra"]
+	path = lib/major-mode-hydra
+	url = git@github.com:jerrypnz/major-mode-hydra.el.git
 [submodule "make-it-so"]
 	path = lib/make-it-so
 	url = git@github.com:abo-abo/make-it-so.git
@@ -368,6 +386,9 @@
 [submodule "plantuml-mode"]
 	path = lib/plantuml-mode
 	url = git@github.com:skuro/plantuml-mode.git
+[submodule "play-routes-mode"]
+	path = lib/play-routes-mode
+	url = git@github.com:brocode/play-routes-mode.git
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git

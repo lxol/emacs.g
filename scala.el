@@ -135,8 +135,8 @@
 ;;   :hook (scala-mode . lsp)
 ;;   :init (setq lsp-scala-server-command "~/bin/metals-emacs"))
 
-;; (use-package company-lsp
-;;  :after (company lsp-mode))
+(use-package company-lsp
+ :after (company lsp-mode))
 
 ;; (use-package treemacs
 ;;     :defer t
@@ -260,6 +260,37 @@
   :config
   (setq ob-ammonite-prompt-str "scala>")
   )
+;; (use-package ob-ammonite
+;;   :ensure-system-package (amm . "sudo sh -c '(echo \"#!/usr/bin/env sh\" && curl -L https://github.com/lihaoyi/Ammonite/releases/download/2.0.4/2.13-2.0.4) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm' && amm")
+;;   ;; :defer 1
+;;   :config
+;;   (use-package ammonite-term-repl)
+;;   (setq ob-ammonite-prompt-str "scala>")
+;;   (setq ammonite-term-repl-auto-detect-predef-file nil)
+;;   (setq ammonite-term-repl-program-args '("--no-remote-logging" "--no-default-predef" "--no-home-predef"))
+;;   (defun my/substitute-sbt-deps-with-ammonite ()
+;;     "Substitute sbt-style dependencies with ammonite ones."
+;;     (interactive)
+;;     (apply 'narrow-to-region (if (region-active-p) (my/cons-cell-to-list (region-bounds)) `(,(point-min) ,(point-max))))
+;;     (goto-char (point-min))
+;;     (let ((regex "\"\\(.+?\\)\"[ ]+%\\{1,2\\}[ ]+\"\\(.+?\\)\"[ ]+%\\{1,2\\}[ ]+\"\\(.+?\\)\"")
+;;           (res))
+;;       (while (re-search-forward regex nil t)
+;;         (let* ((e (point))
+;;                (b (search-backward "\"" nil nil 6))
+;;                (s (buffer-substring-no-properties b e))
+;;                (s-without-percent (apply 'concat (split-string s "%")))
+;;                (s-without-quotes (remove-if (lambda (x) (eq x ?" ;"
+;;                                                             ))
+;;                                             s-without-percent))
+;;                (s-as-list (split-string s-without-quotes)))
+;;                     (delete-region b e)
+;;           (goto-char b)
+;;           (insert (format "import $ivy.`%s::%s:%s`" (first s-as-list) (second s-as-list) (third s-as-list)))
+;;           )
+;;         )
+;;       res)
+;;     (widen)))
 ;;(use-package format-all)
 
 
@@ -269,4 +300,9 @@
 ;;   ;; (optional) Automatically start metals for Scala files.
 ;;   :hook (scala-mode . eglot-ensure))
 
+(use-package play-routes-mode
+  :config
+  (add-hook 'play-routes-mode-hook
+               (lambda () (font-lock-add-keywords nil '(("\\<\\(FIXME\\|TODO\\|fixme\\|todo\\):" 1 font-lock-warning-face t)))))
+)
 ;;; scala.el ends here

@@ -231,6 +231,45 @@
   (define-key evil-normal-state-map (kbd "M-.") nil)
   )
 
+(use-package evil-leader
+  :demand
+  :after evil
+  :config
+  (global-evil-leader-mode)
+  (progn
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+      "s" 'save-buffer
+      "b" 'switch-to-buffer
+      "f" 'find-file
+      "I" 'find-user-init-file
+      "F" 'hydra-flycheck/body
+      "B" 'hydra-btoggle/body
+      "y" 'hydra-yasnippet/body
+      "j" 'hydra-avy/body
+      "p" 'hydra-projectile/body
+      "(" 'hydra-smartparens/body
+      "g" 'hydra-magit/body
+      "m" 'hydra-smerge/body
+      "w" 'hydra-windows/body
+      "O" 'hydra-folding/body
+      "n" 'hydra-next-error/body
+      "o" 'hydra-org/body
+      "e" 'eshell-new
+      "a" 'org-agenda
+      "i" 'org-capture
+      "l" 'hydra-lsp/body
+      "L" 'ledger-kredo-replace
+      "S" 'sbt-hydra
+      "t" 'treemacs
+      "h" 'hydra-s/body
+      "M" 'evil-mc-mode
+      "c" 'hydra-org-clock/body
+      "v" 'er/expand-region
+      "<SPC>" 'other-window
+      "qq" 'save-buffers-kill-terminal
+      "qQ" 'save-buffers-kill-emacs)))
+
 (use-package evil-collection
   :after evil
   ;; :custom
@@ -311,6 +350,587 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
     ("G" (load-theme 'almost-mono-creme  t))
     ("RET" nil "done" :color blue))
   (setq hydra-lv nil))
+
+(use-package major-mode-hydra
+  :after hydra
+  :preface
+  (defun with-alltheicon (icon str &optional height v-adjust)
+    "Displays an icon from all-the-icon."
+    (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+
+  (defun with-faicon (icon str &optional height v-adjust)
+    "Displays an icon from Font Awesome icon."
+    (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+
+  (defun with-fileicon (icon str &optional height v-adjust)
+    "Displays an icon from the Atom File Icons package."
+    (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+
+  (defun with-octicon (icon str &optional height v-adjust)
+    "Displays an icon from the GitHub Octicons."
+    (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
+
+
+;;Hydra / BToggle
+;;Group a lot of commands.
+(pretty-hydra-define hydra-btoggle
+  (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
+  ("Basic"
+   (("a" abbrev-mode "abbrev" :toggle t)
+    ("h" global-hungry-delete-mode "hungry delete" :toggle t))
+   "Coding"
+   (("e" electric-operator-mode "electric operator" :toggle t)
+    ("f" flycheck-mode "flycheck" :toggle t)
+    ("l" lsp-mode "lsp" :toggle t)
+    ("H" hl-todo-mode "hl-todo" :toggle t)
+    ("o" origami-mode "origami" :toggle t)
+    ("s" smartparens-mode "smartparens" :toggle t))
+   "Debug"
+   (("de" toggle-debug-on-error "debug on error" :toggle debug-on-error)
+    ("dq" toggle-debug-on-quit "debug on C-g" :toggle debug-on-quit))
+   "UI"
+   (("i" ivy-rich-mode "ivy-rich" :toggle t))))
+
+(pretty-hydra-define hydra-flycheck
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "plane" "Flycheck" 1 -0.05))
+  ("Checker"
+   (("?" flycheck-describe-checker "describe")
+    ("d" flycheck-disable-checker "disable")
+    ("m" flycheck-mode "mode")
+    ("s" flycheck-select-checker "select"))
+   "Errors"
+   (("k" flycheck-previous-error "previous" :color pink)
+    ("j" flycheck-next-error "next" :color pink)
+    ("f" flycheck-buffer "check")
+    ("l" flycheck-list-errors "list"))
+   "Other"
+   (("M" flycheck-manual "manual")
+    ("v" flycheck-verify-setup "verify setup"))))
+
+(defhydra hydra-yasnippet (:color blue :hint nil)
+  "
+              ^YASnippets^
+--------------------------------------------
+  Modes:    Load/Visit:    Actions:
+
+ _g_lobal  _d_irectory    _i_nsert
+ _m_inor   _f_ile         _t_ryout
+ _e_xtra   _l_ist         _n_ew
+         _a_ll
+"
+  ("d" yas-load-directory)
+  ("e" yas-activate-extra-mode)
+  ("i" yas-insert-snippet)
+  ("f" yas-visit-snippet-file :color blue)
+  ("n" yas-new-snippet)
+  ("t" yas-tryout-snippet)
+  ("l" yas-describe-tables)
+  ("g" yas/global-mode)
+  ("m" yas/minor-mode)
+  ("a" yas-reload-all))
+
+(defhydra hydra-smartparens (:hint nil)
+  "
+ Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
+------------------------------------------------------------------------------------------------------------------------
+ [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
+ [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
+ [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
+ [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
+  ;; Moving
+  ("a" sp-beginning-of-sexp)
+  ("e" sp-end-of-sexp)
+  ("f" sp-forward-sexp)
+  ("b" sp-backward-sexp)
+  ("n" sp-down-sexp)
+  ("N" sp-backward-down-sexp)
+  ("p" sp-up-sexp)
+  ("P" sp-backward-up-sexp)
+  
+  ;; Slurping & barfing
+  ("h" sp-backward-slurp-sexp)
+  ("H" sp-backward-barf-sexp)
+  ("l" sp-forward-slurp-sexp)
+  ("L" sp-forward-barf-sexp)
+  
+  ;; Wrapping
+  ("R" sp-rewrap-sexp)
+  ("u" sp-unwrap-sexp)
+  ("U" sp-backward-unwrap-sexp)
+  ("(" sp-wrap-round)
+  ("{" sp-wrap-curly)
+  ("[" sp-wrap-square)
+  
+  ;; Sexp juggling
+  ("S" sp-split-sexp)
+  ("s" sp-splice-sexp)
+  ("r" sp-raise-sexp)
+  ("j" sp-join-sexp)
+  ("t" sp-transpose-sexp)
+  ("A" sp-absorb-sexp)
+  ("E" sp-emit-sexp)
+  ("o" sp-convolute-sexp)
+  
+  ;; Destructive editing
+  ("c" sp-change-inner :exit t)
+  ("C" sp-change-enclosing :exit t)
+  ("k" sp-kill-sexp)
+  ("K" sp-backward-kill-sexp)
+  ("w" sp-copy-sexp)
+
+  ("q" nil)
+  ("g" nil))
+
+;; TODO this doesn't work
+(pretty-hydra-define hydra-s
+  (:hint t :color teal :quit-key "RET" :title "String manipulation")
+  ("Pertaining to words"
+   (("w" (lambda()(interactive)(s-split-words (buffer-substring-no-properties (region-beginning) (region-end)))) "split words")
+    ("c" (lambda()(interactive)(s-lower-camel-case (buffer-substring-no-properties (region-beginning) (region-end)))) "lower camel")
+    ("C" (lambda()(interactive)(s-upper-camel-case (buffer-substring-no-properties (region-beginning) (region-end)))) "upper camel")
+    ("s" (lambda()(interactive)(s-snake-case (buffer-substring-no-properties (region-beginning) (region-end)))) "snake")
+    ("d" (lambda()(interactive)(s-dashed-words (buffer-substring-no-properties (region-beginning) (region-end)))) "dashed")
+    ("W" (lambda()(interactive)(s-capitalized-words (buffer-substring-no-properties (region-beginning) (region-end)))) "capital")
+    ("t" (lambda()(interactive)(s-titleized-words (buffer-substring-no-properties (region-beginning) (region-end)))) "titleize")
+    ("i" (lambda()(interactive)(s-word-initials (buffer-substring-no-properties (region-beginning) (region-end)))) "initials"))))
+
+(defhydra hydra-avy (:exit t :hint nil)
+  "
+ Line^^       Region^^        Goto
+----------------------------------------------------------
+ [_y_] yank   [_Y_] yank      [_j_] timed char  [_c_] char          [_C_] char-2
+ [_m_] move   [_M_] move      [_w_] word        [_W_] any word
+ [_k_] kill   [_K_] kill      [_l_] line        [_L_] end of line"
+  ("j" avy-goto-char-timer)
+  ("c" avy-goto-char)
+  ("C" avy-goto-char-2)
+  ("w" avy-goto-word-1)
+  ("W" avy-goto-word-0)
+  ("l" avy-goto-line)
+  ("L" avy-goto-end-of-line)
+  ("m" avy-move-line)
+  ("M" avy-move-region)
+  ("k" avy-kill-whole-line)
+  ("K" avy-kill-region)
+  ("y" avy-copy-line)
+  ("Y" avy-copy-region))
+
+(defhydra hydra-smerge
+  (:color red :hint nil
+          :pre (smerge-mode 1))
+  "
+^Move^ ^Keep^ ^Diff^ ^Pair^
+------------------------------------------------------
+_n_ext _b_ase  _R_efine _<_: base-upper
+_p_rev _u_pper _E_diff _=_: upper-lower
+^ ^ _l_ower _C_ombine _>_: base-lower
+^ ^ _a_ll _r_esolve
+_q_uit _RET_: current
+"
+  ("RET" smerge-keep-current)
+  ("C" smerge-combine-with-next)
+  ("E" smerge-ediff)
+  ("R" smerge-refine)
+  ("a" smerge-keep-all)
+  ("b" smerge-keep-base)
+  ("u" smerge-keep-upper)
+  ("n" smerge-next)
+  ("l" smerge-keep-lower)
+  ("p" smerge-prev)
+  ("r" smerge-resolve)
+  ("<" smerge-diff-base-upper)
+  ("=" smerge-diff-upper-lower)
+  (">" smerge-diff-base-lower)
+  ("q" nil :color blue))
+
+(pretty-hydra-define hydra-projectile
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "Projectile" 1 -0.05))
+  ("Buffers"
+   (("b" counsel-projectile-switch-to-buffer "list")
+    ("k" projectile-kill-buffers "kill all")
+    ("S" projectile-save-project-buffers "save all"))
+   "Find"
+   (("d" counsel-projectile-find-dir "directory")
+    ("F" projectile-recentf "recent files")
+    ("D" projectile-dired "dired")
+    ("g" counsel-projectile-find-file-dwim "file dwim")
+    ("f" counsel-projectile-find-file "file")
+    ("p" counsel-projectile-switch-project "project"))
+   "Other"
+   (("i" projectile-invalidate-cache "reset cache")
+    ("x" projectile-remove-known-project "remove known project")
+    ("z" projectile-cache-current-file "cache current file")
+    ("X" projectile-cleanup-known-projects "cleanup known projects"))
+   "Search"
+   (("r" projectile-replace "replace")
+    ("o" projectile-multi-occur "occur")
+    ("R" projectile-replace-regexp "regexp replace")
+    ("sg" counsel-projectile-grep "grep")
+    ("ss" counsel-projectile-ag "ag")
+    ("sr" counsel-projectile-rg "rg")
+    ("ss" counsel-rg "search")
+    )))
+
+(defhydra hydra-next-error (:hint nil)
+    "
+Compilation errors:
+_j_: next error        _h_: first error    _q_uit
+_k_: previous error    _l_: last error
+"
+    ("`" next-error     nil)
+    ("j" next-error     nil :bind nil)
+    ("k" previous-error nil :bind nil)
+    ("h" first-error    nil :bind nil)
+    ("l" (condition-case err
+             (while t
+               (next-error))
+           (user-error nil))
+     nil :bind nil)
+    ("q" nil            nil :color blue))
+
+(pretty-hydra-define hydra-lsp
+  (:hint nil :color teal :quit-key "q" :exit t :title (with-faicon "rocket" "Lsp"))
+ ("Find"
+  (("D" lsp-find-declaration "declaration")
+   ("d" lsp-find-definition "definition")
+   ("R" lsp-find-references "references")
+   ("i" lsp-find-implementation "implementation")
+   ("gt" lsp-find-type-definition "type")
+   ("f" lsp-ivy-workspace-symbol "symbol")
+   ("F" lsp-ivy-global-workspace-symbol "global symbol")
+   ("uf" lsp-ui-find-workspace-symbol "ui symbol")
+   ("pd" lsp-ui-peek-find-definitions "peek def")
+   ("pr" lsp-ui-peek-find-references "peek refs")
+   ("pf" lsp-ui-peek-find-workspace-symbol "peek symb")
+   ("pi" lsp-ui-peek-find-implementation "peek impl"))
+  "Toggle"
+  (("Td" lsp-ui-doc-mode "doc" :toggle t)
+   ("TS" lsp-ui-sideline-mode "sideline" :toggle t)
+   ("Ts" lsp-ui-sideline-toggle-symbols-info "side symb" :toggle t)
+   ("Tl" lsp-lens-mode "lens" :toggle t)
+   ("Ti" lsp-toggle-trace-io "trace-io" :toggle t)
+   ("Th" lsp-toggle-symbol-highlight "symb highlight")
+   ("Tf" lsp-toggle-on-type-formatting "format" :toggle t)
+   ("TF" lsp-ui-flycheck-list "flycheck")
+   ("TT" lsp-treemacs-sync-mode "treemacs sync" :toggle t)
+   ("TD" lsp-diagnostics-modeline-mode "diag line" :toggle t)
+   ("Tnf" lsp-signature-toggle-full-docs "sign docs full")
+   ("Tna" lsp-signature-activate "sign activate help")
+   ("Tns" lsp-toggle-signature-auto-activate "sign auto activate"))
+  "Help"
+  (("hd" lsp-ui-doc-glance "doc glance")
+   ("hh" lsp-describe-thing-at-point "describe"))
+  "Code"
+  (("=f" lsp-format-buffer "format")
+   ("=r" lsp-format-region "region")
+   ("r" lsp-rename "rename")
+   ("o" lsp-organize-imports "org imports")
+   ("m" lsp-ui-imenu "imenu")
+   ("x" lsp-execute-code-action "action"))
+  "Other"
+  (("l" lsp-avy-lens "avy lens")
+   ("ge" lsp-treemacs-errors-list "errors")
+   ("gh" lsp-treemacs-call-hierarchy "hierarchy")
+   ("gf" lsp-ui-flycheck-list "flycheck")
+   ("ga" xref-find-apropos "xref-apropos"))
+  "Metals"
+  (("Mb" lsp-metals-build-import "build import")
+   ("Ms" lsp-metals-sources-scan "sources rescan")
+   ("Mr" lsp-metals-build-connect "bloop reconnect"))
+  "Session"
+  (("s?" lsp-describe-session "describe")
+   ("ss" lsp "start")
+   ("sd" lsp-disconnect "disconnect")
+   ("sr" lsp-workspace-restart "restart")
+   ("sq" lsp-workspace-shutdown "shutdown")
+   ("sl" lsp-workspace-show-log "log")
+   ("sfa" lsp-workspace-folders-add "folders +")
+   ("sfo" lsp-workspace-folders-open "folder")
+   ("sfr" lsp-workspace-folders-remove "folders -")
+   ("sfb" lsp-workspace-blacklist-remove "blacklist -"))))
+
+(pretty-hydra-define hydra-magit
+  (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
+  ("Action"
+   (("b" magit-blame-addition "blame")
+    ("c" magit-clone "clone")
+    ("i" magit-init "init")
+    ("f" magit-file-popup "file popup")
+    ("t" git-timemachine "time machine")
+    ("l" magit-log-buffer-file "commit log (current file)")
+    ("L" magit-log-current "commit log (project)")
+    ("g" magit-status "status"))))
+
+(pretty-hydra-define hydra-windows
+  (:hint nil :forein-keys warn :quit-key "q" :title (with-faicon "windows" "Windows" 1 -0.05))
+  ("Window"
+   (("d" delete-window "delete window")
+    ("o" delete-other-windows "delete others" :exit t)
+    ("s" split-window-below "split below")
+    ("h" split-window-horizontally "split horizontally")
+    ("v" split-window-vertically "split vertically")
+    ("w" other-window "other window" :exit t)
+    ("r" rename-buffer "rename buffer" :exit t)
+    ("k" kill-buffer-and-window "kill buffer and window" :exit t))
+   "Frame"
+   (("fk" delete-frame "delete frame")
+    ("fo" delete-other-frames "delete others")
+    ("fn" make-frame-command "make frame"))
+   "Size"
+   (("b" balance-windows "balance")
+    ("H" shrink-window-horizontally "narrow")
+    ("J" shrink-window "lower")
+    ("K" enlarge-window "heighten")
+    ("L" enlarge-window-horizontally "widen")
+    ("S" switch-window-then-swap-buffer "swap" :color teal))
+   "Zoom"
+   (("-" text-scale-decrease "out")
+    ("+" text-scale-increase "in")
+    ("=" (text-scale-increase 0) "reset"))))
+
+(defhydra hydra-buffer-menu (:color pink
+                             :hint nil)
+  "
+^Mark^             ^Unmark^           ^Actions^          ^Search
+^^^^^^^^-----------------------------------------------------------------
+_m_: mark          _u_: unmark        _x_: execute       _R_: re-isearch
+_s_: save          _U_: unmark up     _b_: bury          _I_: isearch
+_d_: delete        ^ ^                _g_: refresh       _O_: multi-occur
+_D_: delete up     ^ ^                _T_: files only: % -28`Buffer-menu-files-only
+_~_: modified
+"
+  ("m" Buffer-menu-mark)
+  ("u" Buffer-menu-unmark)
+  ("U" Buffer-menu-backup-unmark)
+  ("d" Buffer-menu-delete)
+  ("D" Buffer-menu-delete-backwards)
+  ("s" Buffer-menu-save)
+  ("~" Buffer-menu-not-modified)
+  ("x" Buffer-menu-execute)
+  ("b" Buffer-menu-bury)
+  ("g" revert-buffer)
+  ("T" Buffer-menu-toggle-files-only)
+  ("O" Buffer-menu-multi-occur :color blue)
+  ("I" Buffer-menu-isearch-buffers :color blue)
+  ("R" Buffer-menu-isearch-buffers-regexp :color blue)
+  ("c" nil "cancel")
+  ("v" Buffer-menu-select "select" :color blue)
+  ("o" Buffer-menu-other-window "other-window" :color blue)
+  ("q" quit-window "quit" :color blue))
+
+(defhydra hydra-folding (:color red)
+   "
+  _o_pen node    _n_ext fold       toggle _f_orward  _s_how current only
+  _c_lose node   _p_revious fold   toggle _a_ll
+  "
+   ("o" origami-open-node)
+   ("c" origami-close-node)
+   ("n" origami-next-fold)
+   ("p" origami-previous-fold)
+   ("f" origami-forward-toggle-node)
+   ("a" origami-toggle-all-nodes)
+   ("s" origami-show-only-node))
+
+(pretty-hydra-define hydra-org
+  (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
+  ("Action"
+   (
+    ("a" org-agenda "agenda")
+    ("j" hydra-org-clock/body "clock")
+    ("O" hydra-org-agenda/body "agenda hydra")
+    ("C" cfw:open-org-calendar "calfw-org")
+    ("s" my/org-ql-goals "goals")
+    ("c" org-capture "capture")
+    ("g" org-gcal-fetch "gcal fetch")
+    ("G" org-gcal-sync "gcal sync")
+    ("L" org-store-link "store-link")
+    ("l" org-insert-link-global "insert-link")
+    ("A" org-archive-done-in-file "archive done in file")
+    ("d" org-decrypt-entry "decrypt")
+    ("I" org-info-find-node "org info find")
+    ("k" org-cut-subtree "cut-subtree")
+    ("o" org-open-at-point-global "open-link")
+    ("r" org-refile "refile")
+    ("t" org-show-todo-tree "todo-tree"))))
+
+(defhydra hydra-org-clock (:color blue :hint nil)
+   "
+^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
+-^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
+(_?_)    p_i_ck       _e_dit   _J_ goto     | (_z_)     _r_elative      ti_m_e
+ ^ ^     _I_n         _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
+ ^ ^     _o_ut        _j_ump   _r_eport     |  ^ ^      _p_ause toggle
+ ^ ^     _c_ontinue   ^ ^      ^ ^          |  ^ ^      _s_top
+ ^ ^     _P_omodoro   ^ ^      ^ ^          |  ^ ^
+"
+
+  ("i" org-mru-clock-in)
+  ("I" org-clock-in)
+  ("o" org-clock-out)
+  ("c" org-clock-in-last)
+  ("P" org-pomodoro)
+  
+  ("e" org-clock-modify-effort-estimate)
+  ("q" org-clock-cancel)
+
+  ("j" org-mru-clock-select-recent-task)
+  ("J" org-clock-goto)
+  ("d" org-clock-display)
+  ("r" org-clock-report)
+  ("?" (org-info "Clocking commands"))
+
+  ("r" org-timer-start)
+  ("n" org-timer-set-timer)
+  ("p" org-timer-pause-or-continue)
+  ("s" org-timer-stop)
+
+  ("m" org-timer)
+  ("t" org-timer-item)
+  ("z" (org-info "Timers")))
+
+(defhydra hydra-org-agenda (:pre (setq which-key-inhibit t)
+                                 :post (setq which-key-inhibit nil)
+                                 :hint none)
+  "
+Org agenda (_q_uit)
+
+^Clock^      ^Visit entry^              ^Date^             ^Other^
+^-----^----  ^-----------^------------  ^----^-----------  ^-----^---------
+_ci_ in      _SPC_ in other window      _ds_ schedule      _gr_ reload
+_co_ out     _TAB_ & go to location     _dd_ set deadline  _._  go to today
+_cq_ cancel  _RET_ & del other windows  _dt_ timestamp     _gd_ go to date
+_cj_ jump    _o_   link                 _+_  do later      ^^
+^^           ^^                         _-_  do earlier    ^^
+^^           ^^                         ^^                 ^^
+^View^          ^Filter^                 ^Headline^         ^Toggle mode^
+^----^--------  ^------^---------------  ^--------^-------  ^-----------^----
+_vd_ day        _ft_ by tag              _ht_ set status    _tf_ follow
+_vw_ week       _fr_ refine by tag       _hk_ kill          _tl_ log
+_vt_ fortnight  _fc_ by category         _hr_ refile        _ta_ archive trees
+_vm_ month      _fh_ by top headline     _hA_ archive       _tA_ archive files
+_vy_ year       _fx_ by regexp           _h:_ set tags      _tr_ clock report
+_vn_ next span  _fd_ delete all filters  _hp_ set priority  _td_ diaries
+_vp_ prev span  ^^                       ^^                 ^^
+_vr_ reset      ^^                       ^^                 ^^
+^^              ^^                       ^^                 ^^
+"
+  ;; Entry
+  ("hA" org-agenda-archive-default)
+  ("hk" org-agenda-kill)
+  ("hp" org-agenda-priority)
+  ("hr" org-agenda-refile)
+  ("h:" org-agenda-set-tags)
+  ("ht" org-agenda-todo)
+  ;; Visit entry
+  ("o"   link-hint-open-link :exit t)
+  ("<tab>" org-agenda-goto :exit t)
+  ("TAB" org-agenda-goto :exit t)
+  ("SPC" org-agenda-show-and-scroll-up)
+  ("RET" org-agenda-switch-to :exit t)
+  ;; Date
+  ("dt" org-agenda-date-prompt)
+  ("dd" org-agenda-deadline)
+  ("+" org-agenda-do-date-later)
+  ("-" org-agenda-do-date-earlier)
+  ("ds" org-agenda-schedule)
+  ;; View
+  ("vd" org-agenda-day-view)
+  ("vw" org-agenda-week-view)
+  ("vt" org-agenda-fortnight-view)
+  ("vm" org-agenda-month-view)
+  ("vy" org-agenda-year-view)
+  ("vn" org-agenda-later)
+  ("vp" org-agenda-earlier)
+  ("vr" org-agenda-reset-view)
+  ;; Toggle mode
+  ("ta" org-agenda-archives-mode)
+  ("tA" (org-agenda-archives-mode 'files))
+  ("tr" org-agenda-clockreport-mode)
+  ("tf" org-agenda-follow-mode)
+  ("tl" org-agenda-log-mode)
+  ("td" org-agenda-toggle-diary)
+  ;; Filter
+  ("fc" org-agenda-filter-by-category)
+  ("fx" org-agenda-filter-by-regexp)
+  ("ft" org-agenda-filter-by-tag)
+  ("fr" org-agenda-filter-by-tag-refine)
+  ("fh" org-agenda-filter-by-top-headline)
+  ("fd" org-agenda-filter-remove-all)
+  ;; Clock
+  ("cq" org-agenda-clock-cancel)
+  ("cj" org-agenda-clock-goto :exit t)
+  ("ci" org-agenda-clock-in :exit t)
+  ("co" org-agenda-clock-out)
+  ;; Other
+  ("q" nil :exit t)
+  ("gd" org-agenda-goto-date)
+  ("." org-agenda-goto-today)
+  ("gr" org-agenda-redo))
+
+;; came from here - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-elisp.el
+(defhydra hydra-edebug (:color amaranth
+                        :hint  nil)
+  "
+    EDEBUG MODE
+^^_<SPC>_ step             ^^_f_ forward sexp         _b_reakpoint set                previous _r_esult      _w_here                    ^^_d_ebug backtrace
+^^_n_ext                   ^^goto _h_ere              _u_nset breakpoint              _e_val expression      bounce _p_oint             _q_ top level (_Q_ nonstop)
+_g_o (_G_ nonstop)         ^^_I_nstrument callee      next _B_reakpoint               _E_val list            _v_iew outside             ^^_a_bort recursive edit
+_t_race (_T_ fast)         step _i_n/_o_ut            _x_ conditional breakpoint      eval _l_ast sexp       toggle save _W_indows      ^^_S_top
+_c_ontinue (_C_ fast)      ^^^^                       _X_ global breakpoint
+"
+  ("<SPC>" edebug-step-mode)
+  ("n"     edebug-next-mode)
+  ("g"     edebug-go-mode)
+  ("G"     edebug-Go-nonstop-mode)
+  ("t"     edebug-trace-mode)
+  ("T"     edebug-Trace-fast-mode)
+  ("c"     edebug-continue-mode)
+  ("C"     edebug-Continue-fast-mode)
+
+  ("f"     edebug-forward-sexp)
+  ("h"     edebug-goto-here)
+  ("I"     edebug-instrument-callee)
+  ("i"     edebug-step-in)
+  ("o"     edebug-step-out)
+
+  ;; breakpoints
+  ("b"     edebug-set-breakpoint)
+  ("u"     edebug-unset-breakpoint)
+  ("B"     edebug-next-breakpoint)
+  ("x"     edebug-set-conditional-breakpoint)
+  ("X"     edebug-set-global-break-condition)
+
+  ;; evaluation
+  ("r"     edebug-previous-result)
+  ("e"     edebug-eval-expression)
+  ("l"     edebug-eval-last-sexp)
+  ("E"     edebug-visit-eval-list)
+
+  ;; views
+  ("w"     edebug-where)
+  ("p"     edebug-bounce-point)
+  ("v"     edebug-view-outside) ; maybe obsolete??
+  ("P"     edebug-view-outside) ; same as v
+  ("W"     edebug-toggle-save-windows)
+
+  ("d"     edebug-backtrace)
+
+  ;; quitting and stopping
+  ("q"     top-level :color blue)
+  ("Q"     edebug-top-level-nonstop :color blue)
+  ("a"     abort-recursive-edit :color blue)
+  ("S"     edebug-stop :color blue))
+(with-eval-after-load 'edebug
+  (bind-key "?" #'hydra-edebug/body edebug-mode-map))
+
+
+;;===================================================================================================
+;;===================================================================================================
+;;===================================================================================================
+;;===============================            END HYDRA        =======================================
+;;===================================================================================================
+;;===================================================================================================
+;;===================================================================================================
 
 (use-package ivy
   :defer 0
@@ -534,10 +1154,10 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
 
   :custom
   (projectile-tags-file-name ".TAGS" )
+  (projectile-completion-system 'ivy)
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode)
-  (setq projectile-switch-project-action 'projectile-dired)
   (setq projectile-completion-system 'ivy)
   (setq projectile-indexing-method 'alien)
   (setq projectile-enable-caching t)
@@ -545,6 +1165,10 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
   (add-to-list 'projectile-project-root-files ".projectile.topmost")
   (add-to-list 'projectile-project-root-files-bottom-up ".projectile.bottomup")
   (add-to-list 'projectile-project-root-files-top-down-recurring ".projectile.top-down-rec"))
+
+(use-package counsel-projectile
+  :after projectile counsel
+  :config (counsel-projectile-mode))
 
 (use-package eldoc
   :init
@@ -626,35 +1250,66 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
 (use-package company
   :diminish company-mode
   :commands company-mode
-  :bind
-  (
-   :map company-search-map
-   ("M-j" . company-select-next)
-   ("M-k" . company-select-previous)
-   :map company-active-map
-   ("M-j" . company-select-next)
-   ("M-k" . company-select-previous))
   :init
   (setq
    company-dabbrev-ignore-case nil
-   company-require-match nil
    company-dabbrev-code-ignore-case nil
    company-dabbrev-downcase nil
-   company-idle-delay 0
-   company-minimum-prefix-length 4)
+   company-idle-delay 0.5
+   company-minimum-prefix-length 2)
+  ;; :bind (:map company-active-map
+  ;;             ("<return>" . company-complete-common)
+  ;;             ("RET" . company-complete-common)
+  ;;             ("C-SPC" . company-complete-selection))
+  :config
+  (global-company-mode 1)
+  ;;   ;;(define-key company-active-map (kbd "RET") #'company-complete-selection)
+  ;;   (define-key company-active-map (kbd "<return>") #'company-complete-selection)
+  ;;   (define-key company-active-map (kbd "<tab>") #'company-complete-common)
+  ;;   (define-key company-active-map (kbd "TAB") #'company-complete-common)
+  ;;   ;; to complete common and then cycle
+  ;;   ;;(define-key company-active-map (kbd "C-n") (lambda () (interactive) (company-complete-common-or-cycle 1)))
+  ;;   ;;(define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1)))
+  ;;  )
+)
 
-  ;; (let ((bg (face-attribute 'default :background)))
-  ;;   (custom-set-faces
-  ;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-  ;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-  ;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-  ;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-  ;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-  ;; :config
-  ;; disables TAB in company-mode, freeing it for yasnippet
-  ;;(define-key company-active-map [tab] nil)
-  ;;(define-key company-active-map (kbd "TAB") nil)
-  )
+(use-package company-box
+  :after company
+  :hook (company-mode . company-box-mode))
+;; (use-package company
+;;   :diminish company-mode
+;;   :commands company-mode
+;;   :bind
+;;   (
+;;    :map company-search-map
+;;    ("M-j" . company-select-next)
+;;    ("M-k" . company-select-previous)
+;;    :map company-active-map
+;;    ("M-j" . company-select-next)
+;;    ("M-k" . company-select-previous))
+;;   :init
+;;   (setq
+;;    company-dabbrev-ignore-case nil
+;;    company-require-match nil
+;;    company-dabbrev-code-ignore-case nil
+;;    company-dabbrev-downcase nil
+;;    company-idle-delay 0
+;;    company-minimum-prefix-length 4)
+
+;;   ;; (let ((bg (face-attribute 'default :background)))
+;;   ;;   (custom-set-faces
+;;   ;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+;;   ;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+;;   ;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+;;   ;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+;;   ;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+;;   ;; :config
+;;   ;; disables TAB in company-mode, freeing it for yasnippet
+;;   ;;(define-key company-active-map [tab] nil)
+;;   ;;(define-key company-active-map (kbd "TAB") nil)
+;;   )
+;; (use-package company-box
+;;   :hook (company-mode . company-box-mode))
 
 ;; (use-package etags-select
 ;;   :commands etags-select-find-tag)
@@ -774,6 +1429,33 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
 (setq dired-guess-shell-alist-user '(("\\.pdf$" "zathura")))
 
 
+(pretty-hydra-define hydra-projectile
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "Projectile" 1 -0.05))
+  ("Buffers"
+   (("b" counsel-projectile-switch-to-buffer "list")
+    ("k" projectile-kill-buffers "kill all")
+    ("S" projectile-save-project-buffers "save all"))
+   "Find"
+   (("d" counsel-projectile-find-dir "directory")
+    ("F" projectile-recentf "recent files")
+    ("D" projectile-dired "dired")
+    ("g" counsel-projectile-find-file-dwim "file dwim")
+    ("f" counsel-projectile-find-file "file")
+    ("p" counsel-projectile-switch-project "project"))
+   "Other"
+   (("i" projectile-invalidate-cache "reset cache")
+    ("x" projectile-remove-known-project "remove known project")
+    ("z" projectile-cache-current-file "cache current file")
+    ("X" projectile-cleanup-known-projects "cleanup known projects"))
+   "Search"
+   (("r" projectile-replace "replace")
+    ("o" projectile-multi-occur "occur")
+    ("R" projectile-replace-regexp "regexp replace")
+    ("sg" counsel-projectile-grep "grep")
+    ("ss" counsel-projectile-ag "ag")
+    ("sr" counsel-projectile-rg "rg")
+    ("ss" counsel-rg "search")
+    )))
 
 ;; (lxol-load-init-file "init-exwm.el")
 
