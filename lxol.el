@@ -355,6 +355,8 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
 
 (use-package major-mode-hydra
   :after hydra
+  :bind 
+  ("M-SPC" . major-mode-hydra)
   :preface
   (defun with-alltheicon (icon str &optional height v-adjust)
     "Displays an icon from all-the-icon."
@@ -372,9 +374,33 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
     "Displays an icon from the GitHub Octicons."
     (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
 
+(major-mode-hydra-define emacs-lisp-mode nil
+  ("Eval"
+   (("b" eval-buffer "buffer")
+    ("e" eval-defun "defun")
+   ("r" eval-region "region"))
+   "REPL"
+   (("I" ielm "ielm"))
+   "Test"
+   (("t" ert "prompt")
+    ("T" (ert t) "all")
+    ("F" (ert :failed) "failed"))
+   "Doc"
+   (("d" describe-foo-at-point "thing-at-pt")
+    ("f" describe-function "function")
+    ("v" describe-variable "variable")
+    ("i" info-lookup-symbol "info lookup"))))
 
 ;;Hydra / BToggle
 ;;Group a lot of commands.
+(pretty-hydra-define hydra-root
+  (:hint nil :color amaranth :quit-key "q" :title (with-faicon "tree" "root" 1 -0.05))
+
+  ("Column 1"
+   (("F" hydra-flycheck/body "flycheck")
+    ("y" hydra-yasnippet/body "yasnippet")
+   ("j" hydra-avy/body "avy")))
+   )
 (pretty-hydra-define hydra-btoggle
   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
   ("Basic"
@@ -1160,6 +1186,7 @@ _c_ontinue (_C_ fast)      ^^^^                       _X_ global breakpoint
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode)
+  (setq projectile-switch-project-action 'projectile-dired)
   (setq projectile-completion-system 'ivy)
   (setq projectile-indexing-method 'alien)
   (setq projectile-enable-caching t)
@@ -1168,9 +1195,9 @@ _c_ontinue (_C_ fast)      ^^^^                       _X_ global breakpoint
   (add-to-list 'projectile-project-root-files-bottom-up ".projectile.bottomup")
   (add-to-list 'projectile-project-root-files-top-down-recurring ".projectile.top-down-rec"))
 
-(use-package counsel-projectile
-  :after projectile counsel
-  :config (counsel-projectile-mode))
+;; (use-package counsel-projectile
+;;   :after projectile counsel
+;;   :config (counsel-projectile-mode))
 
 (use-package eldoc
   :init
