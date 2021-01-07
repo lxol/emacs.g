@@ -31,6 +31,7 @@
   (setq x-select-enable-clipboard t)
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
+  (setq use-package-enable-imenu-support t)
   (menu-bar-mode 0))
 
 ;;

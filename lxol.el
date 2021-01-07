@@ -355,7 +355,7 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
 
 (use-package major-mode-hydra
   :after hydra
-  :bind 
+  :bind
   ("M-SPC" . major-mode-hydra)
   :preface
   (defun with-alltheicon (icon str &optional height v-adjust)
@@ -474,13 +474,13 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
   ("N" sp-backward-down-sexp)
   ("p" sp-up-sexp)
   ("P" sp-backward-up-sexp)
-  
+
   ;; Slurping & barfing
   ("h" sp-backward-slurp-sexp)
   ("H" sp-backward-barf-sexp)
   ("l" sp-forward-slurp-sexp)
   ("L" sp-forward-barf-sexp)
-  
+
   ;; Wrapping
   ("R" sp-rewrap-sexp)
   ("u" sp-unwrap-sexp)
@@ -488,7 +488,7 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
   ("(" sp-wrap-round)
   ("{" sp-wrap-curly)
   ("[" sp-wrap-square)
-  
+
   ;; Sexp juggling
   ("S" sp-split-sexp)
   ("s" sp-splice-sexp)
@@ -498,7 +498,7 @@ _B_: Almost Mono Black   _W_: Almost MonoWhite  _G_: Almost Mono Creme _G_: Almo
   ("A" sp-absorb-sexp)
   ("E" sp-emit-sexp)
   ("o" sp-convolute-sexp)
-  
+
   ;; Destructive editing
   ("c" sp-change-inner :exit t)
   ("C" sp-change-enclosing :exit t)
@@ -797,7 +797,7 @@ _~_: modified
   ("o" org-clock-out)
   ("c" org-clock-in-last)
   ("P" org-pomodoro)
-  
+
   ("e" org-clock-modify-effort-estimate)
   ("q" org-clock-cancel)
 
