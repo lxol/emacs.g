@@ -2,7 +2,9 @@
 
 
 (use-package scala-mode
-  :mode "\\.s\\(cala\\|c\\|bt\\)$")
+  :mode "\\.s\\(cala\\|c\\|bt\\)$"
+  :hook (scala-mode . pragmatapro-prettify-hook) 
+  )
 
 (use-package sbt-mode
   :init

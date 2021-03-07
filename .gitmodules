@@ -145,6 +145,12 @@
 	url = git@github.com:skeeto/emacsql.git
 	no-byte-compile = emacsql-pg.el
 	ignore = dirty
+[submodule "emamux"]
+	path = lib/emamux
+	url = git@github.com:emacsorphanage/emamux.git
+[submodule "emamux-ghci"]
+	path = lib/emamux-ghci
+	url = git@github.com:jfeltz/emamux-ghci.git
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
@@ -256,6 +262,9 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = git@github.com:abo-abo/swiper.git
+[submodule "ivy-hoogle"]
+	path = lib/ivy-hoogle
+	url = git@github.com:sjsch/ivy-hoogle.git
 [submodule "ivy-rich"]
 	path = lib/ivy-rich
 	url = git@github.com:yevgnen/ivy-rich.git
@@ -277,6 +286,9 @@
 [submodule "logito"]
 	path = lib/logito
 	url = git@github.com:sigma/logito.git
+[submodule "lsp-haskell"]
+	path = lib/lsp-haskell
+	url = git@github.com:emacs-lsp/lsp-haskell.git
 [submodule "lsp-ivy"]
 	path = lib/lsp-ivy
 	url = git@github.com:emacs-lsp/lsp-ivy.git
@@ -398,18 +410,27 @@
 [submodule "powerline"]
 	path = lib/powerline
 	url = git@github.com:milkypostman/powerline.git
+[submodule "pragmatapro-emacs"]
+	path = lib/pragmatapro-emacs
+	url = git@github.com:lxol/pragamatapro-emacs.git
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
 [submodule "quasi-monochrome-theme"]
 	path = lib/quasi-monochrome-theme
 	url = git@github.com:lbolla/emacs-quasi-monochrome.git
+[submodule "queue"]
+	path = lib/queue
+	url = git@github.com:emacsmirror/queue.git
 [submodule "reformatter"]
 	path = lib/reformatter
 	url = git@github.com:purcell/reformatter.el.git
 [submodule "request"]
 	path = lib/request
 	url = git@github.com:tkf/emacs-request.git
+[submodule "ripgrep"]
+	path = lib/ripgrep
+	url = git@github.com:nlamirault/ripgrep.el.git
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
@@ -462,7 +483,7 @@
 	url = git@github.com:sviridov/undercover.el.git
 [submodule "undo-tree"]
 	path = lib/undo-tree
-	url = http://www.dr-qubit.org/git/undo-tree.git
+	url = git@gitlab.com:tsc25/undo-tree.git
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: amm-class-based 
+# key: ammfuture
+# The --class-based flag is necessary in order to use Futures and other
+# multi-threading constructs in the REPL due to implementation
+# limitations. 
+# --
+amm --class-based

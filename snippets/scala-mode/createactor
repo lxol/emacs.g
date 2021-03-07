@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: createactor 
+# key: createactor
+# --
+${1:actor-system-name}.actorOf(Props[${2:actor class name}], "${3:actor name}")
+$0
