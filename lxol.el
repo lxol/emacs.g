@@ -1017,6 +1017,7 @@ _c_ontinue (_C_ fast)      ^^^^                       _X_ global breakpoint
   :bind
   (
    ("M-x" . counsel-M-x)
+   ("C-x C-m" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
    ("C-c g" . counsel-git)
    ("C-c j" . counsel-git-grep)
